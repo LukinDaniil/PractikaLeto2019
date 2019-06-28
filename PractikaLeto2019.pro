@@ -24,11 +24,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
+        human.cpp \
         main.cpp \
-        simulation.cpp
+        simulation.cpp \
+        student.cpp \
+        teacher.cpp
 
 HEADERS += \
-        simulation.h
+        human.h \
+        simulation.h \
+        student.h \
+        teacher.h
 
 FORMS += \
         simulation.ui
