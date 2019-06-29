@@ -16,6 +16,9 @@ public:
     explicit Simulation(QWidget *parent = 0);
     ~Simulation();
 
+private slots:
+    void on_pushButton_clicked();
+
 private:
     Ui::Simulation *ui;
 };

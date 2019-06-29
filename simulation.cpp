@@ -12,3 +12,8 @@ Simulation::~Simulation()
 {
     delete ui;
 }
+
+void Simulation::on_pushButton_clicked()
+{
+
+}

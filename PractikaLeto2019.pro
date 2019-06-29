@@ -26,12 +26,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         human.cpp \
         main.cpp \
+        painthelper.cpp \
         simulation.cpp \
         student.cpp \
         teacher.cpp
 
 HEADERS += \
         human.h \
+        painthelper.h \
         simulation.h \
         student.h \
         teacher.h
