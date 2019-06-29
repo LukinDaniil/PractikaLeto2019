@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>553</width>
-    <height>378</height>
+    <width>812</width>
+    <height>465</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -63,13 +63,23 @@
      </property>
     </widget>
    </widget>
+   <widget class="PaintHelper2" name="mapWidget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>90</y>
+      <width>301</width>
+      <height>211</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>553</width>
+     <width>812</width>
      <height>21</height>
     </rect>
    </property>
@@ -90,6 +100,12 @@
    <class>PaintHelper</class>
    <extends>QScrollArea</extends>
    <header location="global">painthelper.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>PaintHelper2</class>
+   <extends>QWidget</extends>
+   <header location="global">painthelper2.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

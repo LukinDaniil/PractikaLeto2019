@@ -16,7 +16,7 @@ void Timesheet::SetRandomDay(int index)
     std::random_device rd;
     std::mt19937 mersenne(rd());
     int NumOfLessons = (mersenne() % MAXNUMLESSONSINDAY) + 1;
-    int NumCab[NumOfLessons];
+    //int NumCab[NumOfLessons];
     for (int i = 0; i < NumOfLessons; i++)
     {
         int NumOfTeachersName =  mersenne() % MAXTEACHERSNAMES;
