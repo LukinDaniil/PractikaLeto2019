@@ -2,7 +2,8 @@
 #define SIMULATION_H
 
 #include <QMainWindow>
-
+#include "floormap.h"
+#include "painthelper.h"
 namespace Ui
 {
 class Simulation;
@@ -21,6 +22,8 @@ private slots:
 
 private:
     Ui::Simulation *ui;
+    floorMap* floorMap;
+    PaintHelper* paintHelper;
 };
 
 #endif // SIMULATION_H

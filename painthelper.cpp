@@ -1,56 +1,37 @@
-#ifndef PAINTHELPER_H
-#define PAINTHELPER_H
-#include "QWidget"
-#include "QPainter"
 #include "painthelper.h"
-class PaintHelper : public QWidget
+
+PaintHelper::PaintHelper(QWidget *parent) : QScrollArea(parent)
 {
-    Q_OBJECT
-private:
-    QPixmap *buffer;
 
-public:
-    explicit PaintHelper(QWidget *parent = 0) : QWidget(parent)
-    {
-        buffer=new QPixmap(350,250);// this is the fixe width of this widget so
-        buffer->fill(Qt::cyan);
-    }
+}
 
-signals:
-public slots:
-    void drawCircle(int cx, int cy, int r){
+void PaintHelper::draw()
+{
+    drawCells();
+    drawObjects();
+}
 
+void PaintHelper::paintEvent(QPaintEvent */*event*/)
+{
+    QPainter paint(this);
+    paint.drawPixmap(0, 0, *buffer);
+}
 
-        QPainter painter(buffer);
-        painter.setBrush(QBrush(QColor(0,0,255)));
+void PaintHelper::setFloorPlan(class floorMap *floorMap)
+{
+    this->floorMap = floorMap;
+    buffer = new QPixmap(floorMap->getWidth(), floorMap->getHeight());
+    buffer->fill(Qt::white);
+    painter = new QPainter(buffer);
+}
 
-        // A part of mid-point algorithm to draw 1/8 pacrt of circle
-        int x1=0,y1=r;
-        int p=1-r;
-        for(int i=0;y1>=x1;i++){
-            painter.drawPoint(x1+cx,y1+cy);
-            x1++;
-            if(p>0){
-                p+=3+x1;
-            }
-            else{
-                y1--;
-                p+=2*x1-2*y1;
-                p++;
-            }
-        }
-        this->repaint();
-    }
-
-
-
-    // QWidget interface
-protected:
-    void paintEvent(QPaintEvent *event)
-    {
-        QPainter painter(this);
-        painter.drawPixmap(0,0,*buffer);
-    }
-};
-
-#endif // PAINTHELPER_H
+void PaintHelper::drawCells()
+{
+    painter->setPen(Qt::black);
+    painter->setBrush(Qt::white);
+     for(int i = 0; i < floorMap->getWidth(); i += BLOCK_WIDTH)
+     {
+         for(int j = 0; j < floorMap->getHeight(); j += BLOCK_WIDTH)
+             painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
+     }
+}
