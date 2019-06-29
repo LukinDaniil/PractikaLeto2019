@@ -30,7 +30,8 @@ SOURCES += \
         painthelper.cpp \
         simulation.cpp \
         student.cpp \
-        teacher.cpp
+        teacher.cpp \
+        timesheet.cpp
 
 HEADERS += \
         floormap.h \
@@ -38,7 +39,8 @@ HEADERS += \
         painthelper.h \
         simulation.h \
         student.h \
-        teacher.h
+        teacher.h \
+        timesheet.h
 
 FORMS += \
         simulation.ui
