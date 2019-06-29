@@ -28,13 +28,15 @@ SOURCES += \
         main.cpp \
         simulation.cpp \
         student.cpp \
-        teacher.cpp
+        teacher.cpp \
+        timesheet.cpp
 
 HEADERS += \
         human.h \
         simulation.h \
         student.h \
-        teacher.h
+        teacher.h \
+        timesheet.h
 
 FORMS += \
         simulation.ui
