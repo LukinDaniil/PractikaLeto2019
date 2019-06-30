@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>812</width>
-    <height>465</height>
+    <width>852</width>
+    <height>537</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -40,36 +40,13 @@
      <string>Загрузить карту</string>
     </property>
    </widget>
-   <widget class="PaintHelper" name="scrollArea">
-    <property name="geometry">
-     <rect>
-      <x>120</x>
-      <y>90</y>
-      <width>271</width>
-      <height>201</height>
-     </rect>
-    </property>
-    <property name="widgetResizable">
-     <bool>true</bool>
-    </property>
-    <widget class="QWidget" name="scrollAreaWidgetContents">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>0</y>
-       <width>269</width>
-       <height>199</height>
-      </rect>
-     </property>
-    </widget>
-   </widget>
    <widget class="PaintHelper2" name="mapWidget" native="true">
     <property name="geometry">
      <rect>
-      <x>460</x>
-      <y>90</y>
-      <width>301</width>
-      <height>211</height>
+      <x>200</x>
+      <y>80</y>
+      <width>591</width>
+      <height>361</height>
      </rect>
     </property>
    </widget>
@@ -79,7 +56,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>812</width>
+     <width>852</width>
      <height>21</height>
     </rect>
    </property>
@@ -96,12 +73,6 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
-  <customwidget>
-   <class>PaintHelper</class>
-   <extends>QScrollArea</extends>
-   <header location="global">painthelper.h</header>
-   <container>1</container>
-  </customwidget>
   <customwidget>
    <class>PaintHelper2</class>
    <extends>QWidget</extends>

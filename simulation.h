@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include "floormap.h"
-#include "painthelper.h"
+#include "painthelper2.h"
 #include "QTimer"
 namespace Ui
 {
@@ -15,7 +15,7 @@ class Simulation : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit Simulation(QWidget *parent = 0);
+    explicit Simulation(QWidget *parent = nullptr);
     ~Simulation();
 
 private slots:
@@ -23,8 +23,8 @@ private slots:
 
 private:
     Ui::Simulation *ui;
-    floorMap* floorMap;
-    PaintHelper* paintHelper;
+    //FloorMap* floorMap;
+    PaintHelper2* paintHelper;
 
     QTimer* timer = new QTimer();
     const int FPS = 30;

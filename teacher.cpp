@@ -14,3 +14,8 @@ Teacher::Teacher(int NewX, int NewY, int NewFullness, int NewNaturalNeeds)
 {
 
 }
+
+void Teacher::ChangeTimesheet()
+{
+
+}

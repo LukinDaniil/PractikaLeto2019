@@ -1,17 +1,15 @@
 #include "floormap.h"
 #include "qfile.h"
-floorMap::floorMap()
+void FloorMap::createFloorMap()
 {
-    floor.resize(100);//потом задефайнить или посчитать исходя из ширины и высоты
+
     QFile file("F:\\Projects\\PractikaLeto2019\\Files\\MainBuildingFloor");//открываем файл с картой этажа
         if (file.exists())
         {
             QString currentString;
-            //считывание и запись ширины и высоты карты
+            //можно в дальнейшем устанавливать в файле на 3 строку сразу
             currentString = file.readLine();
-            width = currentString.toInt();
             currentString = file.readLine();
-            height = currentString.toInt();
             int yCoordinate = 0;//y координата
             while(!file.atEnd())
             {
@@ -37,12 +35,25 @@ floorMap::floorMap()
 
 }
 
-int floorMap::getWidth()
+
+FloorMap::FloorMap(int newWidth, int newHeight)
+{
+    width = newWidth;
+    height = newHeight;
+    floor.resize(width*height);
+}
+
+int FloorMap::getWidth()
 {
     return width;
 }
 
-int floorMap::getHeight()
+int FloorMap::getHeight()
 {
     return height;
+}
+
+int FloorMap::getIJFloorMap(int i, int j)
+{
+    return floor[i][j];
 }

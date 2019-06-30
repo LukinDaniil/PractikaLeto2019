@@ -2,7 +2,6 @@
 #define PAINTHELPER2_H
 
 #include <QWidget>
-
 #include "QPainter"
 #include "floormap.h"
 class PaintHelper2 : public QWidget
@@ -10,16 +9,15 @@ class PaintHelper2 : public QWidget
     Q_OBJECT
 private:
     QPixmap *buffer;
-    floorMap* floorMap;
+
     const int BLOCK_WIDTH = 10;
-    //QPainter* painter;
 
 public:
+    //FloorMap* tempFloorMap;//для хранения карты для последующего рисования
     explicit PaintHelper2(QWidget *parent = nullptr);
     PaintHelper2();
     void draw();
     void paintEvent(QPaintEvent* event);
-    void setFloorPlan(class floorMap* floorMap);
 
     // QWidget interface
 private:

@@ -27,7 +27,6 @@ SOURCES += \
         floormap.cpp \
         human.cpp \
         main.cpp \
-        painthelper.cpp \
         painthelper2.cpp \
         simulation.cpp \
         student.cpp \
@@ -37,7 +36,6 @@ SOURCES += \
 HEADERS += \
         floormap.h \
         human.h \
-        painthelper.h \
         painthelper2.h \
         simulation.h \
         student.h \

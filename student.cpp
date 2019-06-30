@@ -1,5 +1,6 @@
 #include "student.h"
 #include "human.h"
+#include "floormap.h"
 string Student::ReturnStatus()
 {
     string str = "Student";
