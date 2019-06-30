@@ -42,12 +42,13 @@ void Human::DownFullness(int value)
     else
         Fullness -= value;
 }
-Human::Human(int NewX, int NewY, int NewFullness, int NewNaturalNeeds)
+Human::Human(int NewX, int NewY, int NewFullness, int NewNaturalNeeds, vector<PathOfWay> NewWay)
 {
     PositionX = NewX;
     PositionY = NewY;
     Fullness = NewFullness;
     NaturalNeeds = NewNaturalNeeds;
+    Way = NewWay;
 }
 Human::Human()
 {
@@ -78,4 +79,12 @@ void Human::ComeToilet()
 void Human::ComeCanteen()
 {
     return;
+}
+void Human::MakeStep()
+{
+    if (Way.size() > 0)
+    {
+        SetPositions(Way[0].X,Way[0].Y);
+        Way.erase(Way.begin());
+    }
 }
