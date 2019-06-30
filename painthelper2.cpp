@@ -26,14 +26,7 @@ void PaintHelper2::paintEvent(QPaintEvent *e)
     //paint.drawPixmap(0, 0, *buffer);
 
 
-    QPainter* painter = new QPainter(this);
-    painter->setPen(Qt::black);
-    painter->setBrush(Qt::white);
-    for(int i = 0; i < /*floorMap->getWidth()*/41*BLOCK_WIDTH; i += BLOCK_WIDTH)
-    {
-        for(int j = 0; j < /*floorMap->getHeight()*/33*BLOCK_WIDTH; j += BLOCK_WIDTH)
-            painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
-    }
+
 
     //painter->drawLine(0, 0, /*floorMap->getWidth()*/16*BLOCK_WIDTH, 0);
     //painter->drawLine(0, 0, 0, /*floorMap->getHeight()*/8*BLOCK_WIDTH);
@@ -60,6 +53,15 @@ void PaintHelper2::paintEvent(QPaintEvent *e)
             int width = currentString.toInt();
             currentString = in.readLine(50);
             int height = currentString.toInt();
+            QPainter* painter = new QPainter(this);
+            painter->setPen(Qt::black);
+            painter->setBrush(Qt::white);
+            for(int i = 0; i < /*floorMap->getWidth()*/width*BLOCK_WIDTH; i += BLOCK_WIDTH)
+            {
+                for(int j = 0; j < /*floorMap->getHeight()*/height*BLOCK_WIDTH; j += BLOCK_WIDTH)
+                    painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
+            }
+
             int yCoordinate = 0;//y координата
             vector<vector<int>> floor (width, vector<int> (height, 0));
             //floor.resize(width*height);
@@ -125,7 +127,7 @@ void PaintHelper2::paintEvent(QPaintEvent *e)
             5 - свободное место для препода
             6 - вход в аудиторию
         */
-        painter->setBrush(Qt::blue);
+        //painter->setBrush(Qt::blue);
         int indexI = 0, indexJ = 0;
         for(int i = 0; i < width*BLOCK_WIDTH; i += BLOCK_WIDTH)
         {
@@ -134,33 +136,39 @@ void PaintHelper2::paintEvent(QPaintEvent *e)
             {
                 if(floor[indexI][indexJ] == 1)
                 {
-                    painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
                     painter->setBrush(Qt::blue);
+                    painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
+
                 }
                 if(floor[indexI][indexJ] == 2)
                 {
-                    painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
                     painter->setBrush(Qt::yellow);
+                    painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
+
                 }
                 if(floor[indexI][indexJ] == 3)
                 {
-                    painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
                     painter->setBrush(Qt::red);
+                    painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
+
                 }
                 if(floor[indexI][indexJ] == 4)
                 {
+                    painter->setBrush(Qt::magenta);
                     painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
-                    painter->setBrush(Qt::lightGray);
+
                 }
                 if(floor[indexI][indexJ] == 5)
                 {
-                    painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
                     painter->setBrush(Qt::gray);
+                    painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
+
                 }
                 if(floor[indexI][indexJ] == 6)
                 {
-                    painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
                     painter->setBrush(Qt::green);
+                    painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
+
                 }
                 indexJ++;
             }
