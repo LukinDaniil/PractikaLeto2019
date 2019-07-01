@@ -4,6 +4,7 @@
 #include "QWidget"
 #include "qfile.h"
 #include "floormap.h"
+#include "vector"
 Simulation::Simulation(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Simulation)
@@ -12,7 +13,7 @@ Simulation::Simulation(QWidget *parent) :
 
     paintHelper;
     paintHelper = ui->mapWidget;
-    mapOfTheFloor->createFloorMap();
+    mapOfTheFloor.createFloorMap();
     paintHelper->draw(mapOfTheFloor);
     //connect(timer, SIGNAL(timeout()), this, SLOT(stepModel()));
 }

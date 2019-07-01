@@ -6,7 +6,17 @@ FloorMap::FloorMap()
 
 }
 
-void FloorMap::createFloorMap()//считывает карту из файла и сохраняет информацию в полях
+FloorMap::FloorMap(int newWidth, int newHeight)
+{
+    width = newWidth;
+    height = newHeight;
+    floor = new int*[width];
+    for(int i = 0; i < width; i++)
+        floor[i] = new int[height];
+    updateFloorMap();
+}
+
+void FloorMap::updateFloorMap()//считывает карту из файла и сохраняет информацию в полях
 {
     QString fileName = "F:/Projects/PractikaLeto2019/Files/MainBuildingFloor.txt";
     QFile file(fileName);
@@ -16,14 +26,8 @@ void FloorMap::createFloorMap()//считывает карту из файла �
             QString currentString;
             //можно в дальнейшем устанавливать в файле на 3 строку сразу
             currentString = in.readLine(50);
-            width = currentString.toInt();
             currentString = in.readLine(50);
-            height = currentString.toInt();
             int yCoordinate = 0;//y координата
-            vector<vector<int>> tempFloor (width, vector<int> (height, 0));
-            for(int i = 0; i < width; i ++)
-                for(int j = 0; j < height; j ++)
-                    tempFloor[i][j] = 0;
 
             while(!in.atEnd())
             {
@@ -33,37 +37,37 @@ void FloorMap::createFloorMap()//считывает карту из файла �
                 {
                     //в дальнейшем заменить на case для спавна различных объектов
 
-                    if(currentString[xCoordinate] == "0")//если в файле в данном месте стоит 1, то там создаём блок
+                    if(currentString[xCoordinate] == "0")
                     {
                         floor[xCoordinate][yCoordinate] = 0;
                     }
 
-                    if(currentString[xCoordinate] == "1")//если в файле в данном месте стоит 1, то там создаём блок
+                    if(currentString[xCoordinate] == "1")
                     {
                         floor[xCoordinate][yCoordinate] = 1;
                     }
 
-                    if(currentString[xCoordinate] == "2")//если в файле в данном месте стоит 1, то там создаём блок
+                    if(currentString[xCoordinate] == "2")
                     {
                         floor[xCoordinate][yCoordinate] = 2;
                     }
 
-                    if(currentString[xCoordinate] == "3")//если в файле в данном месте стоит 1, то там создаём блок
+                    if(currentString[xCoordinate] == "3")
                     {
                         floor[xCoordinate][yCoordinate] = 3;
                     }
 
-                    if(currentString[xCoordinate] == "4")//если в файле в данном месте стоит 1, то там создаём блок
+                    if(currentString[xCoordinate] == "4")
                     {
                         floor[xCoordinate][yCoordinate] = 4;
                     }
 
-                    if(currentString[xCoordinate] == "5")//если в файле в данном месте стоит 1, то там создаём блок
+                    if(currentString[xCoordinate] == "5")
                     {
                         floor[xCoordinate][yCoordinate] = 5;
                     }
 
-                    if(currentString[xCoordinate] == "6")//если в файле в данном месте стоит 1, то там создаём блок
+                    if(currentString[xCoordinate] == "6")
                     {
                         floor[xCoordinate][yCoordinate] = 6;
                     }
@@ -72,13 +76,16 @@ void FloorMap::createFloorMap()//считывает карту из файла �
                 //добавить обновление формы или найти иной сп
             }
             //во floor готовая карта
-            floor = tempFloor;//сохраняем в поле класса
 
     }
+    file.close();
 }
-vector<vector<int>> FloorMap::getFloorMap()
+int** FloorMap::getFloorMap()
 {
-    return floor;
+    int** temp = new int*[width];
+    for(int i = 0; i < width; i++)
+        temp[i] = new int[height];
+    return temp;
 
 }
 

@@ -9,8 +9,8 @@ Teacher::Teacher() : Human ()
 {
 
 }
-Teacher::Teacher(int NewX, int NewY, int NewFullness, int NewNaturalNeeds)
-    : Human (NewX, NewY, NewFullness, NewNaturalNeeds)
+Teacher::Teacher(int NewX, int NewY, int NewFullness, int NewNaturalNeeds, vector<PathOfWay> NewWay)
+    : Human (NewX, NewY, NewFullness, NewNaturalNeeds, NewWay)
 {
 
 }

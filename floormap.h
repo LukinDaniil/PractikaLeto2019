@@ -8,11 +8,14 @@ class FloorMap
 private:
     int width;
     int height;
-    vector<vector<int>> floor;
+    //vector<vector<int>> floor;
+    int ** floor;
+    const int BLOCK_WIDTH = 10;
 public:
-    vector<vector<int>> getFloorMap();
     FloorMap();
-    void createFloorMap();
+    FloorMap(int newWidth, int newHeight);
+    int** getFloorMap();
+    void updateFloorMap();
     int getWidth();
     int getHeight();
     int getIJFloorMap(int i, int j);

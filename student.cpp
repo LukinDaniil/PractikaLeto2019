@@ -39,8 +39,8 @@ Student::Student() : Human ()
 {
     Sleepiness = 100;
 }
-Student::Student(int NewX, int NewY, int NewFullness, int NewNaturalNeeds, int NewSleepiness) :
-    Human (NewX, NewY, NewFullness, NewNaturalNeeds)
+Student::Student(int NewX, int NewY, int NewFullness, int NewNaturalNeeds, int NewSleepiness, vector<PathOfWay> NewWay) :
+    Human (NewX, NewY, NewFullness, NewNaturalNeeds, NewWay)
 {
     Sleepiness = NewSleepiness;
 }

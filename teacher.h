@@ -6,7 +6,7 @@ class Teacher : public Human
 {
 public:
     Teacher();
-    Teacher(int NewX, int NewY, int NewFullness, int NewNaturalNeeds);
+    Teacher(int NewX, int NewY, int NewFullness, int NewNaturalNeeds, vector<PathOfWay> NewWay);
     void ChangeTimesheet(); // изменить расписание
     virtual string ReturnStatus() override;
 };
