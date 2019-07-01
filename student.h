@@ -13,7 +13,7 @@ public:
     int GetSleepiness();
     void DownSleepiness(int value);
     Student();
-    Student(int NewX, int NewY, int NewFullness, int NewNaturalNeeds, int NewSleepiness);
+    Student(int NewX, int NewY, int NewFullness, int NewNaturalNeeds, int NewSleepiness, vector<PathOfWay> NewWay);
 };
 
 
