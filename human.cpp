@@ -1,4 +1,14 @@
 #include "human.h"
+PathOfWay::PathOfWay()
+{
+    X = 0;
+    Y = 0;
+}
+PathOfWay::PathOfWay(int NewX, int NewY)
+{
+    X = NewX;
+    Y = NewY;
+}
 int Human::GetPositionX()
 {
     return  PositionX;
@@ -86,5 +96,13 @@ void Human::MakeStep()
     {
         SetPositions(Way[0].X,Way[0].Y);
         Way.erase(Way.begin());
+    }
+}
+void Human::SetWay(vector<PathOfWay> NewWay)
+{
+    Way.clear();
+    for (int i = 0; i < NewWay.size(); i++)
+    {
+        Way.push_back(NewWay[i]);
     }
 }

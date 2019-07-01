@@ -25,6 +25,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         floormap.cpp \
+        group.cpp \
         human.cpp \
         main.cpp \
         painthelper2.cpp \
@@ -35,6 +36,7 @@ SOURCES += \
 
 HEADERS += \
         floormap.h \
+        group.h \
         human.h \
         painthelper2.h \
         simulation.h \

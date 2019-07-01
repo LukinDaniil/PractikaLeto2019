@@ -8,6 +8,8 @@ class PathOfWay
 public:
     int X;
     int Y;
+    PathOfWay();
+    PathOfWay(int NewX, int NewY);
 };
 
 class Human
@@ -22,6 +24,7 @@ protected:
     void ComeToilet();
 public:
     void MakeStep();
+    void SetWay(vector<PathOfWay> NewWay);
     void Eat();
     void Toilet();
     void ComeToCabinet();
