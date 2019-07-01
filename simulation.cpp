@@ -10,25 +10,10 @@ Simulation::Simulation(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    PaintHelper2 *paintHelper;
+    paintHelper;
     paintHelper = ui->mapWidget;
-    //paintHelper->setFloorPlan(floorMap);//считывание и запись ширины и высоты карты
-    /*
-    QFile file("F:\\Projects\\PractikaLeto2019\\Files\\MainBuildingFloor");//открываем файл с картой этажа
-    if (file.exists())
-    {
-        QString currentString;
-        currentString = file.readLine();
-        int newWidth = currentString.toInt();
-        currentString = file.readLine();
-        int newHeight = currentString.toInt();
-        FloorMap* newFloor = new FloorMap(newWidth, newHeight);
-        newFloor->createFloorMap();//добавить передачу пути/имени файла
-        paintHelper->tempFloorMap = newFloor;//перегрузить, чтобы копировались поля а не ссылка
-
-    }
-    */
-    paintHelper->draw();
+    mapOfTheFloor->createFloorMap();
+    paintHelper->draw(mapOfTheFloor);
     //connect(timer, SIGNAL(timeout()), this, SLOT(stepModel()));
 }
 
@@ -45,6 +30,9 @@ void Simulation::stepModel()
     {
 
     }
+    //каждый шаг совершаются действия на карте, изменяется mapOfTheFloor, после этого карта опять рисуется для отображения изменений
+
+
     paintHelper->draw();
     */
 }

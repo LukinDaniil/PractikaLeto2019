@@ -10,8 +10,9 @@ private:
     int height;
     vector<vector<int>> floor;
 public:
+    vector<vector<int>> getFloorMap();
+    FloorMap();
     void createFloorMap();
-    FloorMap(int newWidth, int newHeight);
     int getWidth();
     int getHeight();
     int getIJFloorMap(int i, int j);

@@ -8,16 +8,16 @@ class PaintHelper2 : public QWidget
 {
     Q_OBJECT
 private:
-    QPixmap *buffer;
-
+    FloorMap* keepFloor;
     const int BLOCK_WIDTH = 10;
 
 public:
     //FloorMap* tempFloorMap;//для хранения карты для последующего рисования
     explicit PaintHelper2(QWidget *parent = nullptr);
     PaintHelper2();
-    void draw();
+    void draw(FloorMap* mapForDrawing);
     void paintEvent(QPaintEvent* event);
+
 
     // QWidget interface
 private:
