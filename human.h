@@ -21,7 +21,7 @@ protected:
     int Fullness;     // сытость (0-100)
     int NaturalNeeds; // естественные нужды 0-100
     vector<PathOfWay> Way; // путь
-    void Seach(int X, int Y, int FinishX, int FinishY, int Num, vector<vector<int>> *map);
+    void Seach(vector<PathOfWay> queue, int Num, vector<vector<int>> *map);
     void ComeCanteen();
     void ComeToilet();
 public:

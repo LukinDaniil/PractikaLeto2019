@@ -108,67 +108,74 @@ void Human::SetWay(vector<PathOfWay> NewWay)
 }
 void Human::MakeWay(int FinishX, int FinishY, vector<vector<int>> *map)
 {
-    Seach(PositionX, PositionY, FinishX, FinishY, 0, map);
+    vector<PathOfWay> queue;
+    queue.push_back(*(new PathOfWay(PositionX, PositionY)));
+    Seach(queue, 1, map);
+    (*map)[PositionX][PositionY] = 0;
     int CurX = FinishX;
     int CurY = FinishY;
     vector<PathOfWay> MakedWay;
-    PathOfWay *path = new PathOfWay();
-    path->X = CurX;
-    path->Y = CurY;
-    MakedWay.push_back(*path);
+    MakedWay.push_back(*(new PathOfWay(CurX, CurY)));
     int CurNum = (*map)[FinishX][FinishY];
     do
     {
-        PathOfWay *NewBlock = new PathOfWay();
         if (CurX - 1 >= 0 && (*map)[CurX - 1][CurY] == CurNum - 1)
         {
             CurX--;
             CurNum--;
-            NewBlock->X = CurX;
-            NewBlock->Y = CurY;
-            MakedWay.push_back(*NewBlock);
+            MakedWay.push_back(*(new PathOfWay(CurX, CurY)));
         }
         if (CurX + 1 < (*map)[0].size() && (*map)[CurX + 1][CurY] == CurNum - 1)
         {
             CurX++;
             CurNum--;
-            NewBlock->X = CurX;
-            NewBlock->Y = CurY;
-            MakedWay.push_back(*NewBlock);
+            MakedWay.push_back(*(new PathOfWay(CurX, CurY)));
         }
         if (CurY - 1 >= 0 && (*map)[CurX][CurY - 1] == CurNum - 1)
         {
             CurY--;
             CurNum--;
-            NewBlock->X = CurX;
-            NewBlock->Y = CurY;
-            MakedWay.push_back(*NewBlock);
+            MakedWay.push_back(*(new PathOfWay(CurX, CurY)));
         }
         if (CurY + 1 < (*map).size() && (*map)[CurX][CurY + 1] == CurNum - 1)
         {
             CurY++;
             CurNum--;
-            NewBlock->X = CurX;
-            NewBlock->Y = CurY;
-            MakedWay.push_back(*NewBlock);
+            MakedWay.push_back(*(new PathOfWay(CurX, CurY)));
         }
     } while (CurNum != 0);
-    // перевернуть путь блеать!
-    SetWay(MakedWay);
+    vector<PathOfWay> CorrectWay;
+    for (int i = 0; i < MakedWay.size(); i++)
+    {
+        CorrectWay.push_back(*new PathOfWay(MakedWay[MakedWay.size() - i - 1].X, MakedWay[MakedWay.size() - i - 1].Y));
+    }
+    SetWay(CorrectWay);
 }
-void Human::Seach(int X, int Y, int FinishX, int FinishY, int Num, vector<vector<int>> *map)
-{
-    (*map)[X][Y] = Num;
-    if (X == FinishX && Y == FinishY)
-        return;
-    if (X - 1 >= 0 && (*map)[X-1][Y] == 0)
-        Seach(X - 1, Y,FinishX, FinishY, Num + 1, map);
-    if (X + 1 < (*map)[0].size() &&  (*map)[X+1][Y] == 0)
-        Seach(X + 1, Y,FinishX, FinishY, Num + 1, map);
-    if (Y - 1 > 0 && (*map)[X][Y-1] == 0)
-        Seach(X, Y - 1,FinishX, FinishY, Num + 1, map);
-    if (Y + 1 < (*map).size() && (*map)[X][Y+1] == 0)
-        Seach(X, Y + 1,FinishX, FinishY, Num + 1, map);
 
+void Human::Seach(vector<PathOfWay> queue, int Num, vector<vector<int>> *map)
+{
+    vector<PathOfWay> NewQueue;
+    if (queue.size() == 0)
+        return;
+    while (queue.size() > 0)
+    {
+        int X = queue[0].X;
+        int Y = queue[0].Y;
+        if (X - 1 >= 0)
+            if ((*map)[X - 1][Y] == 0)
+                NewQueue.push_back(*(new PathOfWay(X - 1, Y)));
+        if (X + 1 < (*map)[0].size())
+            if ((*map)[X + 1][Y] == 0)
+                NewQueue.push_back(*(new PathOfWay(X + 1, Y)));
+        if (Y - 1 >= 0)
+            if ((*map)[X][Y - 1] == 0)
+                NewQueue.push_back(*(new PathOfWay(X, Y - 1)));
+        if (Y + 1 < (*map).size())
+            if ((*map)[X][Y + 1] == 0)
+                NewQueue.push_back(*(new PathOfWay(X, Y + 1)));
+        (*map)[X][Y] = Num;
+        queue.erase(queue.begin());
+    }
+    Seach(NewQueue, Num + 1, map);
 
 }

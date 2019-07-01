@@ -5,6 +5,11 @@
 #include "floormap.h"
 #include "painthelper2.h"
 #include "QTimer"
+#include "timesheet.h"
+#include "teacher.h"
+#include "student.h"
+#include "group.h"
+#include <vector>
 namespace Ui
 {
 class Simulation;
@@ -25,8 +30,10 @@ private:
     Ui::Simulation *ui;
     //FloorMap* floorMap;
     PaintHelper2* paintHelper;
-
+    vector <Teacher> teachers;
+    Group group;
     QTimer* timer = new QTimer();
+
     const int FPS = 30;
 };
 
