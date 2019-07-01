@@ -15,9 +15,9 @@ PaintHelper2::PaintHelper2()
 
 
 
-void PaintHelper2::draw(FloorMap mapForDrawing)
+void PaintHelper2::draw(FloorMap* mapForDrawing)
 {
-    keepFloor = mapForDrawing;
+
     repaint();
 }
 

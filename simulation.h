@@ -5,6 +5,7 @@
 #include "floormap.h"
 #include "painthelper2.h"
 #include "QTimer"
+#include "QTextStream"
 namespace Ui
 {
 class Simulation;
@@ -25,7 +26,7 @@ private:
     Ui::Simulation *ui;
     //FloorMap* floorMap;
     PaintHelper2* paintHelper;
-    FloorMap mapOfTheFloor;
+    FloorMap* mapOfTheFloor;
     QTimer* timer = new QTimer();
     const int FPS = 30;
 };

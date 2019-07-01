@@ -11,10 +11,22 @@ Simulation::Simulation(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    paintHelper;
+
+    QString fileName = "F:/Projects/PractikaLeto2019/Files/MainBuildingFloor.txt";
+    QFile file(fileName);
+    if(file.exists() && file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        QTextStream in(&file);
+        QString currentString;
+        currentString = in.readLine(50);
+        int width = currentString.toInt();
+        currentString = in.readLine(50);
+        int height = currentString.toInt();
+        FloorMap* newMap = new FloorMap(width, height);
+        mapOfTheFloor = newMap;
+    }
     paintHelper = ui->mapWidget;
-    mapOfTheFloor.createFloorMap();
-    paintHelper->draw(mapOfTheFloor);
+    paintHelper->draw(*mapOfTheFloor);
     //connect(timer, SIGNAL(timeout()), this, SLOT(stepModel()));
 }
 

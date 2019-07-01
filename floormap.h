@@ -1,6 +1,7 @@
 #ifndef FLOORMAP_H
 #define FLOORMAP_H
 #include "vector"
+#include "QTextStream"
 using namespace std;
 
 class FloorMap

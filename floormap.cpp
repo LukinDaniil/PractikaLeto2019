@@ -1,6 +1,5 @@
 #include "floormap.h"
 #include "qfile.h"
-#include "QTextStream"
 FloorMap::FloorMap()
 {
 
