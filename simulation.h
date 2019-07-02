@@ -31,6 +31,7 @@ private:
     Ui::Simulation *ui;
     PaintHelper2* paintHelper;
     FloorMap* mapOfTheFloor;
+    vector<vector<int>> mapForTheWay;
     vector <Teacher> teachers;
     Group group;
     QTimer* timer = new QTimer();

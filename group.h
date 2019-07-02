@@ -11,6 +11,8 @@ public:
     Timesheet timeshet;
     void DefineWay(vector<PathOfWay> NewWay);
     Group();
+    void addStudent(int X, int Y);
+    void groupMakeStep();
 };
 
 #endif // GROUP_H

@@ -11,3 +11,18 @@ Group::Group()
 {
 
 }
+
+void Group::addStudent(int X, int Y)
+{
+    Student newOne;
+    newOne.SetPositions(X, Y);
+    People.push_back(newOne);
+}
+
+void Group::groupMakeStep()
+{
+    for (int i = 0; i < People.size(); i++)
+    {
+        People[i].MakeStep();
+    }
+}

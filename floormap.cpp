@@ -9,6 +9,7 @@ FloorMap::FloorMap(int newWidth, int newHeight)
 {
     width = newWidth;
     height = newHeight;
+    floorForTheWay.resize(width, vector<int> (height, 0));
     floor = new int*[width];
     for(int i = 0; i < width; i++)
         floor[i] = new int[height];
@@ -44,6 +45,7 @@ void FloorMap::updateFloorMap()//считывает карту из файла �
                     if(currentString[xCoordinate] == "1")
                     {
                         floor[xCoordinate][yCoordinate] = 1;
+                        floorForTheWay[xCoordinate][yCoordinate] = -1;
                     }
 
                     if(currentString[xCoordinate] == "2")
@@ -75,7 +77,15 @@ void FloorMap::updateFloorMap()//считывает карту из файла �
                 //добавить обновление формы или найти иной сп
             }
             //во floor готовая карта
-
+            /*
+            0 - свободно
+            1 - стена
+            2 - парта
+            3 - дорожка
+            4 - свободное место для студента
+            5 - свободное место для препода
+            6 - вход в аудиторию
+            */
     }
     file.close();
 }
@@ -88,7 +98,12 @@ int** FloorMap::getFloorMap()
         for(int j = 0; j < height; j ++)
             temp[i][j] = floor[i][j];
     return temp;
+}
 
+vector<vector<int>> FloorMap::getFloorForTheWay()
+{
+    vector<vector<int>> temp(floorForTheWay);//копируем карту для построения пути
+    return temp;
 }
 
 int FloorMap::getWidth()

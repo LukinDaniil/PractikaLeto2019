@@ -25,15 +25,23 @@ Simulation::Simulation(QWidget *parent) :
         FloorMap* newMap = new FloorMap(width, height);
         mapOfTheFloor = newMap;
         paintHelper = ui->mapWidget;
-        paintHelper->setKeepFloor(newMap);
+        //paintHelper->setKeepFloor(newMap);
+        paintHelper->setKeepFloor(mapOfTheFloor);
         paintHelper->draw();
     }
-    /*
-    paintHelper = ui->mapWidget;
-    paintHelper->setKeepFloor(mapOfTheFloor);
+    group.addStudent(1, 1);
+    paintHelper->changeMapAccordingWithHumans(group);
     paintHelper->draw();
-    */
-    //connect(timer, SIGNAL(timeout()), this, SLOT(stepModel()));
+    vector<PathOfWay> myWay;
+    for(int i = 1; i <= 4; i ++)
+    {
+        PathOfWay newWay(i, 1);
+        myWay.push_back(newWay);
+    }
+    group.DefineWay(myWay);
+    timer->setInterval(1000);
+    connect(timer, SIGNAL(timeout()), this, SLOT(stepModel()));
+    timer->start();
 }
 
 Simulation::~Simulation()
@@ -50,10 +58,12 @@ void Simulation::stepModel()
 
     }
     //каждый шаг совершаются действия на карте, изменяется mapOfTheFloor, после этого карта опять рисуется для отображения изменений
-
-
-    paintHelper->draw();
     */
+    group.groupMakeStep();
+    paintHelper->setKeepFloor(mapOfTheFloor);
+    paintHelper->changeMapAccordingWithHumans(group);
+    paintHelper->draw();
+
 }
 
 

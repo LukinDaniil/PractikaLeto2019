@@ -12,6 +12,13 @@ PaintHelper2::PaintHelper2()
 {
 
 }
+void PaintHelper2::changeMapAccordingWithHumans(Group group)
+{
+    for (int i = 0; i < group.People.size(); i++)
+    {
+        storedFloor[group.People[i].GetPositionX()][group.People[i].GetPositionY()] = 7;
+    }
+}
 
 void PaintHelper2::setKeepFloor(FloorMap* newKeepMap)
 {
@@ -73,13 +80,7 @@ void PaintHelper2::paintEvent(QPaintEvent *e)
             }
 
         /*
-            0 - свободно
-            1 - стена
-            2 - парта
-            3 - дорожка
-            4 - свободное место для студента
-            5 - свободное место для препода
-            6 - вход в аудиторию
+
         */
         int indexI = 0, indexJ = 0;
         for(int i = 0; i < /*widthOfMap*/floorWidth*BLOCK_WIDTH; i += BLOCK_WIDTH)
@@ -120,6 +121,12 @@ void PaintHelper2::paintEvent(QPaintEvent *e)
                 if(storedFloor[indexI][indexJ] == 6)
                 {
                     painter->setBrush(Qt::green);
+                    painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
+
+                }
+                if(storedFloor[indexI][indexJ] == 7)//ЗДЕСЬ ЧЕЛОВЕК, мы толерантные поэтому он чёрный
+                {
+                    painter->setBrush(Qt::black);
                     painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
 
                 }

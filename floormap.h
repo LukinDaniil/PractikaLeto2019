@@ -11,11 +11,13 @@ private:
     int height;
     //vector<vector<int>> floor;
     int ** floor;
+    vector<vector<int>> floorForTheWay;
     const int BLOCK_WIDTH = 10;
 public:
     FloorMap();
     FloorMap(int newWidth, int newHeight);
     int** getFloorMap();
+    vector<vector<int>> getFloorForTheWay();
     void updateFloorMap();
     int getWidth();
     int getHeight();

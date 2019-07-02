@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "QPainter"
 #include "floormap.h"
+#include "group.h"
 class PaintHelper2 : public QWidget
 {
     Q_OBJECT
@@ -21,7 +22,7 @@ public:
     void draw();
     void paintEvent(QPaintEvent* event);
     void setKeepFloor(FloorMap* newKeepMap);
-
+    void changeMapAccordingWithHumans(Group group);
     // QWidget interface
 private:
     void drawCells();
