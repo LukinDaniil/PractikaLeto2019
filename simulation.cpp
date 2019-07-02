@@ -31,6 +31,7 @@ Simulation::Simulation(QWidget *parent) :
         paintHelper->setKeepFloor(mapOfTheFloor);
         paintHelper->draw();
     }
+
     group.addStudent(1, 1);
     paintHelper->changeMapAccordingWithHumans(group);
     paintHelper->draw();
@@ -51,6 +52,7 @@ Simulation::Simulation(QWidget *parent) :
     timer->setInterval(1000);
     connect(timer, SIGNAL(timeout()), this, SLOT(stepModel()));
     timer->start();
+    ui->simulationTime->setText(currentTime.ToString());
 }
 
 Simulation::~Simulation()
@@ -60,41 +62,13 @@ Simulation::~Simulation()
 
 void Simulation::stepModel()
 {
-    /*
-    int chance = rand() % 100;
-    if(chance >= 95)
-    {
 
-    }
     //каждый шаг совершаются действия на карте, изменяется mapOfTheFloor, после этого карта опять рисуется для отображения изменений
-    */
     group.groupMakeStep();
     paintHelper->setKeepFloor(mapOfTheFloor);
     paintHelper->changeMapAccordingWithHumans(group);
     paintHelper->draw();
-
+    currentTime.AddMinute(1);
+    ui->simulationTime->setText(currentTime.ToString());
 }
-
-
-/*
-#include "simulation.h"
-#include "ui_simulation.h"
-#include "painthelper.h"
-Simulation::Simulation(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::Simulation)
-{
-    ui->setupUi(this);
-    PaintHelper *paintHelper;
-    paintHelper = ui->scrollArea;
-    paintHelper->setFloorPlan(floorMap);
-    paintHelper->draw();
-
-}
-
-Simulation::~Simulation()
-{
-    delete ui;
-}
-*/
 

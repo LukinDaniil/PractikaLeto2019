@@ -1,6 +1,8 @@
 #ifndef MYTIME_H
 #define MYTIME_H
-
+#include "string"
+#include "QString"
+using namespace std;
 class MyTime
 {
 private:
@@ -16,6 +18,7 @@ public:
     void AddMinute(int Min);
     MyTime();
     MyTime(int NewHour, int NewMinute, int NewDay, int NewCountDay);
+    QString ToString();
 };
 
 

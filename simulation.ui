@@ -17,11 +17,33 @@
    <widget class="PaintHelper2" name="mapWidget" native="true">
     <property name="geometry">
      <rect>
-      <x>200</x>
-      <y>80</y>
-      <width>591</width>
-      <height>431</height>
+      <x>50</x>
+      <y>40</y>
+      <width>391</width>
+      <height>371</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="simulationTime">
+    <property name="geometry">
+     <rect>
+      <x>510</x>
+      <y>50</y>
+      <width>231</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Times New Roman</family>
+      <pointsize>14</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+    <property name="textFormat">
+     <enum>Qt::AutoText</enum>
     </property>
    </widget>
   </widget>
@@ -31,7 +53,7 @@
      <x>0</x>
      <y>0</y>
      <width>852</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

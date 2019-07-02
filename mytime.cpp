@@ -2,9 +2,9 @@
 
 MyTime::MyTime()
 {
-        Hour = 0;
-        Minute = 0;
-        Day = 0;
+        Hour = 23;
+        Minute = 50;
+        Day = 1;
         CountDay = 5;
 }
 MyTime::MyTime(int NewHour, int NewMinute, int NewDay, int NewCountDay)
@@ -45,4 +45,32 @@ void MyTime::AddMinute(int Min)
     }
     if (Day > CountDay)
         Day = Day % CountDay;
+}
+
+QString MyTime::ToString()
+{
+    QString dayStr;
+    switch(Day % CountDay)
+    {
+        case 1: dayStr = "Понедельник "; break;
+        case 2: dayStr = "Вторник "; break;
+        case 3: dayStr = "Среда "; break;
+        case 4: dayStr = "Четверг "; break;
+        case 0: dayStr = "Пятница "; break;
+    }
+    QString hourStr;
+    if(Hour < 10)//если часы - однозначное число
+        hourStr = "0" + QString::number(Hour);
+    else {
+        hourStr = QString::number(Hour);
+    }
+    QString minuteStr;
+    if(Minute < 10)//если часы - однозначное число
+        minuteStr = "0" + QString::number(Minute);
+    else {
+        minuteStr = QString::number(Minute);
+    }
+
+    QString str = dayStr + hourStr + ":" + minuteStr;
+    return str;
 }
