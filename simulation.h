@@ -11,6 +11,7 @@
 #include "student.h"
 #include "group.h"
 #include <vector>
+#include "enums.h"
 namespace Ui
 {
 class Simulation;

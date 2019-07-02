@@ -14,9 +14,10 @@ PaintHelper2::PaintHelper2()
 }
 void PaintHelper2::changeMapAccordingWithHumans(Group group)
 {
+    Enums e;
     for (int i = 0; i < group.People.size(); i++)
     {
-        storedFloor[group.People[i].GetPositionX()][group.People[i].GetPositionY()] = 7;
+        storedFloor[group.People[i].GetPositionX()][group.People[i].GetPositionY()] = e.Student;
     }
 }
 
@@ -84,45 +85,46 @@ void PaintHelper2::paintEvent(QPaintEvent *e)
         for(int i = 0; i < /*widthOfMap*/floorWidth*BLOCK_WIDTH; i += BLOCK_WIDTH)
         {
             indexJ = 0;
+            Enums e;
             for(int j = 0; j < /*heightOfMap*/floorHeight*BLOCK_WIDTH; j += BLOCK_WIDTH)
             {
-                if(storedFloor[indexI][indexJ] == 1)
+                if(storedFloor[indexI][indexJ] == e.Wall)
                 {
                     painter->setBrush(Qt::blue);
                     painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
 
                 }
-                if(storedFloor[indexI][indexJ] == 2)
+                if(storedFloor[indexI][indexJ] == e.Desk)
                 {
                     painter->setBrush(Qt::yellow);
                     painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
 
                 }
-                if(storedFloor[indexI][indexJ] == 3)
+                if(storedFloor[indexI][indexJ] == e.Track)
                 {
                     painter->setBrush(Qt::red);
                     painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
 
                 }
-                if(storedFloor[indexI][indexJ] == 4)
+                if(storedFloor[indexI][indexJ] == e.FreeForStudent)
                 {
                     painter->setBrush(Qt::magenta);
                     painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
 
                 }
-                if(storedFloor[indexI][indexJ] == 5)
+                if(storedFloor[indexI][indexJ] == e.FreeForTeacher)
                 {
                     painter->setBrush(Qt::gray);
                     painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
 
                 }
-                if(storedFloor[indexI][indexJ] == 6)
+                if(storedFloor[indexI][indexJ] == e.EntranceToTheClassroom)
                 {
                     painter->setBrush(Qt::green);
                     painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
 
                 }
-                if(storedFloor[indexI][indexJ] == 7)//ЗДЕСЬ ЧЕЛОВЕК, мы толерантные поэтому он чёрный
+                if(storedFloor[indexI][indexJ] == e.Student)//ЗДЕСЬ ЧЕЛОВЕК, мы толерантные поэтому он чёрный
                 {
                     painter->setBrush(Qt::black);
                     painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);

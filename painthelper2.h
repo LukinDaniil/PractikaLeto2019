@@ -5,6 +5,7 @@
 #include "QPainter"
 #include "floormap.h"
 #include "group.h"
+#include "enums.h"
 class PaintHelper2 : public QWidget
 {
     Q_OBJECT

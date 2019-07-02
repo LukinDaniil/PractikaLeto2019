@@ -2,6 +2,7 @@
 #define FLOORMAP_H
 #include "vector"
 #include "QTextStream"
+#include "enums.h"
 using namespace std;
 
 class FloorMap

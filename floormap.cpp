@@ -34,46 +34,47 @@ void FloorMap::updateFloorMap()//считывает карту из файла �
             {
                 //currentString = "";
                 currentString=in.readLine(100);//считываю строку
+                Enums e;
                 for(int xCoordinate = 0; xCoordinate < currentString.size(); xCoordinate++)//проходим по currentString
                 {
                     //в дальнейшем заменить на case для спавна различных объектов
 
                     if(currentString[xCoordinate] == "0")
                     {
-                        floor[xCoordinate][yCoordinate] = 0;
+                        floor[xCoordinate][yCoordinate] = e.FreeBlock;
                     }
 
                     if(currentString[xCoordinate] == "1")
                     {
-                        floor[xCoordinate][yCoordinate] = 1;
+                        floor[xCoordinate][yCoordinate] = e.Wall;
                         floorForTheWay[xCoordinate][yCoordinate] = -1;
                     }
 
                     if(currentString[xCoordinate] == "2")
                     {
-                        floor[xCoordinate][yCoordinate] = 2;
+                        floor[xCoordinate][yCoordinate] = e.Desk;
                         floorForTheWay[xCoordinate][yCoordinate] = -1;
                     }
 
                     if(currentString[xCoordinate] == "3")
                     {
-                        floor[xCoordinate][yCoordinate] = 3;
+                        floor[xCoordinate][yCoordinate] = e.Track;
                     }
 
                     if(currentString[xCoordinate] == "4")
                     {
-                        floor[xCoordinate][yCoordinate] = 4;
+                        floor[xCoordinate][yCoordinate] = e.FreeForStudent;
 
                     }
 
                     if(currentString[xCoordinate] == "5")
                     {
-                        floor[xCoordinate][yCoordinate] = 5;
+                        floor[xCoordinate][yCoordinate] = e.FreeForTeacher;
                     }
 
                     if(currentString[xCoordinate] == "6")
                     {
-                        floor[xCoordinate][yCoordinate] = 6;
+                        floor[xCoordinate][yCoordinate] = e.EntranceToTheClassroom;
                     }
                 }
                 yCoordinate++;//переходим на следующую строку

@@ -24,6 +24,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
+        enums.cpp \
         floormap.cpp \
         group.cpp \
         human.cpp \
@@ -36,6 +37,7 @@ SOURCES += \
         timesheet.cpp
 
 HEADERS += \
+        enums.h \
         floormap.h \
         group.h \
         human.h \
