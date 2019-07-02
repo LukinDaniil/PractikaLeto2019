@@ -24,9 +24,15 @@ Simulation::Simulation(QWidget *parent) :
         int height = currentString.toInt();
         FloorMap* newMap = new FloorMap(width, height);
         mapOfTheFloor = newMap;
+        paintHelper = ui->mapWidget;
+        paintHelper->setKeepFloor(newMap);
+        paintHelper->draw();
     }
+    /*
     paintHelper = ui->mapWidget;
-    paintHelper->draw(*mapOfTheFloor);
+    paintHelper->setKeepFloor(mapOfTheFloor);
+    paintHelper->draw();
+    */
     //connect(timer, SIGNAL(timeout()), this, SLOT(stepModel()));
 }
 

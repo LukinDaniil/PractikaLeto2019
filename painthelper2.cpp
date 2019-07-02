@@ -13,11 +13,17 @@ PaintHelper2::PaintHelper2()
 
 }
 
-
-
-void PaintHelper2::draw(FloorMap* mapForDrawing)
+void PaintHelper2::setKeepFloor(FloorMap* newKeepMap)
 {
+    floorWidth = newKeepMap->getWidth();
+    floorHeight = newKeepMap->getHeight();
+    storedFloor = newKeepMap->getFloorMap();
+    //delete keepFloor;
+    //keepFloor = newKeepMap;
+}
 
+void PaintHelper2::draw()
+{
     repaint();
 }
 
@@ -26,11 +32,11 @@ void PaintHelper2::paintEvent(QPaintEvent *e)
             QPainter* painter = new QPainter(this);
             painter->setPen(Qt::black);
             painter->setBrush(Qt::white);
-            int widthOfMap = keepFloor.getWidth();
-            int heightOfMap = keepFloor.getHeight();
-            for(int i = 0; i < widthOfMap*BLOCK_WIDTH; i += BLOCK_WIDTH)
+            //int widthOfMap = keepFloor->getWidth();
+            //int heightOfMap = keepFloor->getHeight();
+            for(int i = 0; i < /*widthOfMap*/floorWidth*BLOCK_WIDTH; i += BLOCK_WIDTH)
             {
-                for(int j = 0; j < heightOfMap*BLOCK_WIDTH; j += BLOCK_WIDTH)
+                for(int j = 0; j < /*heightOfMap*/floorHeight*BLOCK_WIDTH; j += BLOCK_WIDTH)
                     painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
             }
 
@@ -44,42 +50,42 @@ void PaintHelper2::paintEvent(QPaintEvent *e)
             6 - вход в аудиторию
         */
         int indexI = 0, indexJ = 0;
-        for(int i = 0; i < widthOfMap*BLOCK_WIDTH; i += BLOCK_WIDTH)
+        for(int i = 0; i < /*widthOfMap*/floorWidth*BLOCK_WIDTH; i += BLOCK_WIDTH)
         {
             indexJ = 0;
-            for(int j = 0; j < heightOfMap*BLOCK_WIDTH; j += BLOCK_WIDTH)
+            for(int j = 0; j < /*heightOfMap*/floorHeight*BLOCK_WIDTH; j += BLOCK_WIDTH)
             {
-                if(keepFloor.getIJFloorMap(i, j) == 1)
+                if(storedFloor[indexI][indexJ] == 1)
                 {
                     painter->setBrush(Qt::blue);
                     painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
 
                 }
-                if(keepFloor.getIJFloorMap(i, j) == 2)
+                if(storedFloor[indexI][indexJ] == 2)
                 {
                     painter->setBrush(Qt::yellow);
                     painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
 
                 }
-                if(keepFloor.getIJFloorMap(i, j) == 3)
+                if(storedFloor[indexI][indexJ] == 3)
                 {
                     painter->setBrush(Qt::red);
                     painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
 
                 }
-                if(keepFloor.getIJFloorMap(i, j) == 4)
+                if(storedFloor[indexI][indexJ] == 4)
                 {
                     painter->setBrush(Qt::magenta);
                     painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
 
                 }
-                if(keepFloor.getIJFloorMap(i, j) == 5)
+                if(storedFloor[indexI][indexJ] == 5)
                 {
                     painter->setBrush(Qt::gray);
                     painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
 
                 }
-                if(keepFloor.getIJFloorMap(i, j) == 6)
+                if(storedFloor[indexI][indexJ] == 6)
                 {
                     painter->setBrush(Qt::green);
                     painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);

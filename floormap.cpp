@@ -84,6 +84,9 @@ int** FloorMap::getFloorMap()
     int** temp = new int*[width];
     for(int i = 0; i < width; i++)
         temp[i] = new int[height];
+    for(int i = 0; i < width; i++)
+        for(int j = 0; j < height; j ++)
+            temp[i][j] = floor[i][j];
     return temp;
 
 }
