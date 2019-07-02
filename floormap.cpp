@@ -51,6 +51,7 @@ void FloorMap::updateFloorMap()//считывает карту из файла �
                     if(currentString[xCoordinate] == "2")
                     {
                         floor[xCoordinate][yCoordinate] = 2;
+                        floorForTheWay[xCoordinate][yCoordinate] = -1;
                     }
 
                     if(currentString[xCoordinate] == "3")
@@ -61,6 +62,7 @@ void FloorMap::updateFloorMap()//считывает карту из файла �
                     if(currentString[xCoordinate] == "4")
                     {
                         floor[xCoordinate][yCoordinate] = 4;
+
                     }
 
                     if(currentString[xCoordinate] == "5")

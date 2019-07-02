@@ -22,6 +22,7 @@ Simulation::Simulation(QWidget *parent) :
         int width = currentString.toInt();
         currentString = in.readLine(50);
         int height = currentString.toInt();
+        file.close();
         FloorMap* newMap = new FloorMap(width, height);
         mapOfTheFloor = newMap;
         paintHelper = ui->mapWidget;
@@ -33,12 +34,19 @@ Simulation::Simulation(QWidget *parent) :
     paintHelper->changeMapAccordingWithHumans(group);
     paintHelper->draw();
     vector<PathOfWay> myWay;
+    /*
     for(int i = 1; i <= 4; i ++)
     {
         PathOfWay newWay(i, 1);
         myWay.push_back(newWay);
     }
+    */
+    ///*
+    vector<vector<int>> forTheWay(mapOfTheFloor->getFloorForTheWay());
+    myWay = group.People[0].MakeWay(4, 1, &forTheWay);
+    //*/
     group.DefineWay(myWay);
+    //group.DefineWay(myWay);
     timer->setInterval(1000);
     connect(timer, SIGNAL(timeout()), this, SLOT(stepModel()));
     timer->start();

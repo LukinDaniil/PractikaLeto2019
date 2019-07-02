@@ -106,11 +106,11 @@ void Human::SetWay(vector<PathOfWay> NewWay)
         Way.push_back(NewWay[i]);
     }
 }
-void Human::MakeWay(int FinishX, int FinishY, vector<vector<int>> *map)
+vector<PathOfWay> Human::MakeWay(int FinishX, int FinishY, vector<vector<int>> *map)
 {
     vector<PathOfWay> queue;
     queue.push_back(*(new PathOfWay(PositionX, PositionY)));
-    Seach(queue, 1, map);
+    Seach(FinishX, FinishY, queue, 1, map);
     (*map)[PositionX][PositionY] = 0;
     int CurX = FinishX;
     int CurY = FinishY;
@@ -149,14 +149,18 @@ void Human::MakeWay(int FinishX, int FinishY, vector<vector<int>> *map)
     {
         CorrectWay.push_back(*new PathOfWay(MakedWay[MakedWay.size() - i - 1].X, MakedWay[MakedWay.size() - i - 1].Y));
     }
-    SetWay(CorrectWay);
+    //SetWay(CorrectWay); //ПОКА ЧТО ЗАКОМЕНЧЕНО
+    return (CorrectWay);
 }
 
-void Human::Seach(vector<PathOfWay> queue, int Num, vector<vector<int>> *map)
+void Human::Seach(int FinishX, int FinishY, vector<PathOfWay> queue, int Num, vector<vector<int>> *map)
 {
     vector<PathOfWay> NewQueue;
     if (queue.size() == 0)
         return;
+    for (int i = 0; i < queue.size(); i++)
+        if (queue[i].X == FinishX && queue[i].Y == FinishY)
+            return;
     while (queue.size() > 0)
     {
         int X = queue[0].X;
@@ -176,6 +180,19 @@ void Human::Seach(vector<PathOfWay> queue, int Num, vector<vector<int>> *map)
         (*map)[X][Y] = Num;
         queue.erase(queue.begin());
     }
-    Seach(NewQueue, Num + 1, map);
+    for (int i = 0; i < NewQueue.size(); i++)
+        for (int j = 0; j < NewQueue.size(); j++)
+        {
+            if (i != j)
+            {
+                if (NewQueue[i].X == NewQueue[j].X && NewQueue[i].Y == NewQueue[j].Y)
+                {
+                    NewQueue.erase(NewQueue.begin() + j);
+                    j--;
+                }
+            }
+        }
+    Seach(FinishX, FinishY,NewQueue, Num + 1, map);
 
 }
+

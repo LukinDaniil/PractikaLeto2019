@@ -65,9 +65,7 @@ void PaintHelper2::paintEvent(QPaintEvent *e)
             QString currentString;
             //можно в дальнейшем устанавливать в файле на 3 строку сразу
             currentString = in.readLine(50);
-            int width = currentString.toInt();
             currentString = in.readLine(50);
-            int height = currentString.toInt();
             QPainter* painter = new QPainter(this);
             painter->setPen(Qt::black);
             painter->setBrush(Qt::white);
@@ -136,6 +134,7 @@ void PaintHelper2::paintEvent(QPaintEvent *e)
         }
 
     }
+    file.close();
 }
 
 
