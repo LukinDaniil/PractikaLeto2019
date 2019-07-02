@@ -5,6 +5,7 @@
 #include "qfile.h"
 #include "floormap.h"
 #include "vector"
+#include "QFileDialog"
 Simulation::Simulation(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Simulation)
@@ -69,7 +70,10 @@ void Simulation::stepModel()
 void Simulation::on_loadMapButton_clicked()
 {
     disconnect(timer, SIGNAL(timeout()), this, SLOT(stepModel()));
-    QFile file(ui->pathToMap->text());
+    QFileDialog choseFile;
+    QString filename = QFileDialog::getSaveFileName(this, tr("Chose document"), QDir::currentPath(), tr("Documents (*.txt)") );
+    //QString path = choseFile.getSaveFileUrl(0, "Open dialog", " ");
+    QFile file(filename);
     if(file.exists() && file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         QTextStream in(&file);
@@ -79,11 +83,11 @@ void Simulation::on_loadMapButton_clicked()
         currentString = in.readLine(50);
         int height = currentString.toInt();
         file.close();
-        FloorMap* newMap = new FloorMap(width, height, ui->pathToMap->text());
+        FloorMap* newMap = new FloorMap(width, height, filename);
         mapOfTheFloor = newMap;
         paintHelper = ui->mapWidget;
         //paintHelper->setKeepFloor(newMap);
-        paintHelper->setKeepFloor(mapOfTheFloor, ui->pathToMap->text());
+        paintHelper->setKeepFloor(mapOfTheFloor, filename);
         paintHelper->draw();
     }
     //продумать ресет таймера
