@@ -1,36 +1,36 @@
 #include "mytime.h"
 
-Time::Time()
+MyTime::MyTime()
 {
         Hour = 0;
         Minute = 0;
         Day = 0;
         CountDay = 5;
 }
-Time::Time(int NewHour, int NewMinute, int NewDay, int NewCountDay)
+MyTime::MyTime(int NewHour, int NewMinute, int NewDay, int NewCountDay)
 {
     Hour = NewHour;
     Minute = NewMinute;
     Day = NewDay;
     CountDay = NewCountDay;
 }
-void Time::SetMinute(int NewMinute)
+void MyTime::SetMinute(int NewMinute)
 {
     Minute = NewMinute;
 }
-int Time::GetMinute()
+int MyTime::GetMinute()
 {
     return Minute;
 }
-void Time::SetHour(int NewHour)
+void MyTime::SetHour(int NewHour)
 {
     Hour = NewHour;
 }
-int Time::GetHour()
+int MyTime::GetHour()
 {
     return  Hour;
 }
-void Time::AddMinute(int Min)
+void MyTime::AddMinute(int Min)
 {
     Minute += Min;
     if (Minute >= 60)

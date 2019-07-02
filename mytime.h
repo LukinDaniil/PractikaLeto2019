@@ -1,7 +1,7 @@
 #ifndef MYTIME_H
 #define MYTIME_H
 
-class Time
+class MyTime
 {
 private:
     int Hour;
@@ -14,8 +14,8 @@ public:
     int GetHour();
     int GetMinute();
     void AddMinute(int Min);
-    Time();
-    Time(int NewHour, int NewMinute, int NewDay, int NewCountDay);
+    MyTime();
+    MyTime(int NewHour, int NewMinute, int NewDay, int NewCountDay);
 };
 
 

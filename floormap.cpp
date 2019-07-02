@@ -18,8 +18,8 @@ FloorMap::FloorMap(int newWidth, int newHeight)
 
 void FloorMap::updateFloorMap()//считывает карту из файла и сохраняет информацию в полях
 {
-    //QString fileName = "F:/Projects/PractikaLeto2019/Files/MainBuildingFloor.txt";
-    QString fileName = "C:/Users/aleks/Documents/PractikaLeto2019/MainBuildingFloor.txt";
+    QString fileName = "F:/Projects/PractikaLeto2019/Files/MainBuildingFloor.txt";
+    //QString fileName = "C:/Users/aleks/Documents/PractikaLeto2019/MainBuildingFloor.txt";
     QFile file(fileName);
     if(file.exists() && file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
