@@ -29,6 +29,38 @@ void PaintHelper2::draw()
 
 void PaintHelper2::paintEvent(QPaintEvent *e)
 {
+    //QPainter paint(this);
+    //paint.drawPixmap(0, 0, *buffer);
+
+
+
+
+    //painter->drawLine(0, 0, /*floorMap->getWidth()*/16*BLOCK_WIDTH, 0);
+    //painter->drawLine(0, 0, 0, /*floorMap->getHeight()*/8*BLOCK_WIDTH);
+    //painter->drawLine(0, /*floorMap->getHeight()*/8*BLOCK_WIDTH, /*floorMap->getWidth()*/16*BLOCK_WIDTH - 1*BLOCK_WIDTH, /*floorMap->getHeight()*/8*BLOCK_WIDTH - 1*BLOCK_WIDTH);
+    //painter->drawLine(/*floorMap->getWidth()*/16*BLOCK_WIDTH, 0, /*floorMap->getWidth()*/16*BLOCK_WIDTH - 1*BLOCK_WIDTH, /*floorMap->getHeight()*/8*BLOCK_WIDTH - 1*BLOCK_WIDTH);
+    //int width = floorMap->getWidth() / BLOCK_WIDTH;
+    //int height = floorMap->getHeight() / BLOCK_WIDTH;
+
+
+    //QFile file("F:\\Projects\\PractikaLeto2019\\Files\\MainBuildingFloor");//открываем файл с картой этажа
+    //QFile file("MainBuildingFloor.txt");//открываем файл с картой этажа
+    //QString fileName = "C:/Users/aleks/Documents/PractikaLeto2019/MainBuildingFloor.txt";
+    QString fileName = "F:/Projects/PractikaLeto2019/Files/MainBuildingFloor.txt";
+    QFile file(fileName);
+    if(file.exists() && file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        QTextStream in(&file);
+    //if (file.exists())
+    //{
+        //if (file.exists())
+        //{
+            QString currentString;
+            //можно в дальнейшем устанавливать в файле на 3 строку сразу
+            currentString = in.readLine(50);
+            int width = currentString.toInt();
+            currentString = in.readLine(50);
+            int height = currentString.toInt();
             QPainter* painter = new QPainter(this);
             painter->setPen(Qt::black);
             painter->setBrush(Qt::white);
@@ -96,6 +128,7 @@ void PaintHelper2::paintEvent(QPaintEvent *e)
             indexI++;
         }
 
+    }
 }
 
 

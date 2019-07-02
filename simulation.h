@@ -6,6 +6,11 @@
 #include "painthelper2.h"
 #include "QTimer"
 #include "QTextStream"
+#include "timesheet.h"
+#include "teacher.h"
+#include "student.h"
+#include "group.h"
+#include <vector>
 namespace Ui
 {
 class Simulation;
@@ -24,10 +29,12 @@ private slots:
 
 private:
     Ui::Simulation *ui;
-    //FloorMap* floorMap;
     PaintHelper2* paintHelper;
     FloorMap* mapOfTheFloor;
+    vector <Teacher> teachers;
+    Group group;
     QTimer* timer = new QTimer();
+
     const int FPS = 30;
 };
 

@@ -31,7 +31,7 @@ void FloorMap::updateFloorMap()//считывает карту из файла �
             while(!in.atEnd())
             {
                 //currentString = "";
-                currentString=in.readLine(50);//считываю строку
+                currentString=in.readLine(100);//считываю строку
                 for(int xCoordinate = 0; xCoordinate < currentString.size(); xCoordinate++)//проходим по currentString
                 {
                     //в дальнейшем заменить на case для спавна различных объектов
