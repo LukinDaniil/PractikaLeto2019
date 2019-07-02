@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>852</width>
-    <height>597</height>
+    <width>1145</width>
+    <height>747</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,18 +17,18 @@
    <widget class="PaintHelper2" name="mapWidget" native="true">
     <property name="geometry">
      <rect>
-      <x>50</x>
+      <x>10</x>
       <y>40</y>
-      <width>451</width>
-      <height>431</height>
+      <width>811</width>
+      <height>611</height>
      </rect>
     </property>
    </widget>
    <widget class="QLabel" name="simulationTime">
     <property name="geometry">
      <rect>
-      <x>530</x>
-      <y>40</y>
+      <x>830</x>
+      <y>50</y>
       <width>231</width>
       <height>21</height>
      </rect>
@@ -49,8 +49,8 @@
    <widget class="QPushButton" name="loadMapButton">
     <property name="geometry">
      <rect>
-      <x>590</x>
-      <y>130</y>
+      <x>900</x>
+      <y>120</y>
       <width>151</width>
       <height>41</height>
      </rect>
@@ -62,7 +62,7 @@
    <widget class="QLineEdit" name="pathToMap">
     <property name="geometry">
      <rect>
-      <x>520</x>
+      <x>830</x>
       <y>80</y>
       <width>291</width>
       <height>31</height>
@@ -75,7 +75,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>852</width>
+     <width>1145</width>
      <height>21</height>
     </rect>
    </property>
