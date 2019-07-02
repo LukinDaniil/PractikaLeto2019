@@ -5,8 +5,9 @@ FloorMap::FloorMap()
 
 }
 
-FloorMap::FloorMap(int newWidth, int newHeight)
+FloorMap::FloorMap(int newWidth, int newHeight, QString newPath)
 {
+    pathToFile = newPath;
     width = newWidth;
     height = newHeight;
     floorForTheWay.resize(width, vector<int> (height, 0));
@@ -18,9 +19,9 @@ FloorMap::FloorMap(int newWidth, int newHeight)
 
 void FloorMap::updateFloorMap()//считывает карту из файла и сохраняет информацию в полях
 {
-    QString fileName = "F:/Projects/PractikaLeto2019/Files/MainBuildingFloor.txt";
+    //QString fileName = "F:/Projects/PractikaLeto2019/Files/MainBuildingFloor.txt";
     //QString fileName = "C:/Users/aleks/Documents/PractikaLeto2019/MainBuildingFloor.txt";
-    QFile file(fileName);
+    QFile file(pathToFile);
     if(file.exists() && file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         QTextStream in(&file);
@@ -92,6 +93,11 @@ void FloorMap::updateFloorMap()//считывает карту из файла �
             */
     }
     file.close();
+}
+
+QString FloorMap::getPathToFile()
+{
+    return pathToFile;
 }
 int** FloorMap::getFloorMap()
 {

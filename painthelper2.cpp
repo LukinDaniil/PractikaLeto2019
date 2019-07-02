@@ -21,13 +21,19 @@ void PaintHelper2::changeMapAccordingWithHumans(Group group)
     }
 }
 
+void PaintHelper2::setKeepFloor(FloorMap* newKeepMap, QString newPathToFile)
+{
+    pathToFile = newPathToFile;
+    floorWidth = newKeepMap->getWidth();
+    floorHeight = newKeepMap->getHeight();
+    storedFloor = newKeepMap->getFloorMap();
+}
+
 void PaintHelper2::setKeepFloor(FloorMap* newKeepMap)
 {
     floorWidth = newKeepMap->getWidth();
     floorHeight = newKeepMap->getHeight();
     storedFloor = newKeepMap->getFloorMap();
-    //delete keepFloor;
-    //keepFloor = newKeepMap;
 }
 
 void PaintHelper2::draw()
@@ -54,8 +60,8 @@ void PaintHelper2::paintEvent(QPaintEvent *e)
     //QFile file("F:\\Projects\\PractikaLeto2019\\Files\\MainBuildingFloor");//открываем файл с картой этажа
     //QFile file("MainBuildingFloor.txt");//открываем файл с картой этажа
     //QString fileName = "C:/Users/aleks/Documents/PractikaLeto2019/MainBuildingFloor.txt";
-    QString fileName = "F:/Projects/PractikaLeto2019/Files/MainBuildingFloor.txt";
-    QFile file(fileName);
+    //QString fileName = "F:/Projects/PractikaLeto2019/Files/MainBuildingFloor.txt";
+    QFile file(pathToFile);
     if(file.exists() && file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         QTextStream in(&file);

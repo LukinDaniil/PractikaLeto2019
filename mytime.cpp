@@ -2,8 +2,8 @@
 
 MyTime::MyTime()
 {
-        Hour = 23;
-        Minute = 50;
+        Hour = 8;
+        Minute = 15;
         Day = 1;
         CountDay = 5;
 }

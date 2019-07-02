@@ -10,12 +10,11 @@ class PaintHelper2 : public QWidget
 {
     Q_OBJECT
 private:
-    //FloorMap* keepFloor;
     int floorWidth;
     int floorHeight;
     int** storedFloor;
     const int BLOCK_WIDTH = 10;
-
+    QString pathToFile;
 public:
     //FloorMap* tempFloorMap;//для хранения карты для последующего рисования
     explicit PaintHelper2(QWidget *parent = nullptr);
@@ -23,6 +22,7 @@ public:
     void draw();
     void paintEvent(QPaintEvent* event);
     void setKeepFloor(FloorMap* newKeepMap);
+    void setKeepFloor(FloorMap* newKeepMap, QString newPathToFile);
     void changeMapAccordingWithHumans(Group group);
     // QWidget interface
 private:

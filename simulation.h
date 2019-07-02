@@ -29,6 +29,11 @@ public:
 private slots:
     void stepModel();
 
+    void on_loadMapButton_clicked();
+
+private: signals:
+    void FilePath(const QString &str);
+
 private:
     Ui::Simulation *ui;
     PaintHelper2* paintHelper;
