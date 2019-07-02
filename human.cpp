@@ -110,7 +110,7 @@ vector<PathOfWay> Human::MakeWay(int FinishX, int FinishY, vector<vector<int>> *
 {
     vector<PathOfWay> queue;
     queue.push_back(*(new PathOfWay(PositionX, PositionY)));
-    Seach(FinishX, FinishY, queue, 1, map);
+    Seach(FinishX, FinishY, queue, 0, map);
     (*map)[PositionX][PositionY] = 0;
     int CurX = FinishX;
     int CurY = FinishY;
@@ -119,25 +119,25 @@ vector<PathOfWay> Human::MakeWay(int FinishX, int FinishY, vector<vector<int>> *
     int CurNum = (*map)[FinishX][FinishY];
     do
     {
-        if (CurX - 1 >= 0 && (*map)[CurX - 1][CurY] == CurNum - 1)
+        if (CurX - 1 >= 0 && (*map)[CurX - 1][CurY] == CurNum - 1 && CurNum != 0)
         {
             CurX--;
             CurNum--;
             MakedWay.push_back(*(new PathOfWay(CurX, CurY)));
         }
-        if (CurX + 1 < (*map)[0].size() && (*map)[CurX + 1][CurY] == CurNum - 1)
+        if (CurX + 1 < (*map)[0].size() && (*map)[CurX + 1][CurY] == CurNum - 1 && CurNum != 0)
         {
             CurX++;
             CurNum--;
             MakedWay.push_back(*(new PathOfWay(CurX, CurY)));
         }
-        if (CurY - 1 >= 0 && (*map)[CurX][CurY - 1] == CurNum - 1)
+        if (CurY - 1 >= 0 && (*map)[CurX][CurY - 1] == CurNum - 1 && CurNum != 0)
         {
             CurY--;
             CurNum--;
             MakedWay.push_back(*(new PathOfWay(CurX, CurY)));
         }
-        if (CurY + 1 < (*map).size() && (*map)[CurX][CurY + 1] == CurNum - 1)
+        if (CurY + 1 < (*map).size() && (*map)[CurX][CurY + 1] == CurNum - 1 && CurNum != 0)
         {
             CurY++;
             CurNum--;
@@ -158,9 +158,7 @@ void Human::Seach(int FinishX, int FinishY, vector<PathOfWay> queue, int Num, ve
     vector<PathOfWay> NewQueue;
     if (queue.size() == 0)
         return;
-    for (int i = 0; i < queue.size(); i++)
-        if (queue[i].X == FinishX && queue[i].Y == FinishY)
-            return;
+
     while (queue.size() > 0)
     {
         int X = queue[0].X;
@@ -178,6 +176,7 @@ void Human::Seach(int FinishX, int FinishY, vector<PathOfWay> queue, int Num, ve
             if ((*map)[X][Y + 1] == 0)
                 NewQueue.push_back(*(new PathOfWay(X, Y + 1)));
         (*map)[X][Y] = Num;
+
         queue.erase(queue.begin());
     }
     for (int i = 0; i < NewQueue.size(); i++)

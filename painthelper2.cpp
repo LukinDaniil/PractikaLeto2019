@@ -52,8 +52,8 @@ void PaintHelper2::paintEvent(QPaintEvent *e)
 
     //QFile file("F:\\Projects\\PractikaLeto2019\\Files\\MainBuildingFloor");//открываем файл с картой этажа
     //QFile file("MainBuildingFloor.txt");//открываем файл с картой этажа
-    //QString fileName = "C:/Users/aleks/Documents/PractikaLeto2019/MainBuildingFloor.txt";
-    QString fileName = "F:/Projects/PractikaLeto2019/Files/MainBuildingFloor.txt";
+    QString fileName = "C:/Users/aleks/Documents/PractikaLeto2019/MainBuildingFloor.txt";
+    //QString fileName = "F:/Projects/PractikaLeto2019/Files/MainBuildingFloor.txt";
     QFile file(fileName);
     if(file.exists() && file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
