@@ -209,8 +209,20 @@ void Human::SearchInTheCabinet(vector<PathOfWay> queue, int Num, vector<vector<i
             if ((*map)[X][Y + 1] == 0)
                 NewQueue.push_back(*(new PathOfWay(X, Y + 1)));
         (*map)[X][Y] = Num;
-        PathOfWay newDesk(X, Y);
-        currentCabinet->pushDesk(newDesk);
+        Enums e;
+
+        if(mapOfTheFloor->getIJFloorMap(X, Y) == e.FreeForStudent)
+        {
+            PathOfWay newDesk(X, Y);
+            currentCabinet->pushDesk(newDesk);//добавили
+        }
+
+        if(mapOfTheFloor->getIJFloorMap(X, Y) == e.FreeForTeacher)
+        {
+            PathOfWay newTeachersPlace(X, Y);
+            currentCabinet->pushTeachersPlace(newTeachersPlace);
+        }
+
         queue.erase(queue.begin());
     }
     for (int i = 0; i < NewQueue.size(); i++)

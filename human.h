@@ -5,6 +5,7 @@
 #include <algorithm>
 #include "cabinet.h"
 #include "floormap.h"
+#include "enums.h"
 using namespace std;
 
 

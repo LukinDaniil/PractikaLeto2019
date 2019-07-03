@@ -22,3 +22,8 @@ PathOfWay::PathOfWay(int NewX, int NewY)
     X = NewX;
     Y = NewY;
 }
+
+void Cabinet::pushTeachersPlace(PathOfWay newTeachersPlace)
+{
+    TeachersPlace = newTeachersPlace;
+}

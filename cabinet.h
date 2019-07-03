@@ -25,6 +25,7 @@ public:
     vector<PathOfWay> desks;
     Cabinet(int newNumOfCabinet, PathOfWay newExitOfCabinet);
     void pushDesk(PathOfWay newDesk);
+    void pushTeachersPlace(PathOfWay newTeachersPlace);
 };
 
 #endif // CABINET_H
