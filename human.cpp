@@ -140,7 +140,6 @@ vector<PathOfWay> Human::MakeWay(int FinishX, int FinishY, vector<vector<int>> *
     {
         CorrectWay.push_back(*new PathOfWay(MakedWay[MakedWay.size() - i - 1].X, MakedWay[MakedWay.size() - i - 1].Y));
     }
-    //SetWay(CorrectWay); //ПОКА ЧТО ЗАКОМЕНЧЕНО
     return (CorrectWay);
 }
 
@@ -184,6 +183,57 @@ void Human::Search(vector<PathOfWay> queue, int Num, vector<vector<int>> *map)
         }
     Search(NewQueue, Num + 1, map);
 
+}
+
+void Human::MakeWayInTheCabinet(int FinishX, int FinishY, vector<vector<int>> *map, FloorMap* mapOfTheFloor , Cabinet *currentCabinet)
+{
+    vector<PathOfWay> queue;
+    queue.push_back(*(new PathOfWay(PositionX, PositionY)));
+    SearchInTheCabinet(queue, 0, map, mapOfTheFloor, currentCabinet);
+    (*map)[PositionX][PositionY] = 0;
+    for(int i = 0; i < currentCabinet->desks.size(); i ++)//проходим по всем партам
+    {
+        FinishX = currentCabinet->desks[i].X;
+        FinishY = currentCabinet->desks[i].Y;
+        int CurX = FinishX;
+        int CurY = FinishY;
+        vector<PathOfWay> MakedWay;
+        MakedWay.push_back(*(new PathOfWay(CurX, CurY)));
+        int CurNum = (*map)[FinishX][FinishY];
+        do
+        {
+            if (CurX - 1 >= 0 && (*map)[CurX - 1][CurY] == CurNum - 1 && CurNum != 0)
+            {
+                CurX--;
+                CurNum--;
+                MakedWay.push_back(*(new PathOfWay(CurX, CurY)));
+            }
+            if (CurX + 1 < (*map)[0].size() && (*map)[CurX + 1][CurY] == CurNum - 1 && CurNum != 0)
+            {
+                CurX++;
+                CurNum--;
+                MakedWay.push_back(*(new PathOfWay(CurX, CurY)));
+            }
+            if (CurY - 1 >= 0 && (*map)[CurX][CurY - 1] == CurNum - 1 && CurNum != 0)
+            {
+                CurY--;
+                CurNum--;
+                MakedWay.push_back(*(new PathOfWay(CurX, CurY)));
+            }
+            if (CurY + 1 < (*map).size() && (*map)[CurX][CurY + 1] == CurNum - 1 && CurNum != 0)
+            {
+                CurY++;
+                CurNum--;
+                MakedWay.push_back(*(new PathOfWay(CurX, CurY)));
+            }
+        } while (CurNum != 0);
+        vector<PathOfWay> CorrectWay;
+        for (int i = 0; i < MakedWay.size(); i++)
+        {
+            CorrectWay.push_back(*new PathOfWay(MakedWay[MakedWay.size() - i - 1].X, MakedWay[MakedWay.size() - i - 1].Y));
+        }
+        currentCabinet->Ways.push_back(CorrectWay);
+    }
 }
 
 void Human::SearchInTheCabinet(vector<PathOfWay> queue, int Num, vector<vector<int>> *map, FloorMap* mapOfTheFloor , Cabinet *currentCabinet)
