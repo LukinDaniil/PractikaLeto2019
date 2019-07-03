@@ -1,14 +1,5 @@
 #include "human.h"
-PathOfWay::PathOfWay()
-{
-    X = 0;
-    Y = 0;
-}
-PathOfWay::PathOfWay(int NewX, int NewY)
-{
-    X = NewX;
-    Y = NewY;
-}
+
 int Human::GetPositionX()
 {
     return  PositionX;
@@ -110,7 +101,7 @@ vector<PathOfWay> Human::MakeWay(int FinishX, int FinishY, vector<vector<int>> *
 {
     vector<PathOfWay> queue;
     queue.push_back(*(new PathOfWay(PositionX, PositionY)));
-    Seach(FinishX, FinishY, queue, 0, map);
+    Search(queue, 0, map);
     (*map)[PositionX][PositionY] = 0;
     int CurX = FinishX;
     int CurY = FinishY;
@@ -153,7 +144,7 @@ vector<PathOfWay> Human::MakeWay(int FinishX, int FinishY, vector<vector<int>> *
     return (CorrectWay);
 }
 
-void Human::Seach(int FinishX, int FinishY, vector<PathOfWay> queue, int Num, vector<vector<int>> *map)
+void Human::Search(vector<PathOfWay> queue, int Num, vector<vector<int>> *map)
 {
     vector<PathOfWay> NewQueue;
     if (queue.size() == 0)
@@ -191,7 +182,48 @@ void Human::Seach(int FinishX, int FinishY, vector<PathOfWay> queue, int Num, ve
                 }
             }
         }
-    Seach(FinishX, FinishY,NewQueue, Num + 1, map);
+    Search(NewQueue, Num + 1, map);
 
 }
 
+void Human::SearchInTheCabinet(vector<PathOfWay> queue, int Num, vector<vector<int>> *map, FloorMap* mapOfTheFloor , Cabinet *currentCabinet)
+{
+    vector<PathOfWay> NewQueue;
+    if (queue.size() == 0)
+        return;
+
+    while (queue.size() > 0)
+    {
+        int X = queue[0].X;
+        int Y = queue[0].Y;
+        if (X - 1 >= 0)
+            if ((*map)[X - 1][Y] == 0)
+                NewQueue.push_back(*(new PathOfWay(X - 1, Y)));
+        if (X + 1 < (*map)[0].size())
+            if ((*map)[X + 1][Y] == 0)
+                NewQueue.push_back(*(new PathOfWay(X + 1, Y)));
+        if (Y - 1 >= 0)
+            if ((*map)[X][Y - 1] == 0)
+                NewQueue.push_back(*(new PathOfWay(X, Y - 1)));
+        if (Y + 1 < (*map).size())
+            if ((*map)[X][Y + 1] == 0)
+                NewQueue.push_back(*(new PathOfWay(X, Y + 1)));
+        (*map)[X][Y] = Num;
+        PathOfWay newDesk(X, Y);
+        currentCabinet->pushDesk(newDesk);
+        queue.erase(queue.begin());
+    }
+    for (int i = 0; i < NewQueue.size(); i++)
+        for (int j = 0; j < NewQueue.size(); j++)
+        {
+            if (i != j)
+            {
+                if (NewQueue[i].X == NewQueue[j].X && NewQueue[i].Y == NewQueue[j].Y)
+                {
+                    NewQueue.erase(NewQueue.begin() + j);
+                    j--;
+                }
+            }
+        }
+    Search(NewQueue, Num + 1, map);
+}

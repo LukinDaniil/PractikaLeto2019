@@ -3,7 +3,6 @@
 #include "vector"
 #include "QTextStream"
 #include "enums.h"
-#include "human.h"
 #include "cabinet.h"
 using namespace std;
 
@@ -12,7 +11,6 @@ class FloorMap
 private:
     int width;
     int height;
-    //vector<vector<int>> floor;
     int ** floor;
     vector<vector<int>> floorForTheWay;
     const int BLOCK_WIDTH = 10;

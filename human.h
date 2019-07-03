@@ -3,15 +3,10 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include "cabinet.h"
+#include "floormap.h"
 using namespace std;
-class PathOfWay
-{
-public:
-    int X;
-    int Y;
-    PathOfWay();
-    PathOfWay(int NewX, int NewY);
-};
+
 
 class Human
 {
@@ -21,7 +16,8 @@ protected:
     int Fullness;     // сытость (0-100)
     int NaturalNeeds; // естественные нужды 0-100
     vector<PathOfWay> Way; // путь
-    void Seach(int FinishX, int FinishY, vector<PathOfWay> queue, int Num, vector<vector<int>> *map);
+    void Search(vector<PathOfWay> queue, int Num, vector<vector<int>> *map);
+    void SearchInTheCabinet(vector<PathOfWay> queue, int Num, vector<vector<int>> *map, FloorMap* mapOfTheFloor , Cabinet *currentCabinet);
     void ComeCanteen();
     void ComeToilet();
 public:
