@@ -12,13 +12,19 @@ PaintHelper2::PaintHelper2()
 {
 
 }
-void PaintHelper2::changeMapAccordingWithHumans(Group group)
+void PaintHelper2::changeMapAccordingWithHumans(Group group, vector<Teacher> teachers)
 {
     Enums e;
     for (int i = 0; i < group.People.size(); i++)
     {
         storedFloor[group.People[i].GetPositionX()][group.People[i].GetPositionY()] = e.Student;
     }
+
+    for (int i = 0; i < teachers.size(); i++)
+    {
+        storedFloor[teachers[i].GetPositionX()][teachers[i].GetPositionY()] = e.Teacher;
+    }
+
 }
 
 void PaintHelper2::setKeepFloor(FloorMap* newKeepMap, QString newPathToFile)
@@ -96,7 +102,7 @@ void PaintHelper2::paintEvent(QPaintEvent *e)
             {
                 if(storedFloor[indexI][indexJ] == e.Wall)
                 {
-                    painter->setBrush(Qt::blue);
+                    painter->setBrush(Qt::black);
                     painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
 
                 }
@@ -130,9 +136,31 @@ void PaintHelper2::paintEvent(QPaintEvent *e)
                     painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
 
                 }
-                if(storedFloor[indexI][indexJ] == e.Student)//ЗДЕСЬ ЧЕЛОВЕК, мы толерантные поэтому он чёрный
+
+                if(storedFloor[indexI][indexJ] == e.EntranceToTheCanteen)
                 {
-                    painter->setBrush(Qt::black);
+                    painter->setBrush(Qt::darkGreen);
+                    painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
+
+                }
+
+                if(storedFloor[indexI][indexJ] == e.EntranceToTheToilet)
+                {
+                    painter->setBrush(Qt::darkGray);
+                    painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
+
+                }
+
+                if(storedFloor[indexI][indexJ] == e.Student)
+                {
+                    painter->setBrush(Qt::blue);
+                    painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
+
+                }
+
+                if(storedFloor[indexI][indexJ] == e.Teacher)
+                {
+                    painter->setBrush(Qt::darkBlue);
                     painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
 
                 }

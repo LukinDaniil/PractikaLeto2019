@@ -1,4 +1,4 @@
-#include "human.h"
+    #include "human.h"
 PathOfWay::PathOfWay()
 {
     X = 0;
@@ -110,7 +110,7 @@ vector<PathOfWay> Human::MakeWay(int FinishX, int FinishY, vector<vector<int>> *
 {
     vector<PathOfWay> queue;
     queue.push_back(*(new PathOfWay(PositionX, PositionY)));
-    Seach(FinishX, FinishY, queue, 0, map);
+    Seach(queue, 0, map);
     (*map)[PositionX][PositionY] = 0;
     int CurX = FinishX;
     int CurY = FinishY;
@@ -152,8 +152,8 @@ vector<PathOfWay> Human::MakeWay(int FinishX, int FinishY, vector<vector<int>> *
     //SetWay(CorrectWay); //ПОКА ЧТО ЗАКОМЕНЧЕНО
     return (CorrectWay);
 }
-
-void Human::Seach(int FinishX, int FinishY, vector<PathOfWay> queue, int Num, vector<vector<int>> *map)
+//создание карты волнового алгоритма для передвижения по карте
+void Human::Seach(vector<PathOfWay> queue, int Num, vector<vector<int>> *map)
 {
     vector<PathOfWay> NewQueue;
     if (queue.size() == 0)
@@ -175,7 +175,7 @@ void Human::Seach(int FinishX, int FinishY, vector<PathOfWay> queue, int Num, ve
         if (Y + 1 < (*map).size())
             if ((*map)[X][Y + 1] == 0)
                 NewQueue.push_back(*(new PathOfWay(X, Y + 1)));
-        (*map)[X][Y] = Num;
+        (*map)[X][Y] = Num;//в перегрузке делать проверку на то, парта это или нет и сохранять в cabinet[numberOfCabinet]
 
         queue.erase(queue.begin());
     }
@@ -191,7 +191,52 @@ void Human::Seach(int FinishX, int FinishY, vector<PathOfWay> queue, int Num, ve
                 }
             }
         }
-    Seach(FinishX, FinishY,NewQueue, Num + 1, map);
+    Seach(NewQueue, Num + 1, map);
 
 }
+//создание карты для волнового алгоритма для кабинета с номером numOfCabinet
+void Human::Seach(vector<PathOfWay> queue, int Num, vector<vector<int>> *map, int numOfCabinet, FloorMap* mapOfTheFloor)
+{
+    vector<PathOfWay> NewQueue;
+    if (queue.size() == 0)
+        return;
 
+    while (queue.size() > 0)
+    {
+        int X = queue[0].X;
+        int Y = queue[0].Y;
+        if (X - 1 >= 0)
+            if ((*map)[X - 1][Y] == 0)
+                NewQueue.push_back(*(new PathOfWay(X - 1, Y)));
+        if (X + 1 < (*map)[0].size())
+            if ((*map)[X + 1][Y] == 0)
+                NewQueue.push_back(*(new PathOfWay(X + 1, Y)));
+        if (Y - 1 >= 0)
+            if ((*map)[X][Y - 1] == 0)
+                NewQueue.push_back(*(new PathOfWay(X, Y - 1)));
+        if (Y + 1 < (*map).size())
+            if ((*map)[X][Y + 1] == 0)
+                NewQueue.push_back(*(new PathOfWay(X, Y + 1)));
+        (*map)[X][Y] = Num;//в перегрузке делать проверку на то, парта это или нет и сохранять в cabinet[numberOfCabinet]
+        Enums e;
+        if (mapOfTheFloor->getIJFloorMap(X, Y) == e.FreeForStudent)//если помечаемый блок - свободное место для студента
+        {
+            mapOfTheFloor->cabinets[numOfCabinet].
+        }
+        queue.erase(queue.begin());
+    }
+    for (int i = 0; i < NewQueue.size(); i++)
+        for (int j = 0; j < NewQueue.size(); j++)
+        {
+            if (i != j)
+            {
+                if (NewQueue[i].X == NewQueue[j].X && NewQueue[i].Y == NewQueue[j].Y)
+                {
+                    NewQueue.erase(NewQueue.begin() + j);
+                    j--;
+                }
+            }
+        }
+    Seach(NewQueue, Num + 1, map);
+
+}

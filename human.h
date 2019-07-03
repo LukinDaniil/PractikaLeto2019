@@ -12,7 +12,8 @@ public:
     PathOfWay();
     PathOfWay(int NewX, int NewY);
 };
-
+#include "floormap.h"
+#include "enums.h"
 class Human
 {
 protected:
@@ -21,7 +22,8 @@ protected:
     int Fullness;     // сытость (0-100)
     int NaturalNeeds; // естественные нужды 0-100
     vector<PathOfWay> Way; // путь
-    void Seach(int FinishX, int FinishY, vector<PathOfWay> queue, int Num, vector<vector<int>> *map);
+    void Seach(vector<PathOfWay> queue, int Num, vector<vector<int>> *map);
+    void Seach(vector<PathOfWay> queue, int Num, vector<vector<int>> *map, int numOfCabinet, FloorMap* mapOfTheFloor);
     void ComeCanteen();
     void ComeToilet();
 public:

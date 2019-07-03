@@ -6,6 +6,7 @@
 #include "floormap.h"
 #include "group.h"
 #include "enums.h"
+#include "teacher.h"
 class PaintHelper2 : public QWidget
 {
     Q_OBJECT
@@ -23,7 +24,7 @@ public:
     void paintEvent(QPaintEvent* event);
     void setKeepFloor(FloorMap* newKeepMap);
     void setKeepFloor(FloorMap* newKeepMap, QString newPathToFile);
-    void changeMapAccordingWithHumans(Group group);
+    void changeMapAccordingWithHumans(Group group, vector<Teacher> teachers);
     // QWidget interface
 private:
     void drawCells();
