@@ -185,7 +185,7 @@ void Human::Search(vector<PathOfWay> queue, int Num, vector<vector<int>> *map)
 
 }
 
-void Human::MakeWayInTheCabinet(int FinishX, int FinishY, vector<vector<int>> *map, FloorMap* mapOfTheFloor , Cabinet *currentCabinet)
+void Human::MakeWayInTheCabinet(vector<vector<int>> *map, FloorMap* mapOfTheFloor , Cabinet *currentCabinet)
 {
     vector<PathOfWay> queue;
     queue.push_back(*(new PathOfWay(PositionX, PositionY)));
@@ -239,8 +239,8 @@ void Human::MakeWayInTheCabinet(int FinishX, int FinishY, vector<vector<int>> *m
     //теперь для преподователя
 
     (*map)[PositionX][PositionY] = 0;
-    FinishX = currentCabinet->TeachersPlace.X;
-    FinishY = currentCabinet->TeachersPlace.Y;
+    int FinishX = currentCabinet->TeachersPlace.X;
+    int FinishY = currentCabinet->TeachersPlace.Y;
     int CurX = FinishX;
     int CurY = FinishY;
     vector<PathOfWay> MakedWay;

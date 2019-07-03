@@ -24,7 +24,7 @@ protected:
 public:
     void MakeStep();
     vector<PathOfWay> MakeWay(int FinishX, int FinishY, vector<vector<int>> *map); // map - это карта, где стены -1, а 0 - свободно
-    void MakeWayInTheCabinet(int FinishX, int FinishY, vector<vector<int>> *map, FloorMap* mapOfTheFloor , Cabinet *currentCabinet);
+    void MakeWayInTheCabinet(vector<vector<int>> *map, FloorMap* mapOfTheFloor , Cabinet *currentCabinet);
     void SetWay(vector<PathOfWay> NewWay);
     void Eat();
     void Toilet();
