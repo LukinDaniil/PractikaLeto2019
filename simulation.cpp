@@ -139,3 +139,7 @@ vector<PathOfWay> Simulation::goTowardsCabinet(int numberOfCabinet, int xFrom, i
     return myWay;
 }
 
+vector<vector<PathOfWay>> Simulation::goToYourPlace(int xFrom, int yFrom)//человек уже в кабинете, так что номер известен
+{
+
+}
