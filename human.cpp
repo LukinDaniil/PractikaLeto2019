@@ -194,8 +194,8 @@ void Human::MakeWayInTheCabinet(vector<vector<int>> *map, FloorMap* mapOfTheFloo
     for(int i = 0; i < currentCabinet->desks.size(); i ++)//проходим по всем партам
     {
         (*map)[PositionX][PositionY] = 0;
-        FinishX = currentCabinet->desks[i].X;
-        FinishY = currentCabinet->desks[i].Y;
+        int FinishX = currentCabinet->desks[i].X;
+        int FinishY = currentCabinet->desks[i].Y;
         int CurX = FinishX;
         int CurY = FinishY;
         vector<PathOfWay> MakedWay;
