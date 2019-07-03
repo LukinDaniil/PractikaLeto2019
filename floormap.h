@@ -3,22 +3,20 @@
 #include "vector"
 #include "QTextStream"
 #include "enums.h"
-
-using namespace std;
 #include "cabinet.h"
+using namespace std;
+
 class FloorMap
 {
 private:
     int width;
     int height;
-    //vector<vector<int>> floor;
     int ** floor;
     vector<vector<int>> floorForTheWay;
     const int BLOCK_WIDTH = 10;
     QString pathToFile;
     vector<Cabinet> cabinets;
 public:
-    friend class Human;
     FloorMap();
     FloorMap(int newWidth, int newHeight, QString newPath);
     int** getFloorMap();

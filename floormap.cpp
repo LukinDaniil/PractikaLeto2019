@@ -31,7 +31,6 @@ void FloorMap::updateFloorMap()//считывает карту из файла �
             currentString = in.readLine(50);
             int yCoordinate = 0;//y координата
 
-            int cabinetCount = 0;
             while(!in.atEnd())
             {
                 //currentString = "";
@@ -42,54 +41,57 @@ void FloorMap::updateFloorMap()//считывает карту из файла �
                     //в дальнейшем заменить на case для спавна различных объектов
 
                     if(currentString[xCoordinate] == "0")
-                    {
-                        floor[xCoordinate][yCoordinate] = e.FreeBlock;
-                    }
+                                        {
+                                            floor[xCoordinate][yCoordinate] = e.FreeBlock;
+                                        }
 
-                    if(currentString[xCoordinate] == "1")
-                    {
-                        floor[xCoordinate][yCoordinate] = e.Wall;
-                        floorForTheWay[xCoordinate][yCoordinate] = -1;
-                    }
+                                        if(currentString[xCoordinate] == "1")
+                                        {
+                                            floor[xCoordinate][yCoordinate] = e.Wall;
+                                            floorForTheWay[xCoordinate][yCoordinate] = -1;
+                                        }
 
-                    if(currentString[xCoordinate] == "2")
-                    {
-                        floor[xCoordinate][yCoordinate] = e.Desk;
-                        floorForTheWay[xCoordinate][yCoordinate] = -1;
-                    }
+                                        if(currentString[xCoordinate] == "2")
+                                        {
+                                            floor[xCoordinate][yCoordinate] = e.Desk;
+                                            floorForTheWay[xCoordinate][yCoordinate] = -1;
+                                        }
 
-                    if(currentString[xCoordinate] == "3")
-                    {
-                        floor[xCoordinate][yCoordinate] = e.Track;
-                    }
+                                        if(currentString[xCoordinate] == "3")
+                                        {
+                                            floor[xCoordinate][yCoordinate] = e.Track;
+                                        }
 
-                    if(currentString[xCoordinate] == "4")
-                    {
-                        floor[xCoordinate][yCoordinate] = e.FreeForStudent;
+                                        if(currentString[xCoordinate] == "4")
+                                        {
+                                            floor[xCoordinate][yCoordinate] = e.FreeForStudent;
 
-                    }
+                                        }
 
-                    if(currentString[xCoordinate] == "5")
-                    {
-                        floor[xCoordinate][yCoordinate] = e.FreeForTeacher;
-                    }
+                                        if(currentString[xCoordinate] == "5")
+                                        {
+                                            floor[xCoordinate][yCoordinate] = e.FreeForTeacher;
+                                        }
 
-                    if(currentString[xCoordinate] == "6")
-                    {
-                        floor[xCoordinate][yCoordinate] = e.EntranceToTheClassroom;
-                        PathOfWay newExit(xCoordinate, yCoordinate);
-                        Cabinet newCabinet(cabinetCount, newExit);//номер кабинета от 0, а не от 1!
-                        cabinets.push_back(newCabinet);
+                                        if(currentString[xCoordinate] == "6")
+                                        {
+                                            floor[xCoordinate][yCoordinate] = e.EntranceToTheClassroom;
+                                            /*
+                                            PathOfWay newExit(xCoordinate, yCoordinate);
+                                            Cabinet newCabinet(cabinetCount, newExit);//номер кабинета от 0, а не от 1!
+                                            cabinets.push_back(newCabinet);
+                                            */
 
-                    }
-                    if(currentString[xCoordinate] == "7")
-                    {
-                        floor[xCoordinate][yCoordinate] = e.EntranceToTheCanteen;
-                    }
-                    if(currentString[xCoordinate] == "8")
-                    {
-                        floor[xCoordinate][yCoordinate] = e.EntranceToTheToilet;
-                    }
+                                        }
+
+                                        if(currentString[xCoordinate] == "7")
+                                        {
+                                            floor[xCoordinate][yCoordinate] = e.EntranceToTheCanteen;
+                                        }
+                                        if(currentString[xCoordinate] == "8")
+                                        {
+                                            floor[xCoordinate][yCoordinate] = e.EntranceToTheToilet;
+                                        }
                 }
                 yCoordinate++;//переходим на следующую строку
                 //добавить обновление формы или найти иной сп
@@ -139,13 +141,12 @@ int FloorMap::getHeight()
     return height;
 }
 
-PathOfWay FloorMap::getCoordinatesOfCabinet(int numberOfCabinet)
-{
-    return cabinets[numberOfCabinet].ExitOfCabinet;//возвращаю координаты входа в кабинет
-}
-
 int FloorMap::getIJFloorMap(int i, int j)
 {
     return floor[i][j];
 }
 
+PathOfWay FloorMap::getCoordinatesOfCabinet(int numberOfCabinet)
+{
+    return cabinets[numberOfCabinet].ExitOfCabinet;//возвращаю координаты входа в кабинет
+}

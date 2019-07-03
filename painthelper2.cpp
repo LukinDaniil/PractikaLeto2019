@@ -12,19 +12,13 @@ PaintHelper2::PaintHelper2()
 {
 
 }
-void PaintHelper2::changeMapAccordingWithHumans(Group group, vector<Teacher> teachers)
+void PaintHelper2::changeMapAccordingWithHumans(Group group)
 {
     Enums e;
     for (int i = 0; i < group.People.size(); i++)
     {
         storedFloor[group.People[i].GetPositionX()][group.People[i].GetPositionY()] = e.Student;
     }
-
-    for (int i = 0; i < teachers.size(); i++)
-    {
-        storedFloor[teachers[i].GetPositionX()][teachers[i].GetPositionY()] = e.Teacher;
-    }
-
 }
 
 void PaintHelper2::setKeepFloor(FloorMap* newKeepMap, QString newPathToFile)
@@ -136,31 +130,30 @@ void PaintHelper2::paintEvent(QPaintEvent *e)
                     painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
 
                 }
-
-                if(storedFloor[indexI][indexJ] == e.EntranceToTheCanteen)
-                {
-                    painter->setBrush(Qt::darkGreen);
-                    painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
-
-                }
-
-                if(storedFloor[indexI][indexJ] == e.EntranceToTheToilet)
-                {
-                    painter->setBrush(Qt::darkGray);
-                    painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
-
-                }
-
-                if(storedFloor[indexI][indexJ] == e.Student)
+                if(storedFloor[indexI][indexJ] == e.Student)//ЗДЕСЬ ЧЕЛОВЕК, мы толерантные поэтому он чёрный
                 {
                     painter->setBrush(Qt::blue);
                     painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
 
                 }
 
-                if(storedFloor[indexI][indexJ] == e.Teacher)
+                if(storedFloor[indexI][indexJ] == e.Teacher)//ЗДЕСЬ ЧЕЛОВЕК, мы толерантные поэтому он чёрный
                 {
-                    painter->setBrush(Qt::darkBlue);
+                    painter->setBrush(Qt::darkGray);
+                    painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
+
+                }
+
+                if(storedFloor[indexI][indexJ] == e.EntranceToTheCanteen)//ЗДЕСЬ ЧЕЛОВЕК, мы толерантные поэтому он чёрный
+                {
+                    painter->setBrush(Qt::cyan);
+                    painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
+
+                }
+
+                if(storedFloor[indexI][indexJ] == e.EntranceToTheToilet)//ЗДЕСЬ ЧЕЛОВЕК, мы толерантные поэтому он чёрный
+                {
+                    painter->setBrush(Qt::darkCyan);
                     painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
 
                 }

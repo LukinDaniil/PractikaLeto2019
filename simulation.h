@@ -45,9 +45,7 @@ private:
     QTimer* timer = new QTimer();
     MyTime currentTime;
     const int FPS = 30;
-    //добавить timeSheet
 };
 
 #endif // SIMULATION_H
-
 

@@ -3,17 +3,12 @@
 #include <string>
 #include <vector>
 #include <algorithm>
-using namespace std;
-class PathOfWay
-{
-public:
-    int X;
-    int Y;
-    PathOfWay();
-    PathOfWay(int NewX, int NewY);
-};
+#include "cabinet.h"
 #include "floormap.h"
 #include "enums.h"
+using namespace std;
+
+
 class Human
 {
 protected:
@@ -22,13 +17,14 @@ protected:
     int Fullness;     // сытость (0-100)
     int NaturalNeeds; // естественные нужды 0-100
     vector<PathOfWay> Way; // путь
-    void Seach(vector<PathOfWay> queue, int Num, vector<vector<int>> *map);
-    void Seach(vector<PathOfWay> queue, int Num, vector<vector<int>> *map, int numOfCabinet, FloorMap* mapOfTheFloor);
+    void Search(vector<PathOfWay> queue, int Num, vector<vector<int>> *map);
+    void SearchInTheCabinet(vector<PathOfWay> queue, int Num, vector<vector<int>> *map, FloorMap* mapOfTheFloor , Cabinet *currentCabinet);
     void ComeCanteen();
     void ComeToilet();
 public:
     void MakeStep();
     vector<PathOfWay> MakeWay(int FinishX, int FinishY, vector<vector<int>> *map); // map - это карта, где стены -1, а 0 - свободно
+    void MakeWayInTheCabinet(vector<vector<int>> *map, FloorMap* mapOfTheFloor , Cabinet *currentCabinet);
     void SetWay(vector<PathOfWay> NewWay);
     void Eat();
     void Toilet();
