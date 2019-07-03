@@ -3,6 +3,8 @@
 #include "vector"
 #include "QTextStream"
 #include "enums.h"
+#include "human.h"
+#include "cabinet.h"
 using namespace std;
 
 class FloorMap
@@ -15,6 +17,7 @@ private:
     vector<vector<int>> floorForTheWay;
     const int BLOCK_WIDTH = 10;
     QString pathToFile;
+    vector<Cabinet> cabinets;
 public:
     FloorMap();
     FloorMap(int newWidth, int newHeight, QString newPath);
@@ -25,6 +28,7 @@ public:
     int getHeight();
     int getIJFloorMap(int i, int j);
     QString getPathToFile();
+    PathOfWay getCoordinatesOfCabinet(int numberOfCabinet);
 };
 
 #endif // FLOORMAP_H

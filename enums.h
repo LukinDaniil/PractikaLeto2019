@@ -15,8 +15,10 @@ public:
         FreeForStudent = 4,
         FreeForTeacher = 5,
         EntranceToTheClassroom = 6,
-        Student = 7,
-        Teacher = 8
+        EntranceToTheCanteen = 7,
+        EntranceToTheToilet = 8,
+        Student = 9,
+        Teacher = 10
     };
     Q_ENUMS(TypesOfBlocks)
 };

@@ -1,6 +1,7 @@
 #include "cabinet.h"
 
-Cabinet::Cabinet()
+Cabinet::Cabinet(int newNumOfCabinet, PathOfWay newExitOfCabinet)
 {
-
+    NumOfCabinet = newNumOfCabinet;
+    ExitOfCabinet = newExitOfCabinet;
 }

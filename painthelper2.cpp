@@ -96,7 +96,7 @@ void PaintHelper2::paintEvent(QPaintEvent *e)
             {
                 if(storedFloor[indexI][indexJ] == e.Wall)
                 {
-                    painter->setBrush(Qt::blue);
+                    painter->setBrush(Qt::black);
                     painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
 
                 }
@@ -132,7 +132,28 @@ void PaintHelper2::paintEvent(QPaintEvent *e)
                 }
                 if(storedFloor[indexI][indexJ] == e.Student)//ЗДЕСЬ ЧЕЛОВЕК, мы толерантные поэтому он чёрный
                 {
-                    painter->setBrush(Qt::black);
+                    painter->setBrush(Qt::blue);
+                    painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
+
+                }
+
+                if(storedFloor[indexI][indexJ] == e.Teacher)//ЗДЕСЬ ЧЕЛОВЕК, мы толерантные поэтому он чёрный
+                {
+                    painter->setBrush(Qt::darkGray);
+                    painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
+
+                }
+
+                if(storedFloor[indexI][indexJ] == e.EntranceToTheCanteen)//ЗДЕСЬ ЧЕЛОВЕК, мы толерантные поэтому он чёрный
+                {
+                    painter->setBrush(Qt::cyan);
+                    painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
+
+                }
+
+                if(storedFloor[indexI][indexJ] == e.EntranceToTheToilet)//ЗДЕСЬ ЧЕЛОВЕК, мы толерантные поэтому он чёрный
+                {
+                    painter->setBrush(Qt::darkCyan);
                     painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
 
                 }

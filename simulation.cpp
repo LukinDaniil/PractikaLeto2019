@@ -98,3 +98,44 @@ void Simulation::on_loadMapButton_clicked()
     timer->start();
     ui->simulationTime->setText(currentTime.ToString());
 }
+
+vector<PathOfWay> Simulation::goTowardsCabinet(int numberOfCabinet, int xFrom, int yFrom)//в какой кабинет и кто идёт
+{
+    vector<PathOfWay> myWay;//новый путь
+    vector<vector<int>> forTheWay(mapOfTheFloor->getFloorForTheWay());//массив для волнового алгоритма
+    PathOfWay coordinatesOfCabinet = mapOfTheFloor->getCoordinatesOfCabinet(numberOfCabinet);
+    Student whoWalks;
+    whoWalks.SetPositions(xFrom, yFrom);
+    myWay = whoWalks.MakeWay(coordinatesOfCabinet.X, coordinatesOfCabinet.Y, &forTheWay);//в myWay будет от путь от текущего положения человека до входа в кабинет
+    //добавляем ещё один блок в пути, чтобы путь заканчивался в кабинете(1 шаг в него)
+    PathOfWay lastOne = myWay[myWay.size()];
+    PathOfWay preLastOne = myWay[myWay.size() - 1];
+    int newX, newY;
+    if(lastOne.X < preLastOne.X)
+    {
+        newX = lastOne.X - 1;
+        newY = lastOne.Y;
+    }
+
+    if(lastOne.X > preLastOne.X)
+    {
+        newX = lastOne.X + 1;
+        newY = lastOne.Y;
+    }
+
+    if(lastOne.Y < preLastOne.Y)
+    {
+        newX = lastOne.X;
+        newY = lastOne.Y + 1;
+    }
+
+    if(lastOne.Y > preLastOne.Y)
+    {
+        newX = lastOne.X;
+        newY = lastOne.Y - 1;
+    }
+    PathOfWay afterLastOne(newX, newY);
+    myWay.push_back(afterLastOne);//добавляем новый блок в пути в конец пути
+    return myWay;
+}
+
