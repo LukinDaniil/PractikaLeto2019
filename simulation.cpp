@@ -62,6 +62,7 @@ void Simulation::on_loadMapButton_clicked()
     Student filler;
     filler.SetPositions(entryXCoordinate, entryYCoordinate);
     vector<vector<int>> forTheWay(mapOfTheFloor->getFloorForTheWay());//массив для волнового алгоритма
+    /*
     for (int i = 0; i < mapOfTheFloor->getAmountOfCabinets(); i ++)//проходим по всем кабинетам
     {
         PathOfWay coordinatesOfCabinet = mapOfTheFloor->getCoordinatesOfCabinet(i);//получаем координаты i-го кабинета
@@ -73,10 +74,10 @@ void Simulation::on_loadMapButton_clicked()
             needToFillMap = false;//для остальных карта готова
         myWay = filler.MakeWay(coordinatesOfCabinet.X, coordinatesOfCabinet.Y, &forTheWay, needToFillMap);//в myWay путь до i-го кабинета,
                                                                                                            //после первого вызова в forTheWay карта заполненная для других
-        filler.SetPositions(myWay[size()])
+        //filler.SetPositions(myWay[size()])
 
     }
-
+    */
 
 
     MyTime newCurrentTime;
