@@ -11,11 +11,12 @@ Simulation::Simulation(QWidget *parent) :
     ui(new Ui::Simulation)
 {
     ui->setupUi(this);
+    group.timeshet.ReadTimesheet("F:/Projects/PractikaLeto2019/Files/raspisanie_pravilnoe.txt");
     on_loadMapButton_clicked();
     int entryXCoordinate = 18, entryYCoordinate = 18;
     group.numberOfCurrentCabinet = 0;
     PathOfWay currentCabinetCoordinates = mapOfTheFloor->getCoordinatesOfCabinet(group.numberOfCurrentCabinet);
-    vector<PathOfWay> groupWay = goTowardsCabinet(currentCabinetCoordinates.X, currentCabinetCoordinates.Y, entryXCoordinate, entryYCoordinate, true);
+    vector<PathOfWay> groupWay = goTowardsPoint(currentCabinetCoordinates.X, currentCabinetCoordinates.Y, entryXCoordinate, entryYCoordinate, true);
     group.groupWay = groupWay;
 }
 
@@ -37,8 +38,25 @@ void Simulation::stepModel()
         group.People[hisIndex].SetWay(group.groupWay);
     }
 
-    paintHelper->changeMapAccordingWithHumans(group);
     */
+    group.timeshet;
+
+
+
+    for (int i = 0; i < group.People.size(); i ++)
+    {
+        //проверить нужды и если надо пустить по пути в туалет или столовку
+        if(group.People[i].isWayEmpty() && group.People[i].getNumberOfPlaceInTheCabinet() == -1/*не надо в туалет и не надо есть*/)//если пути нет и нет кабинета - значит дошёл до кабинета
+        {
+            vector<PathOfWay> wayTowardsDesk;
+            wayTowardsDesk = goToYourPlace(group.numberOfCurrentCabinet, i);//
+        }
+    }
+
+
+
+
+    //paintHelper->changeMapAccordingWithHumans(group);
     paintHelper->setKeepFloor(mapOfTheFloor);
     paintHelper->draw();
     currentTime.AddMinute(1);
@@ -102,7 +120,7 @@ void Simulation::on_loadMapButton_clicked()
         else
             needToFillMap = false;//для остальных карта готова
 
-        //myWay = goTowardsCabinet(i, entryXCoordinate, entryYCoordinate);//в myWay путь до i-го кабинета,
+        //myWay = goTowardsPoint(i, entryXCoordinate, entryYCoordinate);//в myWay путь до i-го кабинета,
         filler.SetPositions(entryXCoordinate, entryYCoordinate);
         myWay = filler.MakeWay(coordinatesOfCabinet.X, coordinatesOfCabinet.Y, &forTheWay, needToFillMap);//в myWay путь до i-го кабинета,
                                                                                                            //после первого вызова в forTheWay карта заполненная для других
@@ -149,7 +167,7 @@ void Simulation::on_loadMapButton_clicked()
     ui->simulationTime->setText(currentTime.ToString());
 }
 
-vector<PathOfWay> Simulation::goTowardsCabinet(int xFrom, int yFrom, int xInto, int yInto, bool needToGoInside)//составляет путь от точки с координатами xFrom yFrom до точки с координатами
+vector<PathOfWay> Simulation::goTowardsPoint(int xFrom, int yFrom, int xInto, int yInto, bool needToGoInside)//составляет путь от точки с координатами xFrom yFrom до точки с координатами
 {
     vector<PathOfWay> myWay;//новый путь
     vector<vector<int>> forTheWay(mapOfTheFloor->getFloorForTheWay());//массив для волнового алгоритма
@@ -191,16 +209,16 @@ vector<PathOfWay> Simulation::goTowardsCabinet(int xFrom, int yFrom, int xInto, 
     }
     return myWay;
 }
-vector<PathOfWay> Simulation::goToYourPlace(int numberOfCabinet)//возвращает путь к свободной парте в кабинете под номером numberOfCabinet
+vector<PathOfWay> Simulation::goToYourPlace(int numberOfCabinet, int numberOfStudent)//возвращает путь к свободному месту за партой в кабинете под номером numberOfCabinet
 {
     vector<Cabinet> allCabinets = mapOfTheFloor->getAllCabinets();
     for(int i = 0; i < allCabinets[numberOfCabinet].CountOfStudentPlace; i ++)//прохожу по всем местам для студентов
     {
         if(allCabinets[numberOfCabinet].used[i] == false)//если i-ая парта не использована
         {
+            group.People[numberOfStudent].setNumberOfPlaceInTheCabinet(i);
             allCabinets[numberOfCabinet].used[i] = true;//отмечаю место как занятое
-            return allCabinets[0].Ways[i];//возвращаем путь к этой парте
-
+            return allCabinets[numberOfCabinet].Ways[i];//возвращаем путь к месту за партой
         }
     }
 

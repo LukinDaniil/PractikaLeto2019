@@ -7,6 +7,7 @@
 #include "string"
 #include "ctime"
 #include <QTextCodec>
+#include "mytime.h"
 // важные константы
 #define COUNTTIMES 6
 #define COUNTDAY 5
@@ -68,6 +69,7 @@ public:
     void SetRandomTimesheet();
     void ReadTimesheet(QString WayToFile);
     Timesheet();
+    int getNumberOfCurrentLesson(MyTime currentTime);
 };
 
 #endif // TIMESHEET_H

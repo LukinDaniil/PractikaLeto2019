@@ -64,3 +64,17 @@ void Timesheet::ReadTimesheet(QString WayToFile)
         file.close();
     }
 }
+
+int Timesheet::getNumberOfCurrentLesson(MyTime currentTime)
+{
+    if(currentTime.GetHour() >= 8 && currentTime.GetHour() <= 9 && currentTime.GetMinute() >= 15 && currentTime.GetMinute() <= 45)
+        return 0;
+    if(currentTime.GetHour() >= 9 && currentTime.GetHour() <= 11 && currentTime.GetMinute() >= 45 && currentTime.GetMinute() <= 25)
+        return 1;
+    if(currentTime.GetHour() >= 11 && currentTime.GetHour() <= 13 && currentTime.GetMinute() >= 25 && currentTime.GetMinute() <= 5)
+        return 2;
+    if(currentTime.GetHour() >= 13 && currentTime.GetHour() <= 15 && currentTime.GetMinute() >= 5 && currentTime.GetMinute() <= 5)
+        return 3;
+    if(currentTime.GetHour() >= 15 && currentTime.GetHour() <= 16 && currentTime.GetMinute() >= 5 && currentTime.GetMinute() <= 45)
+        return 3;
+}
