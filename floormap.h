@@ -25,6 +25,7 @@ public:
     int getWidth();
     int getHeight();
     int getIJFloorMap(int i, int j);
+    int getAmountOfCabinets();
     QString getPathToFile();
     PathOfWay getCoordinatesOfCabinet(int numberOfCabinet);
 };

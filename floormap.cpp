@@ -133,6 +133,11 @@ vector<vector<int>> FloorMap::getFloorForTheWay()
     return temp;
 }
 
+int FloorMap::getAmountOfCabinets()
+{
+    return cabinets.size();
+}
+
 int FloorMap::getWidth()
 {
     return width;

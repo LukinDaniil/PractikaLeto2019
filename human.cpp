@@ -97,11 +97,14 @@ void Human::SetWay(vector<PathOfWay> NewWay)
         Way.push_back(NewWay[i]);
     }
 }
-vector<PathOfWay> Human::MakeWay(int FinishX, int FinishY, vector<vector<int>> *map)
+vector<PathOfWay> Human::MakeWay(int FinishX, int FinishY, vector<vector<int>> *map, bool needToFillTheMap)
 {
-    vector<PathOfWay> queue;
-    queue.push_back(*(new PathOfWay(PositionX, PositionY)));
-    Search(queue, 0, map);
+    if(needToFillTheMap)//если карту для волнового алгоритма необходимо заполнить, то вызываем метод Search, иначе map уже заполнена и ничего делать не нужно
+    {
+        vector<PathOfWay> queue;
+        queue.push_back(*(new PathOfWay(PositionX, PositionY)));
+        Search(queue, 0, map);
+    }
     (*map)[PositionX][PositionY] = 0;
     int CurX = FinishX;
     int CurY = FinishY;

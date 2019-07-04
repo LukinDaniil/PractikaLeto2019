@@ -23,7 +23,7 @@ protected:
     void ComeToilet();
 public:
     void MakeStep();
-    vector<PathOfWay> MakeWay(int FinishX, int FinishY, vector<vector<int>> *map); // map - это карта, где стены -1, а 0 - свободно
+    vector<PathOfWay> MakeWay(int FinishX, int FinishY, vector<vector<int>> *map, bool needToFillTheMap); // map - это карта, где стены -1, а 0 - свободно
     void MakeWayInTheCabinet(vector<vector<int>> *map, FloorMap* mapOfTheFloor , Cabinet *currentCabinet);
     void SetWay(vector<PathOfWay> NewWay);
     void Eat();

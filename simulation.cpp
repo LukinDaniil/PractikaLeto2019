@@ -57,6 +57,28 @@ void Simulation::on_loadMapButton_clicked()
         paintHelper->draw();
     }
     //продумать ресет таймера
+    //добавить сохранение координат входа в институт пока что его координаты entryXCoordinate и entryYCoordinate
+    int entryXCoordinate = 20, entryYCoordinate = 2;//пока что так, затем брать из полей соответствующих, они будут в PathOfWay
+    Student filler;
+    filler.SetPositions(entryXCoordinate, entryYCoordinate);
+    vector<vector<int>> forTheWay(mapOfTheFloor->getFloorForTheWay());//массив для волнового алгоритма
+    for (int i = 0; i < mapOfTheFloor->getAmountOfCabinets(); i ++)//проходим по всем кабинетам
+    {
+        PathOfWay coordinatesOfCabinet = mapOfTheFloor->getCoordinatesOfCabinet(i);//получаем координаты i-го кабинета
+        vector<PathOfWay> myWay;//новый путь
+        bool needToFillMap;
+        if(i == 0)
+            needToFillMap = true;//для первого кабинета карту нужно заполнить
+        else
+            needToFillMap = false;//для остальных карта готова
+        myWay = filler.MakeWay(coordinatesOfCabinet.X, coordinatesOfCabinet.Y, &forTheWay, needToFillMap);//в myWay путь до i-го кабинета,
+                                                                                                           //после первого вызова в forTheWay карта заполненная для других
+        filler.SetPositions(myWay[size()])
+
+    }
+
+
+
     MyTime newCurrentTime;
     currentTime = newCurrentTime;
     timer->setInterval(1000);
@@ -72,7 +94,7 @@ vector<PathOfWay> Simulation::goTowardsCabinet(int numberOfCabinet, int xFrom, i
     PathOfWay coordinatesOfCabinet = mapOfTheFloor->getCoordinatesOfCabinet(numberOfCabinet);
     Student whoWalks;
     whoWalks.SetPositions(xFrom, yFrom);
-    myWay = whoWalks.MakeWay(coordinatesOfCabinet.X, coordinatesOfCabinet.Y, &forTheWay);//в myWay будет от путь от текущего положения человека до входа в кабинет
+    myWay = whoWalks.MakeWay(coordinatesOfCabinet.X, coordinatesOfCabinet.Y, &forTheWay, true);//в myWay будет от путь от текущего положения человека до входа в кабинет
     //добавляем ещё один блок в пути, чтобы путь заканчивался в кабинете(1 шаг в него)
     PathOfWay lastOne = myWay[myWay.size()];
     PathOfWay preLastOne = myWay[myWay.size() - 1];
