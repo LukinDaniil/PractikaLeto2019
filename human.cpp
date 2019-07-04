@@ -150,7 +150,10 @@ void Human::Search(vector<PathOfWay> queue, int Num, vector<vector<int>> *map)
 {
     vector<PathOfWay> NewQueue;
     if (queue.size() == 0)
+    {
+        int f = 0;
         return;
+    }
 
     while (queue.size() > 0)
     {
@@ -159,13 +162,13 @@ void Human::Search(vector<PathOfWay> queue, int Num, vector<vector<int>> *map)
         if (X - 1 >= 0)
             if ((*map)[X - 1][Y] == 0)
                 NewQueue.push_back(*(new PathOfWay(X - 1, Y)));
-        if (X + 1 < (*map)[0].size())
+        if (X + 1 < (*map).size())
             if ((*map)[X + 1][Y] == 0)
                 NewQueue.push_back(*(new PathOfWay(X + 1, Y)));
         if (Y - 1 >= 0)
             if ((*map)[X][Y - 1] == 0)
                 NewQueue.push_back(*(new PathOfWay(X, Y - 1)));
-        if (Y + 1 < (*map).size())
+        if (Y + 1 < (*map)[0].size())
             if ((*map)[X][Y + 1] == 0)
                 NewQueue.push_back(*(new PathOfWay(X, Y + 1)));
         (*map)[X][Y] = Num;
