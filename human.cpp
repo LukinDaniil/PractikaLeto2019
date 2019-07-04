@@ -190,6 +190,8 @@ void Human::MakeWayInTheCabinet(vector<vector<int>> *map, FloorMap* mapOfTheFloo
     vector<PathOfWay> queue;
     queue.push_back(*(new PathOfWay(PositionX, PositionY)));
     SearchInTheCabinet(queue, 0, map, mapOfTheFloor, currentCabinet);
+
+
     (*map)[PositionX][PositionY] = 0;
     for(int i = 0; i < currentCabinet->desks.size(); i ++)//проходим по всем партам
     {
