@@ -26,6 +26,7 @@ Simulation::~Simulation()
 void Simulation::stepModel()
 {
     //каждый шаг совершаются действия на карте, изменяется mapOfTheFloor, после этого карта опять рисуется для отображения изменений
+    /*
     group.groupMakeStep();
     group.groupMakeStep();
     if(group.People.size() < 2)
@@ -34,18 +35,20 @@ void Simulation::stepModel()
         int hisIndex = group.People.size() - 1;
         group.People[hisIndex].SetWay(group.groupWay);
     }
-    paintHelper->setKeepFloor(mapOfTheFloor);
+
     paintHelper->changeMapAccordingWithHumans(group);
+    */
+    paintHelper->setKeepFloor(mapOfTheFloor);
     paintHelper->draw();
     currentTime.AddMinute(1);
     ui->simulationTime->setText(currentTime.ToString());
+    /*
     vector<Cabinet> allCabinets = mapOfTheFloor->getAllCabinets();
-    //vector<bool> heIsSiting;
 
     for(int j = 0; j < group.People.size(); j ++)
         if(group.People[j].isWayEmpty() && group.People[j].getNumberOfPlaceInTheCabinet() == -1)
         {
-            for(int i = 0; i < allCabinets[0].Ways.size(); i ++)//прохожу по всем партам
+            for(int i = 0; i < allCabinets[0].CountOfStudentPlace; i ++)//прохожу по всем партам
             {
                 if(allCabinets[0].used[i] == false)//если парта не использована
                 {
@@ -54,7 +57,7 @@ void Simulation::stepModel()
                 }
             }
         }
-
+    */
 }
 
 
@@ -184,7 +187,16 @@ vector<PathOfWay> Simulation::goTowardsCabinet(int numberOfCabinet, int xFrom, i
     myWay.push_back(afterLastOne);//добавляем новый блок в пути в конец пути
     return myWay;
 }
-void Simulation::goToYourPlace(int xFrom, int yFrom)
+vector<PathOfWay> Simulation::goToYourPlace(int numberOfCabinet)//возвращает путь к свободной парте в кабинете под номером numberOfCabinet
 {
+    vector<Cabinet> allCabinets = mapOfTheFloor->getAllCabinets();
+    for(int i = 0; i < allCabinets[numberOfCabinet].CountOfStudentPlace; i ++)//прохожу по всем местам для студентов
+    {
+        if(allCabinets[numberOfCabinet].used[i] == false)//если i-ая парта не использована
+        {
+            allCabinets[numberOfCabinet].used[i] = true;//отмечаю место как занятое
+            return allCabinets[0].Ways[i];//возвращаем путь к этой парте
 
+        }
+    }
 }
