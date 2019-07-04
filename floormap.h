@@ -28,6 +28,14 @@ public:
     int getAmountOfCabinets();
     QString getPathToFile();
     PathOfWay getCoordinatesOfCabinet(int numberOfCabinet);
+    Cabinet* getICabinet(int i);
+    void pushDeskIntoICabinet(int i, PathOfWay newDesk);
+    int getAmountOfDesksInTheICabinet(int i);
+    PathOfWay getCoordinatesOfTheDeskInTheICabinet(int numberOfTheDesk, int i);
+    void pushNewStudentWayInTheICabinet(int i, vector<PathOfWay> newWay);
+    PathOfWay getCoordinatesOfTheTeachersPlaceInTheICabinet(int i);
+    void pushNewTeachersWayInTheICabinet(int i, vector<PathOfWay> newWay);
+    void pushTeachersPlaceIntoICabinet(int i, PathOfWay newTeachersPlace);
 };
 
 #endif // FLOORMAP_H

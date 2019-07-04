@@ -138,6 +138,12 @@ int FloorMap::getAmountOfCabinets()
     return cabinets.size();
 }
 
+int FloorMap::getAmountOfDesksInTheICabinet(int i)
+{
+    int size = cabinets[i].desks.size();
+    return cabinets[i].desks.size();
+}
+
 int FloorMap::getWidth()
 {
     return width;
@@ -156,4 +162,41 @@ int FloorMap::getIJFloorMap(int i, int j)
 PathOfWay FloorMap::getCoordinatesOfCabinet(int numberOfCabinet)
 {
     return cabinets[numberOfCabinet].ExitOfCabinet;//возвращаю координаты входа в кабинет
+}
+
+Cabinet* FloorMap::getICabinet(int i)//возвращает ссылку на i-ый кабинет
+{
+    return &cabinets[i];
+}
+
+void FloorMap::pushDeskIntoICabinet(int i, PathOfWay newDesk)
+{
+    cabinets[i].pushDesk(newDesk);
+}
+
+PathOfWay FloorMap::getCoordinatesOfTheDeskInTheICabinet(int numberOfTheDesk, int i)
+{
+    PathOfWay coordinatesOfTheDesk(cabinets[i].desks[numberOfTheDesk].X, cabinets[i].desks[numberOfTheDesk].Y);
+    return coordinatesOfTheDesk;
+}
+
+void FloorMap::pushNewStudentWayInTheICabinet(int i, vector<PathOfWay> newWay)
+{
+    cabinets[i].Ways.push_back(newWay);
+}
+
+PathOfWay FloorMap::getCoordinatesOfTheTeachersPlaceInTheICabinet(int i)
+{
+    PathOfWay coordinatesOfTheTeachersPlace(cabinets[i].TeachersPlace.X, cabinets[i].TeachersPlace.Y);
+    return coordinatesOfTheTeachersPlace;
+}
+
+void FloorMap::pushNewTeachersWayInTheICabinet(int i, vector<PathOfWay> newWay)
+{
+    cabinets[i].TeachersWay = newWay;
+}
+
+void FloorMap::pushTeachersPlaceIntoICabinet(int i, PathOfWay newTeachersPlace)
+{
+    cabinets[i].TeachersPlace = newTeachersPlace;
 }

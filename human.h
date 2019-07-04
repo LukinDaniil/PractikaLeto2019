@@ -18,13 +18,13 @@ protected:
     int NaturalNeeds; // естественные нужды 0-100
     vector<PathOfWay> Way; // путь
     void Search(vector<PathOfWay> queue, int Num, vector<vector<int>> *map);
-    void SearchInTheCabinet(vector<PathOfWay> queue, int Num, vector<vector<int>> *map, FloorMap* mapOfTheFloor , Cabinet *currentCabinet);
+    void SearchInTheCabinet(vector<PathOfWay> queue, int Num, vector<vector<int>> *map, FloorMap* mapOfTheFloor , /*Cabinet *currentCabinet*/ int numberOfTheCabinet);
     void ComeCanteen();
     void ComeToilet();
 public:
     void MakeStep();
     vector<PathOfWay> MakeWay(int FinishX, int FinishY, vector<vector<int>> *map, bool needToFillTheMap); // map - это карта, где стены -1, а 0 - свободно
-    void MakeWayInTheCabinet(vector<vector<int>> *map, FloorMap* mapOfTheFloor , Cabinet *currentCabinet);
+    void MakeWayInTheCabinet(vector<vector<int>> *map, FloorMap* mapOfTheFloor , /*Cabinet *currentCabinet*/ int numberOfTheCabinet);
     void SetWay(vector<PathOfWay> NewWay);
     void Eat();
     void Toilet();

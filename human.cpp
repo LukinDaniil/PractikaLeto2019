@@ -188,19 +188,21 @@ void Human::Search(vector<PathOfWay> queue, int Num, vector<vector<int>> *map)
 
 }
 
-void Human::MakeWayInTheCabinet(vector<vector<int>> *map, FloorMap* mapOfTheFloor , Cabinet *currentCabinet)
+void Human::MakeWayInTheCabinet(vector<vector<int>> *map, FloorMap* mapOfTheFloor, /*Cabinet *currentCabinet*/ int numberOfTheCabinet)
 {
     vector<PathOfWay> queue;
     queue.push_back(*(new PathOfWay(PositionX, PositionY)));
-    SearchInTheCabinet(queue, 0, map, mapOfTheFloor, currentCabinet);
+    SearchInTheCabinet(queue, 0, map, mapOfTheFloor, numberOfTheCabinet);
 
 
     (*map)[PositionX][PositionY] = 0;
-    for(int i = 0; i < currentCabinet->desks.size(); i ++)//проходим по всем партам
+    int amountOfDesksInTheICabinet = mapOfTheFloor->getAmountOfDesksInTheICabinet(numberOfTheCabinet);
+    for(int i = 0; i < amountOfDesksInTheICabinet; i ++)//проходим по всем партам
     {
         (*map)[PositionX][PositionY] = 0;
-        int FinishX = currentCabinet->desks[i].X;
-        int FinishY = currentCabinet->desks[i].Y;
+        PathOfWay deskCoordinates = mapOfTheFloor->getCoordinatesOfTheDeskInTheICabinet(i, numberOfTheCabinet);
+        int FinishX = deskCoordinates.X;
+        int FinishY = deskCoordinates.Y;
         int CurX = FinishX;
         int CurY = FinishY;
         vector<PathOfWay> MakedWay;
@@ -238,14 +240,15 @@ void Human::MakeWayInTheCabinet(vector<vector<int>> *map, FloorMap* mapOfTheFloo
         {
             CorrectWay.push_back(*new PathOfWay(MakedWay[MakedWay.size() - i - 1].X, MakedWay[MakedWay.size() - i - 1].Y));
         }
-        currentCabinet->Ways.push_back(CorrectWay);
+        mapOfTheFloor->pushNewStudentWayInTheICabinet(numberOfTheCabinet, CorrectWay);
     }
 
-    //теперь для преподователя
+    //теперь для преподавателя
 
     (*map)[PositionX][PositionY] = 0;
-    int FinishX = currentCabinet->TeachersPlace.X;
-    int FinishY = currentCabinet->TeachersPlace.Y;
+    PathOfWay teachersPlaceCoordinates = mapOfTheFloor->getCoordinatesOfTheTeachersPlaceInTheICabinet(numberOfTheCabinet);
+    int FinishX = teachersPlaceCoordinates.X;
+    int FinishY = teachersPlaceCoordinates.Y;
     int CurX = FinishX;
     int CurY = FinishY;
     vector<PathOfWay> MakedWay;
@@ -283,11 +286,11 @@ void Human::MakeWayInTheCabinet(vector<vector<int>> *map, FloorMap* mapOfTheFloo
     {
         CorrectWay.push_back(*new PathOfWay(MakedWay[MakedWay.size() - i - 1].X, MakedWay[MakedWay.size() - i - 1].Y));
     }
-    currentCabinet->TeachersWay = CorrectWay;
+    mapOfTheFloor->pushNewTeachersWayInTheICabinet(numberOfTheCabinet, CorrectWay);
 
 }
 
-void Human::SearchInTheCabinet(vector<PathOfWay> queue, int Num, vector<vector<int>> *map, FloorMap* mapOfTheFloor , Cabinet *currentCabinet)
+void Human::SearchInTheCabinet(vector<PathOfWay> queue, int Num, vector<vector<int>> *map, FloorMap* mapOfTheFloor , /*Cabinet *currentCabinet*/ int numberOfTheCabinet)
 {
     vector<PathOfWay> NewQueue;
     if (queue.size() == 0)
@@ -315,13 +318,15 @@ void Human::SearchInTheCabinet(vector<PathOfWay> queue, int Num, vector<vector<i
         if(mapOfTheFloor->getIJFloorMap(X, Y) == e.FreeForStudent)
         {
             PathOfWay newDesk(X, Y);
-            currentCabinet->pushDesk(newDesk);//добавили
+            //currentCabinet->pushDesk(newDesk);//добавили парту
+            mapOfTheFloor->pushDeskIntoICabinet(numberOfTheCabinet, newDesk);
         }
 
         if(mapOfTheFloor->getIJFloorMap(X, Y) == e.FreeForTeacher)
         {
             PathOfWay newTeachersPlace(X, Y);
-            currentCabinet->pushTeachersPlace(newTeachersPlace);
+            //currentCabinet->pushTeachersPlace(newTeachersPlace);
+            mapOfTheFloor->pushTeachersPlaceIntoICabinet(numberOfTheCabinet, newTeachersPlace);
         }
 
         queue.erase(queue.begin());

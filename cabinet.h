@@ -14,7 +14,6 @@ class Cabinet
 {
 
 public:
-    bool researched;
     int NumOfCabinet;
     int CountOfStudentPlace;
     PathOfWay TeachersPlace;
