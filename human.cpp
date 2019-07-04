@@ -193,7 +193,17 @@ void Human::MakeWayInTheCabinet(vector<vector<int>> *map, FloorMap* mapOfTheFloo
     //int amountOfDesksInTheICabinet = mapOfTheFloor->getAmountOfDesksInTheICabinet(numberOfTheCabinet);
     vector<PathOfWay> queue;
     queue.push_back(*(new PathOfWay(PositionX, PositionY)));
-    SearchInTheCabinet(queue, 0, map, mapOfTheFloor, numberOfTheCabinet);
+    int** forCheck;
+    int width = mapOfTheFloor->getWidth();
+    int height = mapOfTheFloor->getHeight();
+
+    forCheck = new int*[width];
+    for(int i = 0; i < width; i++)
+        forCheck[i] = new int[height];
+    for (int i = 0; i < width; i ++)
+        for(int j = 0; j < height; j ++)
+            forCheck[i][j] = 0;
+    SearchInTheCabinet(queue, 0, map, mapOfTheFloor, numberOfTheCabinet, forCheck);
 
 
     (*map)[PositionX][PositionY] = 0;
@@ -291,7 +301,7 @@ void Human::MakeWayInTheCabinet(vector<vector<int>> *map, FloorMap* mapOfTheFloo
 
 }
 
-void Human::SearchInTheCabinet(vector<PathOfWay> queue, int Num, vector<vector<int>> *map, FloorMap* mapOfTheFloor , /*Cabinet *currentCabinet*/ int numberOfTheCabinet)
+void Human::SearchInTheCabinet(vector<PathOfWay> queue, int Num, vector<vector<int>> *map, FloorMap* mapOfTheFloor , /*Cabinet *currentCabinet*/ int numberOfTheCabinet, int** forCheck)
 {
     vector<PathOfWay> NewQueue;
     if (queue.size() == 0)
@@ -302,19 +312,22 @@ void Human::SearchInTheCabinet(vector<PathOfWay> queue, int Num, vector<vector<i
         int X = queue[0].X;
         int Y = queue[0].Y;
         Enums e;
+
         if (X - 1 >= 0)
         {
             if ((*map)[X - 1][Y] == 0)
                 NewQueue.push_back(*(new PathOfWay(X - 1, Y)));
-            if(mapOfTheFloor->getIJFloorMap(X - 1, Y) == e.FreeForStudent)
+            if(mapOfTheFloor->getIJFloorMap(X - 1, Y) == e.FreeForStudent && forCheck[X - 1][Y] == 0)
             {
+                forCheck[X - 1][Y] = 1;
                 PathOfWay newDesk(X - 1, Y);
                 //currentCabinet->pushDesk(newDesk);//добавили парту
                 mapOfTheFloor->pushDeskIntoICabinet(numberOfTheCabinet, newDesk);
             }
 
-            if(mapOfTheFloor->getIJFloorMap(X - 1, Y) == e.FreeForTeacher)
+            if(mapOfTheFloor->getIJFloorMap(X - 1, Y) == e.FreeForTeacher && forCheck[X - 1][Y] == 0)
             {
+                forCheck[X - 1][Y] = 1;
                 PathOfWay newTeachersPlace(X - 1, Y);
                 //currentCabinet->pushTeachersPlace(newTeachersPlace);
                 mapOfTheFloor->pushTeachersPlaceIntoICabinet(numberOfTheCabinet, newTeachersPlace);
@@ -324,15 +337,17 @@ void Human::SearchInTheCabinet(vector<PathOfWay> queue, int Num, vector<vector<i
         {
             if ((*map)[X + 1][Y] == 0)
                 NewQueue.push_back(*(new PathOfWay(X + 1, Y)));
-            if(mapOfTheFloor->getIJFloorMap(X + 1, Y) == e.FreeForStudent)
+            if(mapOfTheFloor->getIJFloorMap(X + 1, Y) == e.FreeForStudent && forCheck[X + 1][Y] == 0)
             {
+                forCheck[X + 1][Y] = 1;
                 PathOfWay newDesk(X + 1, Y);
                 //currentCabinet->pushDesk(newDesk);//добавили парту
                 mapOfTheFloor->pushDeskIntoICabinet(numberOfTheCabinet, newDesk);
             }
 
-            if(mapOfTheFloor->getIJFloorMap(X + 1, Y) == e.FreeForTeacher)
+            if(mapOfTheFloor->getIJFloorMap(X + 1, Y) == e.FreeForTeacher && forCheck[X + 1][Y] == 0)
             {
+                forCheck[X + 1][Y] = 1;
                 PathOfWay newTeachersPlace(X + 1, Y);
                 //currentCabinet->pushTeachersPlace(newTeachersPlace);
                 mapOfTheFloor->pushTeachersPlaceIntoICabinet(numberOfTheCabinet, newTeachersPlace);
@@ -342,15 +357,17 @@ void Human::SearchInTheCabinet(vector<PathOfWay> queue, int Num, vector<vector<i
         {
             if ((*map)[X][Y - 1] == 0)
                 NewQueue.push_back(*(new PathOfWay(X, Y - 1)));
-            if(mapOfTheFloor->getIJFloorMap(X, Y - 1) == e.FreeForStudent)
+            if(mapOfTheFloor->getIJFloorMap(X, Y - 1) == e.FreeForStudent && forCheck[X][Y - 1] == 0)
             {
+                forCheck[X][Y - 1] = 1;
                 PathOfWay newDesk(X, Y - 1);
                 //currentCabinet->pushDesk(newDesk);//добавили парту
                 mapOfTheFloor->pushDeskIntoICabinet(numberOfTheCabinet, newDesk);
             }
 
-            if(mapOfTheFloor->getIJFloorMap(X, Y - 1) == e.FreeForTeacher)
+            if(mapOfTheFloor->getIJFloorMap(X, Y - 1) == e.FreeForTeacher && forCheck[X][Y - 1] == 0)
             {
+                forCheck[X][Y - 1] = 1;
                 PathOfWay newTeachersPlace(X, Y - 1);
                 //currentCabinet->pushTeachersPlace(newTeachersPlace);
                 mapOfTheFloor->pushTeachersPlaceIntoICabinet(numberOfTheCabinet, newTeachersPlace);
@@ -360,15 +377,17 @@ void Human::SearchInTheCabinet(vector<PathOfWay> queue, int Num, vector<vector<i
         {
             if ((*map)[X][Y + 1] == 0)
                 NewQueue.push_back(*(new PathOfWay(X, Y + 1)));
-            if(mapOfTheFloor->getIJFloorMap(X, Y + 1) == e.FreeForStudent)
+            if(mapOfTheFloor->getIJFloorMap(X, Y + 1) == e.FreeForStudent && forCheck[X][Y + 1] == 0)
             {
+                forCheck[X][Y + 1] = 1;
                 PathOfWay newDesk(X, Y + 1);
                 //currentCabinet->pushDesk(newDesk);//добавили парту
                 mapOfTheFloor->pushDeskIntoICabinet(numberOfTheCabinet, newDesk);
             }
 
-            if(mapOfTheFloor->getIJFloorMap(X, Y + 1) == e.FreeForTeacher)
+            if(mapOfTheFloor->getIJFloorMap(X, Y + 1) == e.FreeForTeacher && forCheck[X][Y + 1] == 0)
             {
+                forCheck[X][Y + 1] = 1;
                 PathOfWay newTeachersPlace(X, Y + 1);
                 //currentCabinet->pushTeachersPlace(newTeachersPlace);
                 mapOfTheFloor->pushTeachersPlaceIntoICabinet(numberOfTheCabinet, newTeachersPlace);
@@ -399,5 +418,5 @@ void Human::SearchInTheCabinet(vector<PathOfWay> queue, int Num, vector<vector<i
 
 
 
-    SearchInTheCabinet(NewQueue, Num + 1, map, mapOfTheFloor, numberOfTheCabinet);
+    SearchInTheCabinet(NewQueue, Num + 1, map, mapOfTheFloor, numberOfTheCabinet, forCheck);
 }

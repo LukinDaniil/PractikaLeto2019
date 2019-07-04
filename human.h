@@ -18,7 +18,7 @@ protected:
     int NaturalNeeds; // естественные нужды 0-100
     vector<PathOfWay> Way; // путь
     void Search(vector<PathOfWay> queue, int Num, vector<vector<int>> *map);
-    void SearchInTheCabinet(vector<PathOfWay> queue, int Num, vector<vector<int>> *map, FloorMap* mapOfTheFloor , /*Cabinet *currentCabinet*/ int numberOfTheCabinet);
+    void SearchInTheCabinet(vector<PathOfWay> queue, int Num, vector<vector<int>> *map, FloorMap* mapOfTheFloor , /*Cabinet *currentCabinet*/ int numberOfTheCabinet, int** forCheck);
     void ComeCanteen();
     void ComeToilet();
 public:
