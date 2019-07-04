@@ -2,8 +2,11 @@
 #define TIMESHEET_H
 
 #include "list"
+#include <QFile>
+#include <QString>
 #include "string"
 #include "ctime"
+#include <QTextCodec>
 // важные константы
 #define COUNTTIMES 6
 #define COUNTDAY 5
@@ -49,21 +52,21 @@ const string timeOfLesson[6] =
 struct Lesson
 {
 public:
-    string Name;
-    string TeachersName;
+    QString Name;
+    QString TeachersName;
     int NumCabinet;
-    int NumTime;
 };
 
 
 class Timesheet
 {
 private:
-    list<Lesson> SchoolDay[COUNTDAY];
+    vector<vector<Lesson>> SchoolDay;
 public:
     void SetDay(int index, list<Lesson> NewLessons);
     void SetRandomDay(int index);
     void SetRandomTimesheet();
+    void ReadTimesheet(QString WayToFile);
     Timesheet();
 };
 

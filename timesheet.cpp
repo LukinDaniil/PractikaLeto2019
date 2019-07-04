@@ -22,25 +22,6 @@ void Timesheet::SetRandomDay(int index)
         int NumOfTeachersName =  mersenne() % MAXTEACHERSNAMES;
         int NumOfLessonsName =  mersenne() % MAXLESSONSNAMES;
         int NumTime = 0;
-        bool CorrectTime = false;
-        while (CorrectTime == false)
-        {
-            CorrectTime = true;
-
-            NumTime = mersenne() %  COUNTTIMES + 1;
-            list <Lesson> :: iterator it;
-            for (it = SchoolDay[index].begin(); it != SchoolDay[index].end(); it++)
-            {
-                if (NumTime == (*it).NumTime)
-                    CorrectTime = false;
-            }
-        }
-        Lesson *les = new Lesson();
-        les->Name = LessonsNames[NumOfLessonsName];
-        les->TeachersName = TeachersNames[NumOfTeachersName];
-        les->NumCabinet = 1;  // аудитория всегда одна пока что
-        les->NumTime = NumTime;
-        SchoolDay[index].push_back((*les));
     }
 }
 void Timesheet::SetRandomTimesheet()
@@ -52,4 +33,34 @@ void Timesheet::SetRandomTimesheet()
 Timesheet::Timesheet()
 {
 
+}
+void Timesheet::ReadTimesheet(QString WayToFile)
+{
+    QTextCodec::setCodecForLocale(QTextCodec::codecForName("Windows-1251"));
+    QFile file(WayToFile);
+    if(file.open(QIODevice::ReadOnly))
+    {
+        SchoolDay.clear();
+        QString str="";
+        str= file.readLine();
+        int CountDay = str.toInt();
+        for (int i = 0; i < CountDay; i++)
+        {
+            str= file.readLine();
+            SchoolDay.push_back(*(new vector<Lesson>));
+            int CountLessons = str.toInt();
+            for(int j = 0; j < CountLessons; j++)
+            {
+                Lesson temp;
+                str=  file.readLine();
+                temp.NumCabinet =  str.toInt();
+                str= QObject::trUtf8( file.readLine());
+                temp.Name = str;
+                str= QObject::trUtf8(file.readLine());
+                temp.TeachersName = str;
+                SchoolDay[i].push_back(temp);
+            }
+        }
+        file.close();
+    }
 }
