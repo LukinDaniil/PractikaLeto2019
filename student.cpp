@@ -38,10 +38,20 @@ int Student::GetSleepiness()
 Student::Student() : Human ()
 {
     Sleepiness = 100;
+    numberOfPlaceInTheCabinet = -1;//то есть не сидит
 }
 Student::Student(int NewX, int NewY, int NewFullness, int NewNaturalNeeds, int NewSleepiness, vector<PathOfWay> NewWay) :
     Human (NewX, NewY, NewFullness, NewNaturalNeeds, NewWay)
 {
     Sleepiness = NewSleepiness;
+}
+
+int Student::getNumberOfPlaceInTheCabinet()
+{
+    return numberOfPlaceInTheCabinet;
+}
+void Student::setNumberOfPlaceInTheCabinet(int newNumber)
+{
+    numberOfPlaceInTheCabinet = newNumber;
 }
 

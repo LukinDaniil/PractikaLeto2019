@@ -12,7 +12,10 @@ Simulation::Simulation(QWidget *parent) :
 {
     ui->setupUi(this);
     on_loadMapButton_clicked();
-
+    int entryXCoordinate = 18, entryYCoordinate = 18;
+    group.numberOfCurrentCabinet = 0;
+    vector<PathOfWay> groupWay = goTowardsCabinet(group.numberOfCurrentCabinet, entryXCoordinate, entryYCoordinate);
+    group.groupWay = groupWay;
 }
 
 Simulation::~Simulation()
@@ -22,14 +25,36 @@ Simulation::~Simulation()
 
 void Simulation::stepModel()
 {
-
     //каждый шаг совершаются действия на карте, изменяется mapOfTheFloor, после этого карта опять рисуется для отображения изменений
-    //group.groupMakeStep();
-    //paintHelper->setKeepFloor(mapOfTheFloor);
-    //paintHelper->changeMapAccordingWithHumans(group);
-    //paintHelper->draw();
+    group.groupMakeStep();
+    group.groupMakeStep();
+    if(group.People.size() < 2)
+    {
+        group.addStudent(18, 18);
+        int hisIndex = group.People.size() - 1;
+        group.People[hisIndex].SetWay(group.groupWay);
+    }
+    paintHelper->setKeepFloor(mapOfTheFloor);
+    paintHelper->changeMapAccordingWithHumans(group);
+    paintHelper->draw();
     currentTime.AddMinute(1);
     ui->simulationTime->setText(currentTime.ToString());
+    vector<Cabinet> allCabinets = mapOfTheFloor->getAllCabinets();
+    //vector<bool> heIsSiting;
+
+    for(int j = 0; j < group.People.size(); j ++)
+        if(group.People[j].isWayEmpty() && group.People[j].getNumberOfPlaceInTheCabinet() == -1)
+        {
+            for(int i = 0; i < allCabinets[0].Ways.size(); i ++)//прохожу по всем партам
+            {
+                if(allCabinets[0].used[i] == false)//если парта не использована
+                {
+                    group.DefineWay(allCabinets[0].Ways[i]);//записываем путь к данной парте
+                    allCabinets[0].used[i] = true;
+                }
+            }
+        }
+
 }
 
 
@@ -58,7 +83,7 @@ void Simulation::on_loadMapButton_clicked()
     }
     //продумать ресет таймера
     //добавить сохранение координат входа в институт пока что его координаты entryXCoordinate и entryYCoordinate
-    int entryXCoordinate = 18, entryYCoordinate = 1;//пока что так, затем брать из полей соответствующих, они будут в PathOfWay
+    int entryXCoordinate = 18, entryYCoordinate = 18;//пока что так, затем брать из полей соответствующих, они будут в PathOfWay
     Student filler;
     filler.SetPositions(entryXCoordinate, entryYCoordinate);
     vector<vector<int>> forTheWay(mapOfTheFloor->getFloorForTheWay());//массив для волнового алгоритма
@@ -114,13 +139,13 @@ void Simulation::on_loadMapButton_clicked()
 
     MyTime newCurrentTime;
     currentTime = newCurrentTime;
-    timer->setInterval(1000);
+    timer->setInterval(200);
     connect(timer, SIGNAL(timeout()), this, SLOT(stepModel()));
     timer->start();
     ui->simulationTime->setText(currentTime.ToString());
 }
 
-vector<PathOfWay> Simulation::goTowardsCabinet(int numberOfCabinet, int xFrom, int yFrom)//в какой кабинет и кто идёт
+vector<PathOfWay> Simulation::goTowardsCabinet(int numberOfCabinet, int xFrom, int yFrom)//составляет путь от точки с координатами xFrom yFrom до кабинета с номером numberOfCabinet
 {
     vector<PathOfWay> myWay;//новый путь
     vector<vector<int>> forTheWay(mapOfTheFloor->getFloorForTheWay());//массив для волнового алгоритма
@@ -159,9 +184,7 @@ vector<PathOfWay> Simulation::goTowardsCabinet(int numberOfCabinet, int xFrom, i
     myWay.push_back(afterLastOne);//добавляем новый блок в пути в конец пути
     return myWay;
 }
-/*
-vector<vector<PathOfWay>> Simulation::goToYourPlace(int xFrom, int yFrom)//человек уже в кабинете, так что номер известен
+void Simulation::goToYourPlace(int xFrom, int yFrom)
 {
 
 }
-*/

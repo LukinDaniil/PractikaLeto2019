@@ -9,7 +9,7 @@ void Group::DefineWay(vector<PathOfWay> NewWay)
 }
 Group::Group()
 {
-
+    numberOfPreviousCabinet = -1;
 }
 
 void Group::addStudent(int X, int Y)

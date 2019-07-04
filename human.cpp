@@ -89,6 +89,15 @@ void Human::MakeStep()
         Way.erase(Way.begin());
     }
 }
+
+bool Human::isWayEmpty()
+{
+    if(Way.size() == 0)
+        return true;
+    else
+        return false;
+}
+
 void Human::SetWay(vector<PathOfWay> NewWay)
 {
     Way.clear();

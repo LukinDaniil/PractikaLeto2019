@@ -36,6 +36,8 @@ public:
     PathOfWay getCoordinatesOfTheTeachersPlaceInTheICabinet(int i);
     void pushNewTeachersWayInTheICabinet(int i, vector<PathOfWay> newWay);
     void pushTeachersPlaceIntoICabinet(int i, PathOfWay newTeachersPlace);
+    vector<PathOfWay> getDesksOfICabinet(int i);
+    vector<Cabinet> getAllCabinets();
 };
 
 #endif // FLOORMAP_H

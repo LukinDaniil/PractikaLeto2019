@@ -25,8 +25,8 @@ class Simulation : public QMainWindow
 public:
     explicit Simulation(QWidget *parent = nullptr);
     ~Simulation();
-    vector<PathOfWay> goTowardsCabinet(int numberOfCabinet, int xFrom, int yFrom);//метод ищет путь от места за пределами аудитории, до места, на шаг дальше входа в аудиторию
-    vector<vector<PathOfWay>> goToYourPlace(int xFrom, int yFrom);//человек уже в кабинете, так что номер известен
+    vector<PathOfWay> goTowardsCabinet(int numberOfCabinet, int xFrom, int yFrom);//составляет путь от точки с координатами xFrom yFrom до кабинета с номером numberOfCabinet
+    void goToYourPlace(int xFrom, int yFrom);//устанавливает студенту/учителю путь от входа в кабинет до свободного места
 private slots:
     void stepModel();
 

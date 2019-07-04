@@ -6,6 +6,7 @@ class Student : public Human
 {
 private:
     int Sleepiness; // 0-100
+    int numberOfPlaceInTheCabinet;
 public:
     virtual string ReturnStatus() override;
     void Sleeping(int time);
@@ -14,6 +15,8 @@ public:
     void DownSleepiness(int value);
     Student();
     Student(int NewX, int NewY, int NewFullness, int NewNaturalNeeds, int NewSleepiness, vector<PathOfWay> NewWay);
+    int getNumberOfPlaceInTheCabinet();
+    void setNumberOfPlaceInTheCabinet(int newNumber);
 };
 
 

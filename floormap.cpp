@@ -203,3 +203,13 @@ void FloorMap::pushTeachersPlaceIntoICabinet(int i, PathOfWay newTeachersPlace)
 {
     cabinets[i].TeachersPlace = newTeachersPlace;
 }
+
+vector<PathOfWay> FloorMap::getDesksOfICabinet(int i)
+{
+    return cabinets[i].desks;
+}
+
+vector<Cabinet> FloorMap::getAllCabinets()
+{
+    return cabinets;
+}
