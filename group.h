@@ -13,6 +13,7 @@ public:
     vector<PathOfWay> groupWay;
     Timesheet timeshet;
     void DefineWay(vector<PathOfWay> NewWay);
+    vector<QString> ToString();
     Group();
     void addStudent(int X, int Y);
     void groupMakeStep();

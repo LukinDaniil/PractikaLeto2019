@@ -64,3 +64,21 @@ void Timesheet::ReadTimesheet(QString WayToFile)
         file.close();
     }
 }
+vector<QString> Timesheet::ToString()
+{
+    vector<QString> rez;
+    for (int i = 0; i < SchoolDay.size(); i++)
+    {
+        QString temp = "День №";
+        temp += (i+1);
+        rez.push_back(temp);
+        temp = "";
+        for(int j = 0; j < SchoolDay[i].size(); j++)
+        {
+            temp = (j + 1);
+            temp += ". ";
+            temp += SchoolDay[i][j].ToString();
+            rez.push_back(temp);
+        }
+    }
+}

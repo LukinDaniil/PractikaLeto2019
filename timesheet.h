@@ -55,6 +55,16 @@ public:
     QString Name;
     QString TeachersName;
     int NumCabinet;
+    QString ToString()
+    {
+        QString rez = Name;
+        rez += " * * ";
+        rez += TeachersName;
+        rez += " * * *";
+        rez += NumCabinet;
+        return rez;
+
+    }
 };
 
 
@@ -67,6 +77,7 @@ public:
     void SetRandomDay(int index);
     void SetRandomTimesheet();
     void ReadTimesheet(QString WayToFile);
+    vector<QString> ToString();
     Timesheet();
 };
 
