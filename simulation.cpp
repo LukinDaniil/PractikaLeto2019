@@ -14,7 +14,8 @@ Simulation::Simulation(QWidget *parent) :
     on_loadMapButton_clicked();
     int entryXCoordinate = 18, entryYCoordinate = 18;
     group.numberOfCurrentCabinet = 0;
-    vector<PathOfWay> groupWay = goTowardsCabinet(group.numberOfCurrentCabinet, entryXCoordinate, entryYCoordinate, true);
+    PathOfWay currentCabinetCoordinates = mapOfTheFloor->getCoordinatesOfCabinet(group.numberOfCurrentCabinet);
+    vector<PathOfWay> groupWay = goTowardsCabinet(currentCabinetCoordinates.X, currentCabinetCoordinates.Y, entryXCoordinate, entryYCoordinate, true);
     group.groupWay = groupWay;
 }
 
