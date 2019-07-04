@@ -190,6 +190,7 @@ void Human::Search(vector<PathOfWay> queue, int Num, vector<vector<int>> *map)
 
 void Human::MakeWayInTheCabinet(vector<vector<int>> *map, FloorMap* mapOfTheFloor, /*Cabinet *currentCabinet*/ int numberOfTheCabinet)
 {
+    //int amountOfDesksInTheICabinet = mapOfTheFloor->getAmountOfDesksInTheICabinet(numberOfTheCabinet);
     vector<PathOfWay> queue;
     queue.push_back(*(new PathOfWay(PositionX, PositionY)));
     SearchInTheCabinet(queue, 0, map, mapOfTheFloor, numberOfTheCabinet);
@@ -300,34 +301,81 @@ void Human::SearchInTheCabinet(vector<PathOfWay> queue, int Num, vector<vector<i
     {
         int X = queue[0].X;
         int Y = queue[0].Y;
+        Enums e;
         if (X - 1 >= 0)
+        {
             if ((*map)[X - 1][Y] == 0)
                 NewQueue.push_back(*(new PathOfWay(X - 1, Y)));
+            if(mapOfTheFloor->getIJFloorMap(X - 1, Y) == e.FreeForStudent)
+            {
+                PathOfWay newDesk(X - 1, Y);
+                //currentCabinet->pushDesk(newDesk);//добавили парту
+                mapOfTheFloor->pushDeskIntoICabinet(numberOfTheCabinet, newDesk);
+            }
+
+            if(mapOfTheFloor->getIJFloorMap(X - 1, Y) == e.FreeForTeacher)
+            {
+                PathOfWay newTeachersPlace(X - 1, Y);
+                //currentCabinet->pushTeachersPlace(newTeachersPlace);
+                mapOfTheFloor->pushTeachersPlaceIntoICabinet(numberOfTheCabinet, newTeachersPlace);
+            }
+        }
         if (X + 1 < (*map)[0].size())
+        {
             if ((*map)[X + 1][Y] == 0)
                 NewQueue.push_back(*(new PathOfWay(X + 1, Y)));
+            if(mapOfTheFloor->getIJFloorMap(X + 1, Y) == e.FreeForStudent)
+            {
+                PathOfWay newDesk(X + 1, Y);
+                //currentCabinet->pushDesk(newDesk);//добавили парту
+                mapOfTheFloor->pushDeskIntoICabinet(numberOfTheCabinet, newDesk);
+            }
+
+            if(mapOfTheFloor->getIJFloorMap(X + 1, Y) == e.FreeForTeacher)
+            {
+                PathOfWay newTeachersPlace(X + 1, Y);
+                //currentCabinet->pushTeachersPlace(newTeachersPlace);
+                mapOfTheFloor->pushTeachersPlaceIntoICabinet(numberOfTheCabinet, newTeachersPlace);
+            }
+        }
         if (Y - 1 >= 0)
+        {
             if ((*map)[X][Y - 1] == 0)
                 NewQueue.push_back(*(new PathOfWay(X, Y - 1)));
+            if(mapOfTheFloor->getIJFloorMap(X, Y - 1) == e.FreeForStudent)
+            {
+                PathOfWay newDesk(X, Y - 1);
+                //currentCabinet->pushDesk(newDesk);//добавили парту
+                mapOfTheFloor->pushDeskIntoICabinet(numberOfTheCabinet, newDesk);
+            }
+
+            if(mapOfTheFloor->getIJFloorMap(X, Y - 1) == e.FreeForTeacher)
+            {
+                PathOfWay newTeachersPlace(X, Y - 1);
+                //currentCabinet->pushTeachersPlace(newTeachersPlace);
+                mapOfTheFloor->pushTeachersPlaceIntoICabinet(numberOfTheCabinet, newTeachersPlace);
+            }
+        }
         if (Y + 1 < (*map).size())
+        {
             if ((*map)[X][Y + 1] == 0)
                 NewQueue.push_back(*(new PathOfWay(X, Y + 1)));
+            if(mapOfTheFloor->getIJFloorMap(X, Y + 1) == e.FreeForStudent)
+            {
+                PathOfWay newDesk(X, Y + 1);
+                //currentCabinet->pushDesk(newDesk);//добавили парту
+                mapOfTheFloor->pushDeskIntoICabinet(numberOfTheCabinet, newDesk);
+            }
+
+            if(mapOfTheFloor->getIJFloorMap(X, Y + 1) == e.FreeForTeacher)
+            {
+                PathOfWay newTeachersPlace(X, Y + 1);
+                //currentCabinet->pushTeachersPlace(newTeachersPlace);
+                mapOfTheFloor->pushTeachersPlaceIntoICabinet(numberOfTheCabinet, newTeachersPlace);
+            }
+        }
         (*map)[X][Y] = Num;
-        Enums e;
 
-        if(mapOfTheFloor->getIJFloorMap(X, Y) == e.FreeForStudent)
-        {
-            PathOfWay newDesk(X, Y);
-            //currentCabinet->pushDesk(newDesk);//добавили парту
-            mapOfTheFloor->pushDeskIntoICabinet(numberOfTheCabinet, newDesk);
-        }
-
-        if(mapOfTheFloor->getIJFloorMap(X, Y) == e.FreeForTeacher)
-        {
-            PathOfWay newTeachersPlace(X, Y);
-            //currentCabinet->pushTeachersPlace(newTeachersPlace);
-            mapOfTheFloor->pushTeachersPlaceIntoICabinet(numberOfTheCabinet, newTeachersPlace);
-        }
 
         queue.erase(queue.begin());
     }
@@ -343,5 +391,13 @@ void Human::SearchInTheCabinet(vector<PathOfWay> queue, int Num, vector<vector<i
                 }
             }
         }
-    Search(NewQueue, Num + 1, map);
+
+
+
+
+    int p = 0;
+
+
+
+    SearchInTheCabinet(NewQueue, Num + 1, map, mapOfTheFloor, numberOfTheCabinet);
 }

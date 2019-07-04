@@ -140,8 +140,10 @@ int FloorMap::getAmountOfCabinets()
 
 int FloorMap::getAmountOfDesksInTheICabinet(int i)
 {
-    int size = cabinets[i].desks.size();
-    return cabinets[i].desks.size();
+    return cabinets[i].CountOfStudentPlace;
+    //return cabinets[i].desks.capacity();
+    //int size = cabinets[i].desks.size();
+    //return cabinets[i].desks.size();
 }
 
 int FloorMap::getWidth()
@@ -168,6 +170,7 @@ Cabinet* FloorMap::getICabinet(int i)//возвращает ссылку на i-
 {
     return &cabinets[i];
 }
+
 
 void FloorMap::pushDeskIntoICabinet(int i, PathOfWay newDesk)
 {

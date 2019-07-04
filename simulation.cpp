@@ -58,7 +58,7 @@ void Simulation::on_loadMapButton_clicked()
     }
     //продумать ресет таймера
     //добавить сохранение координат входа в институт пока что его координаты entryXCoordinate и entryYCoordinate
-    int entryXCoordinate = 20, entryYCoordinate = 2;//пока что так, затем брать из полей соответствующих, они будут в PathOfWay
+    int entryXCoordinate = 18, entryYCoordinate = 1;//пока что так, затем брать из полей соответствующих, они будут в PathOfWay
     Student filler;
     filler.SetPositions(entryXCoordinate, entryYCoordinate);
     vector<vector<int>> forTheWay(mapOfTheFloor->getFloorForTheWay());//массив для волнового алгоритма
@@ -159,8 +159,9 @@ vector<PathOfWay> Simulation::goTowardsCabinet(int numberOfCabinet, int xFrom, i
     myWay.push_back(afterLastOne);//добавляем новый блок в пути в конец пути
     return myWay;
 }
-
+/*
 vector<vector<PathOfWay>> Simulation::goToYourPlace(int xFrom, int yFrom)//человек уже в кабинете, так что номер известен
 {
 
 }
+*/
