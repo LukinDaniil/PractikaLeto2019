@@ -14,7 +14,7 @@ Simulation::Simulation(QWidget *parent) :
     on_loadMapButton_clicked();
     int entryXCoordinate = 18, entryYCoordinate = 18;
     group.numberOfCurrentCabinet = 0;
-    vector<PathOfWay> groupWay = goTowardsCabinet(group.numberOfCurrentCabinet, entryXCoordinate, entryYCoordinate);
+    vector<PathOfWay> groupWay = goTowardsCabinet(group.numberOfCurrentCabinet, entryXCoordinate, entryYCoordinate, true);
     group.groupWay = groupWay;
 }
 
@@ -148,43 +148,46 @@ void Simulation::on_loadMapButton_clicked()
     ui->simulationTime->setText(currentTime.ToString());
 }
 
-vector<PathOfWay> Simulation::goTowardsCabinet(int numberOfCabinet, int xFrom, int yFrom)//составляет путь от точки с координатами xFrom yFrom до кабинета с номером numberOfCabinet
+vector<PathOfWay> Simulation::goTowardsCabinet(int xFrom, int yFrom, int xInto, int yInto, bool needToGoInside)//составляет путь от точки с координатами xFrom yFrom до точки с координатами
 {
     vector<PathOfWay> myWay;//новый путь
     vector<vector<int>> forTheWay(mapOfTheFloor->getFloorForTheWay());//массив для волнового алгоритма
-    PathOfWay coordinatesOfCabinet = mapOfTheFloor->getCoordinatesOfCabinet(numberOfCabinet);
+    //PathOfWay coordinatesOfCabinet = mapOfTheFloor->getCoordinatesOfCabinet(numberOfCabinet);
     Student whoWalks;
     whoWalks.SetPositions(xFrom, yFrom);
-    myWay = whoWalks.MakeWay(coordinatesOfCabinet.X, coordinatesOfCabinet.Y, &forTheWay, true);//в myWay будет от путь от текущего положения человека до входа в кабинет
+    myWay = whoWalks.MakeWay(xInto, yInto, &forTheWay, true);//в myWay будет от путь от текущего положения человека до входа в кабинет
     //добавляем ещё один блок в пути, чтобы путь заканчивался в кабинете(1 шаг в него)
-    PathOfWay lastOne = myWay[myWay.size() - 1];
-    PathOfWay preLastOne = myWay[myWay.size() - 2];
-    int newX, newY;
-    if(lastOne.X < preLastOne.X)
+    if(needToGoInside)
     {
-        newX = lastOne.X - 1;
-        newY = lastOne.Y;
-    }
+        PathOfWay lastOne = myWay[myWay.size() - 1];
+        PathOfWay preLastOne = myWay[myWay.size() - 2];
+        int newX, newY;
+        if(lastOne.X < preLastOne.X)
+        {
+            newX = lastOne.X - 1;
+            newY = lastOne.Y;
+        }
 
-    if(lastOne.X > preLastOne.X)
-    {
-        newX = lastOne.X + 1;
-        newY = lastOne.Y;
-    }
+        if(lastOne.X > preLastOne.X)
+        {
+            newX = lastOne.X + 1;
+            newY = lastOne.Y;
+        }
 
-    if(lastOne.Y < preLastOne.Y)
-    {
-        newX = lastOne.X;
-        newY = lastOne.Y + 1;
-    }
+        if(lastOne.Y < preLastOne.Y)
+        {
+            newX = lastOne.X;
+            newY = lastOne.Y + 1;
+        }
 
-    if(lastOne.Y > preLastOne.Y)
-    {
-        newX = lastOne.X;
-        newY = lastOne.Y - 1;
+        if(lastOne.Y > preLastOne.Y)
+        {
+            newX = lastOne.X;
+            newY = lastOne.Y - 1;
+        }
+        PathOfWay afterLastOne(newX, newY);
+        myWay.push_back(afterLastOne);//добавляем новый блок в пути в конец пути
     }
-    PathOfWay afterLastOne(newX, newY);
-    myWay.push_back(afterLastOne);//добавляем новый блок в пути в конец пути
     return myWay;
 }
 vector<PathOfWay> Simulation::goToYourPlace(int numberOfCabinet)//возвращает путь к свободной парте в кабинете под номером numberOfCabinet
@@ -199,4 +202,7 @@ vector<PathOfWay> Simulation::goToYourPlace(int numberOfCabinet)//возвращ
 
         }
     }
+
 }
+
+
