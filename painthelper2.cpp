@@ -14,6 +14,7 @@ PaintHelper2::PaintHelper2()
 }
 void PaintHelper2::changeMapAccordingWithHumans(Group group)
 {
+
     Enums e;
     for (int i = 0; i < group.People.size(); i++)
     {
@@ -130,7 +131,7 @@ void PaintHelper2::paintEvent(QPaintEvent *e)
                     painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
 
                 }
-                if(storedFloor[indexI][indexJ] == e.Student)//ЗДЕСЬ ЧЕЛОВЕК, мы толерантные поэтому он чёрный
+                if(storedFloor[indexI][indexJ] == e.Student)
                 {
                     painter->setBrush(Qt::blue);
                     painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);

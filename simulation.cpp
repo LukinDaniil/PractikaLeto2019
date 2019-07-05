@@ -15,7 +15,7 @@ Simulation::Simulation(QWidget *parent) :
     group.timeshet.ReadTimesheet("F:/Projects/PractikaLeto2019/Files/rosp.txt");
 
     on_loadMapButton_clicked();
-    group.addStudent(mapOfTheFloor->entranceToTheUniversity.X, mapOfTheFloor->entranceToTheUniversity.Y);
+
     group.numberOfPreviousCabinet = -1;
     group.amountOfPeopleInTheCabinet = 0;
     //vector<Cabinet> allCabinets = mapOfTheFloor->getAllCabinets();
@@ -36,36 +36,39 @@ Simulation::~Simulation()
 
 void Simulation::stepModel()
 {
-    paintHelper->changeMapAccordingWithHumans(group);
-    paintHelper->setKeepFloor(mapOfTheFloor);
-    paintHelper->draw();
+
     //каждый шаг совершаются действия на карте, изменяется mapOfTheFloor, после этого карта опять рисуется для отображения изменений
-    /*
-    group.groupMakeStep();
-    group.groupMakeStep();
-    if(group.People.size() < 2)
+
+
+    if(group.People.size() < 1)
     {
-        group.addStudent(18, 18);
+        group.addStudent(mapOfTheFloor->entranceToTheUniversity.X, mapOfTheFloor->entranceToTheUniversity.Y);
         int hisIndex = group.People.size() - 1;
         group.People[hisIndex].SetWay(group.groupWay);
     }
-    */
+
 
     //в начале дня - ставить текущий кабинет в соответствии с расписанием
     //group.groupMakeStep();
     int numberOfCurrentLesson = group.timeshet.getNumberOfCurrentLesson(currentTime);//получаю номер текущего занятия
-    //int currentCabinet = group.timeshet.getNumberOfTimesheetCabinet(currentTime.GetDay(), numberOfCurrentLesson);
     int currentCabinet = group.timeshet.SchoolDay[0][numberOfCurrentLesson].NumCabinet;
-
+    //if(group.amountOfPeopleInTheCabinet == group.People.size())//если все сидят в кабинетеё
+    //{
+    //    int numberOfCurrentLesson = group.timeshet.getNumberOfCurrentLesson(currentTime);//получаю номер текущего занятия
+    //    //int currentCabinet = group.timeshet.getNumberOfTimesheetCabinet(currentTime.GetDay(), numberOfCurrentLesson);
+    //    int currentCabinet = group.timeshet.SchoolDay[0][numberOfCurrentLesson].NumCabinet;
+    //}
     if(group.numberOfCurrentCabinet == -1)//если это первое занятие, то просто составляем пути и устанавливаем его студентам группы
     {
+
         group.numberOfCurrentCabinet = currentCabinet;
         PathOfWay coordinatesOfNewCabinet = mapOfTheFloor->getCoordinatesOfCabinet(group.numberOfCurrentCabinet);
         vector<PathOfWay> newWay = goTowardsPoint(mapOfTheFloor->entranceToTheUniversity.X, mapOfTheFloor->entranceToTheUniversity.Y, coordinatesOfNewCabinet.X, coordinatesOfNewCabinet.Y, true);
         group.DefineWay(newWay);
+
     }
     else
-        if(group.numberOfCurrentCabinet != currentCabinet)//если текущий кабинет не соответсвует тому что должен быть по расписанию, то устанавливаем текущий кабинет как в расписании
+        if(group.numberOfCurrentCabinet != currentCabinet && group.amountOfPeopleInTheCabinet == group.People.size())//если текущий кабинет не соответсвует тому что должен быть по расписанию, то устанавливаем текущий кабинет как в расписании
         {
             group.numberOfPreviousCabinet = group.numberOfCurrentCabinet;
             group.numberOfCurrentCabinet = currentCabinet;
@@ -109,7 +112,12 @@ void Simulation::stepModel()
 
 
     currentTime.AddMinute(10);
+    group.groupMakeStep();
     ui->simulationTime->setText(currentTime.ToString());
+
+    paintHelper->changeMapAccordingWithHumans(group);
+    paintHelper->setKeepFloor(mapOfTheFloor);
+    paintHelper->draw();
     /*
     vector<Cabinet> allCabinets = mapOfTheFloor->getAllCabinets();
 
@@ -210,7 +218,7 @@ void Simulation::on_loadMapButton_clicked()
 
     MyTime newCurrentTime;
     currentTime = newCurrentTime;
-    timer->setInterval(200);
+    timer->setInterval(1000);
     connect(timer, SIGNAL(timeout()), this, SLOT(stepModel()));
     timer->start();
     ui->simulationTime->setText(currentTime.ToString());

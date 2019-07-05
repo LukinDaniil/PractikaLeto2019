@@ -6,6 +6,7 @@ void Group::DefineWay(vector<PathOfWay> NewWay)
     {
         People[i].SetWay(NewWay);
     }
+    groupWay = NewWay;
 }
 Group::Group()
 {
