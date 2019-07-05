@@ -56,20 +56,35 @@ public:
     QString Name;
     QString TeachersName;
     int NumCabinet;
+    QString ToString()
+    {
+        QString rez = Name;
+        rez += " * * ";
+        rez += TeachersName;
+        rez += " * * *";
+        rez += NumCabinet;
+        return rez;
+
+    }
 };
 
 
 class Timesheet
 {
 private:
-    vector<vector<Lesson>> SchoolDay;
+
 public:
+
+    vector<vector<Lesson>> SchoolDay;
+
     void SetDay(int index, list<Lesson> NewLessons);
     void SetRandomDay(int index);
     void SetRandomTimesheet();
     void ReadTimesheet(QString WayToFile);
+    vector<QString> ToString();
     Timesheet();
     int getNumberOfCurrentLesson(MyTime currentTime);
+    int getNumberOfTimesheetCabinet(int currentDay, int currentNumberOfCabinet);
 };
 
 #endif // TIMESHEET_H

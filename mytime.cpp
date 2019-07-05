@@ -2,8 +2,8 @@
 
 MyTime::MyTime()
 {
-        Hour = 8;
-        Minute = 15;
+        Hour = 7;
+        Minute = 55;
         Day = 1;
         CountDay = 5;
 }
@@ -38,10 +38,12 @@ void MyTime::AddMinute(int Min)
         Hour += Minute / 60;
         Minute = Minute % 60;
     }
-    if (Hour >= 24)
+    if (Hour >= 17)//после 17 00 занятий нет
     {
-        Day += Hour / 24;
-        Hour = Hour % 24;
+        Day ++;
+        //Hour = Hour % 24;
+        Hour = 7;//7 часов
+        Minute = 55;//55 минут - начало дня
     }
     if (Day > CountDay)
         Day = Day % CountDay;
@@ -74,3 +76,9 @@ QString MyTime::ToString()
     QString str = dayStr + hourStr + ":" + minuteStr;
     return str;
 }
+
+int MyTime::GetDay()
+{
+    return Day;
+}
+

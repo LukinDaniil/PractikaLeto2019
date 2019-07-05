@@ -15,8 +15,11 @@ private:
     vector<vector<int>> floorForTheWay;
     const int BLOCK_WIDTH = 10;
     QString pathToFile;
-    vector<Cabinet> cabinets;
+
 public:
+    PathOfWay entranceToTheUniversity;
+
+    vector<Cabinet> cabinets;
     FloorMap();
     FloorMap(int newWidth, int newHeight, QString newPath);
     int** getFloorMap();
@@ -37,7 +40,7 @@ public:
     void pushNewTeachersWayInTheICabinet(int i, vector<PathOfWay> newWay);
     void pushTeachersPlaceIntoICabinet(int i, PathOfWay newTeachersPlace);
     vector<PathOfWay> getDesksOfICabinet(int i);
-    vector<Cabinet> getAllCabinets();
+    vector<Cabinet>* getAllCabinets();
 };
 
 #endif // FLOORMAP_H

@@ -106,7 +106,7 @@ void PaintHelper2::paintEvent(QPaintEvent *e)
                     painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
 
                 }
-                if(storedFloor[indexI][indexJ] == e.Track)
+                if(storedFloor[indexI][indexJ] == e.EntranceToTheUniversity)
                 {
                     painter->setBrush(Qt::red);
                     painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);

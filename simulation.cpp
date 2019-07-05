@@ -11,13 +11,22 @@ Simulation::Simulation(QWidget *parent) :
     ui(new Ui::Simulation)
 {
     ui->setupUi(this);
-    group.timeshet.ReadTimesheet("F:/Projects/PractikaLeto2019/Files/raspisanie_pravilnoe.txt");
+    //group.timeshet.ReadTimesheet("F:/Projects/PractikaLeto2019/Files/raspisanie_pravilnoe.txt");
+    group.timeshet.ReadTimesheet("F:/Projects/PractikaLeto2019/Files/rosp.txt");
+
     on_loadMapButton_clicked();
-    int entryXCoordinate = 18, entryYCoordinate = 18;
-    group.numberOfCurrentCabinet = 0;
-    PathOfWay currentCabinetCoordinates = mapOfTheFloor->getCoordinatesOfCabinet(group.numberOfCurrentCabinet);
-    vector<PathOfWay> groupWay = goTowardsPoint(currentCabinetCoordinates.X, currentCabinetCoordinates.Y, entryXCoordinate, entryYCoordinate, true);
-    group.groupWay = groupWay;
+    group.addStudent(mapOfTheFloor->entranceToTheUniversity.X, mapOfTheFloor->entranceToTheUniversity.Y);
+    group.numberOfPreviousCabinet = -1;
+    group.amountOfPeopleInTheCabinet = 0;
+    //vector<Cabinet> allCabinets = mapOfTheFloor->getAllCabinets();
+    //allCabinets[0].used[0] = true;
+
+
+    //int entryXCoordinate = 18, entryYCoordinate = 18;
+    //group.numberOfCurrentCabinet = 0;
+    //PathOfWay currentCabinetCoordinates = mapOfTheFloor->getCoordinatesOfCabinet(group.numberOfCurrentCabinet);
+    //vector<PathOfWay> groupWay = goTowardsPoint(currentCabinetCoordinates.X, currentCabinetCoordinates.Y, entryXCoordinate, entryYCoordinate, true);
+    //group.groupWay = groupWay;
 }
 
 Simulation::~Simulation()
@@ -27,6 +36,9 @@ Simulation::~Simulation()
 
 void Simulation::stepModel()
 {
+    paintHelper->changeMapAccordingWithHumans(group);
+    paintHelper->setKeepFloor(mapOfTheFloor);
+    paintHelper->draw();
     //каждый шаг совершаются действия на карте, изменяется mapOfTheFloor, после этого карта опять рисуется для отображения изменений
     /*
     group.groupMakeStep();
@@ -37,29 +49,66 @@ void Simulation::stepModel()
         int hisIndex = group.People.size() - 1;
         group.People[hisIndex].SetWay(group.groupWay);
     }
-
     */
-    group.timeshet;
+
+    //в начале дня - ставить текущий кабинет в соответствии с расписанием
+    //group.groupMakeStep();
+    int numberOfCurrentLesson = group.timeshet.getNumberOfCurrentLesson(currentTime);//получаю номер текущего занятия
+    //int currentCabinet = group.timeshet.getNumberOfTimesheetCabinet(currentTime.GetDay(), numberOfCurrentLesson);
+    int currentCabinet = group.timeshet.SchoolDay[0][numberOfCurrentLesson].NumCabinet;
+
+    if(group.numberOfCurrentCabinet == -1)//если это первое занятие, то просто составляем пути и устанавливаем его студентам группы
+    {
+        group.numberOfCurrentCabinet = currentCabinet;
+        PathOfWay coordinatesOfNewCabinet = mapOfTheFloor->getCoordinatesOfCabinet(group.numberOfCurrentCabinet);
+        vector<PathOfWay> newWay = goTowardsPoint(mapOfTheFloor->entranceToTheUniversity.X, mapOfTheFloor->entranceToTheUniversity.Y, coordinatesOfNewCabinet.X, coordinatesOfNewCabinet.Y, true);
+        group.DefineWay(newWay);
+    }
+    else
+        if(group.numberOfCurrentCabinet != currentCabinet)//если текущий кабинет не соответсвует тому что должен быть по расписанию, то устанавливаем текущий кабинет как в расписании
+        {
+            group.numberOfPreviousCabinet = group.numberOfCurrentCabinet;
+            group.numberOfCurrentCabinet = currentCabinet;
+            PathOfWay coordinatesOfOldCabinet = mapOfTheFloor->getCoordinatesOfCabinet(group.numberOfPreviousCabinet);
+            PathOfWay coordinatesOfNewCabinet = mapOfTheFloor->getCoordinatesOfCabinet(group.numberOfCurrentCabinet);
+            vector<PathOfWay> wayTowardsTheCabinet = goTowardsPoint(coordinatesOfOldCabinet.X, coordinatesOfOldCabinet.Y, coordinatesOfNewCabinet.X, coordinatesOfNewCabinet.Y, true);
+            //vector<Cabinet> allCabinets = mapOfTheFloor->getAllCabinets();
+            for(int i = 0; i < group.People.size(); i ++)
+            {
+                //идём к точке выхода из кабинета
+                vector<PathOfWay> wayFromTheCabinet = goTowardsPoint(group.People[i].GetPositionX(), group.People[i].GetPositionY(), coordinatesOfOldCabinet.X, coordinatesOfOldCabinet.Y, false);
+
+                wayFromTheCabinet.insert(wayFromTheCabinet.end(), wayTowardsTheCabinet.begin(), wayTowardsTheCabinet.end());//вроде как совместит вектора, проверить!
+
+                int oldPlace = group.People[i].getNumberOfPlaceInTheCabinet();
+                mapOfTheFloor->cabinets[group.numberOfPreviousCabinet].used[oldPlace] = false;
+                group.People[i].setNumberOfPlaceInTheCabinet(-1);//отмечаю, что студент не сидит
+                group.amountOfPeopleInTheCabinet --;//уменьшаем число людей в кабинете
+                group.People[i].SetWay(wayFromTheCabinet);//устанавливаю маршрут
+
+            }
+
+        }
 
 
 
-    for (int i = 0; i < group.People.size(); i ++)
+    for (int i = 0; i < group.People.size() && group.amountOfPeopleInTheCabinet != group.People.size(); i ++)
     {
         //проверить нужды и если надо пустить по пути в туалет или столовку
         if(group.People[i].isWayEmpty() && group.People[i].getNumberOfPlaceInTheCabinet() == -1/*не надо в туалет и не надо есть*/)//если пути нет и нет кабинета - значит дошёл до кабинета
         {
             vector<PathOfWay> wayTowardsDesk;
-            wayTowardsDesk = goToYourPlace(group.numberOfCurrentCabinet, i);//
+            wayTowardsDesk = goToYourPlace(group.numberOfCurrentCabinet, i);
+            group.amountOfPeopleInTheCabinet ++;//увеличиваем число людей в кабинете
         }
     }
 
 
 
 
-    //paintHelper->changeMapAccordingWithHumans(group);
-    paintHelper->setKeepFloor(mapOfTheFloor);
-    paintHelper->draw();
-    currentTime.AddMinute(1);
+
+
+    currentTime.AddMinute(10);
     ui->simulationTime->setText(currentTime.ToString());
     /*
     vector<Cabinet> allCabinets = mapOfTheFloor->getAllCabinets();
@@ -211,14 +260,14 @@ vector<PathOfWay> Simulation::goTowardsPoint(int xFrom, int yFrom, int xInto, in
 }
 vector<PathOfWay> Simulation::goToYourPlace(int numberOfCabinet, int numberOfStudent)//возвращает путь к свободному месту за партой в кабинете под номером numberOfCabinet
 {
-    vector<Cabinet> allCabinets = mapOfTheFloor->getAllCabinets();
-    for(int i = 0; i < allCabinets[numberOfCabinet].CountOfStudentPlace; i ++)//прохожу по всем местам для студентов
+    //vector<Cabinet>* allCabinets = mapOfTheFloor->getAllCabinets();
+    for(int i = 0; i < mapOfTheFloor->cabinets[numberOfCabinet].CountOfStudentPlace; i ++)//прохожу по всем местам для студентов
     {
-        if(allCabinets[numberOfCabinet].used[i] == false)//если i-ая парта не использована
+        if(mapOfTheFloor->cabinets[numberOfCabinet].used[i] == false)//если i-ая парта не использована
         {
             group.People[numberOfStudent].setNumberOfPlaceInTheCabinet(i);
-            allCabinets[numberOfCabinet].used[i] = true;//отмечаю место как занятое
-            return allCabinets[numberOfCabinet].Ways[i];//возвращаем путь к месту за партой
+            mapOfTheFloor->cabinets[numberOfCabinet].used[i] = true;//отмечаю место как занятое
+            return mapOfTheFloor->cabinets[numberOfCabinet].Ways[i];//возвращаем путь к месту за партой
         }
     }
 

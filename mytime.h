@@ -19,6 +19,7 @@ public:
     MyTime();
     MyTime(int NewHour, int NewMinute, int NewDay, int NewCountDay);
     QString ToString();
+    int GetDay();
 };
 
 

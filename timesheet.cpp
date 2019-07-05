@@ -67,7 +67,21 @@ void Timesheet::ReadTimesheet(QString WayToFile)
 
 int Timesheet::getNumberOfCurrentLesson(MyTime currentTime)
 {
-    if(currentTime.GetHour() >= 8 && currentTime.GetHour() <= 9 && currentTime.GetMinute() >= 15 && currentTime.GetMinute() <= 45)
+    if(currentTime.GetHour() <= 9 && currentTime.GetMinute() <= 45)
+        return 0;
+    if(currentTime.GetHour() <= 11 && currentTime.GetMinute() <= 25)
+        return 1;
+    if(currentTime.GetHour() <= 13 && currentTime.GetMinute() <= 5)
+        return 2;
+    if(currentTime.GetHour() <= 15 && currentTime.GetMinute() <= 5)
+        return 3;
+    if(currentTime.GetHour() <= 16 && currentTime.GetMinute() <= 45)
+        return 4;
+
+
+
+    /*
+    if(currentTime.GetHour() >= 7 && currentTime.GetHour() <= 9 && currentTime.GetMinute() >= 55 && currentTime.GetMinute() <= 45)
         return 0;
     if(currentTime.GetHour() >= 9 && currentTime.GetHour() <= 11 && currentTime.GetMinute() >= 45 && currentTime.GetMinute() <= 25)
         return 1;
@@ -76,5 +90,30 @@ int Timesheet::getNumberOfCurrentLesson(MyTime currentTime)
     if(currentTime.GetHour() >= 13 && currentTime.GetHour() <= 15 && currentTime.GetMinute() >= 5 && currentTime.GetMinute() <= 5)
         return 3;
     if(currentTime.GetHour() >= 15 && currentTime.GetHour() <= 16 && currentTime.GetMinute() >= 5 && currentTime.GetMinute() <= 45)
-        return 3;
+        return 4;
+    */
+}
+
+vector<QString> Timesheet::ToString()
+{
+    vector<QString> rez;
+    for (int i = 0; i < SchoolDay.size(); i++)
+    {
+        QString temp = "День №";
+        temp += (i+1);
+        rez.push_back(temp);
+        temp = "";
+        for(int j = 0; j < SchoolDay[i].size(); j++)
+        {
+            temp = (j + 1);
+            temp += ". ";
+            temp += SchoolDay[i][j].ToString();
+            rez.push_back(temp);
+        }
+    }
+}
+
+int Timesheet::getNumberOfTimesheetCabinet(int currentDay, int currentNumberOfCabinet)
+{
+    return SchoolDay[currentDay][currentNumberOfCabinet].NumCabinet;//возвращаю №кабинета, в котором должно быть занятие
 }

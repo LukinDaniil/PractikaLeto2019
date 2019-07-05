@@ -11,7 +11,7 @@ public:
         FreeBlock = 0,
         Wall = 1,
         Desk = 2,
-        Track = 3,
+        EntranceToTheUniversity = 3,
         FreeForStudent = 4,
         FreeForTeacher = 5,
         EntranceToTheClassroom = 6,

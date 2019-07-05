@@ -59,7 +59,9 @@ void FloorMap::updateFloorMap()//считывает карту из файла �
 
                     if(currentString[xCoordinate] == "3")
                     {
-                        floor[xCoordinate][yCoordinate] = e.Track;
+                        floor[xCoordinate][yCoordinate] = e.EntranceToTheUniversity;
+                        entranceToTheUniversity.X = xCoordinate;
+                        entranceToTheUniversity.Y = yCoordinate;
                     }
 
                     if(currentString[xCoordinate] == "4")
@@ -209,7 +211,7 @@ vector<PathOfWay> FloorMap::getDesksOfICabinet(int i)
     return cabinets[i].desks;
 }
 
-vector<Cabinet> FloorMap::getAllCabinets()
+vector<Cabinet>* FloorMap::getAllCabinets()
 {
-    return cabinets;
+    return &cabinets;
 }
