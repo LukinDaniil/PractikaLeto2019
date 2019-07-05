@@ -50,9 +50,9 @@ void Simulation::stepModel()
     }
 
     paintHelper->changeMapAccordingWithHumans(group);
-    //paintHelper->setKeepFloor(mapOfTheFloor);
-    paintHelper->draw();
 
+    paintHelper->draw();
+    paintHelper->setKeepFloor(mapOfTheFloor);
     //в начале дня - ставить текущий кабинет в соответствии с расписанием
     //group.groupMakeStep();
     int numberOfCurrentLesson = group.timeshet.getNumberOfCurrentLesson(currentTime);//получаю номер текущего занятия
