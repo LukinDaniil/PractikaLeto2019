@@ -119,23 +119,6 @@ void Simulation::stepModel()
     group.groupMakeStep();
     ui->simulationTime->setText(currentTime.ToString());
 
-
-    /*
-    vector<Cabinet> allCabinets = mapOfTheFloor->getAllCabinets();
-
-    for(int j = 0; j < group.People.size(); j ++)
-        if(group.People[j].isWayEmpty() && group.People[j].getNumberOfPlaceInTheCabinet() == -1)
-        {
-            for(int i = 0; i < allCabinets[0].CountOfStudentPlace; i ++)//прохожу по всем партам
-            {
-                if(allCabinets[0].used[i] == false)//если парта не использована
-                {
-                    group.DefineWay(allCabinets[0].Ways[i]);//записываем путь к данной парте
-                    allCabinets[0].used[i] = true;
-                }
-            }
-        }
-    */
 }
 
 
@@ -162,8 +145,6 @@ void Simulation::on_loadMapButton_clicked()
         paintHelper->setKeepFloor(mapOfTheFloor, filename);
         paintHelper->draw();
     }
-    //продумать ресет таймера
-    //добавить сохранение координат входа в институт пока что его координаты entryXCoordinate и entryYCoordinate
     int entryXCoordinate = 18, entryYCoordinate = 18;//пока что так, затем брать из полей соответствующих, они будут в PathOfWay
     Student filler;
     filler.SetPositions(entryXCoordinate, entryYCoordinate);
@@ -211,7 +192,7 @@ void Simulation::on_loadMapButton_clicked()
             newY = lastOne.Y - 1;
         }
         PathOfWay afterLastOne(newX, newY);
-        //myWay.push_back(afterLastOne);//добавляем новый блок в пути в конец пути
+        myWay.push_back(afterLastOne);//добавляем новый блок в пути в конец пути
         filler.SetPositions(afterLastOne.X, afterLastOne.Y);//filler в кабинете сразу после входа в него
         vector<vector<int>> forTheWayModified(mapOfTheFloor->getFloorForTheWay());
         forTheWayModified[coordinatesOfCabinet.X][coordinatesOfCabinet.Y] = -1;//отмечаем вход в кабинет как стену, чтобы волновой алгоритм искал только в кабинете
@@ -270,7 +251,6 @@ vector<PathOfWay> Simulation::goTowardsPoint(int xFrom, int yFrom, int xInto, in
 }
 vector<PathOfWay> Simulation::goToYourPlace(int numberOfCabinet, int numberOfStudent)//возвращает путь к свободному месту за партой в кабинете под номером numberOfCabinet
 {
-    //vector<Cabinet>* allCabinets = mapOfTheFloor->getAllCabinets();
     for(int i = 0; i < mapOfTheFloor->cabinets[numberOfCabinet].CountOfStudentPlace; i ++)//прохожу по всем местам для студентов
     {
         if(mapOfTheFloor->cabinets[numberOfCabinet].used[i] == false)//если i-ая парта не использована

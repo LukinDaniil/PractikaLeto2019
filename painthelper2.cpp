@@ -3,6 +3,7 @@
 #include "QFile"
 #include "QTextStream"
 #include "QMessageBox"
+#define N 100
 PaintHelper2::PaintHelper2(QWidget *parent) : QWidget(parent)
 {
 
@@ -71,14 +72,11 @@ void PaintHelper2::paintEvent(QPaintEvent *e)
         //if (file.exists())
         //{
             QString currentString;
-            //можно в дальнейшем устанавливать в файле на 3 строку сразу
-            currentString = in.readLine(50);
-            currentString = in.readLine(50);
+            currentString = in.readLine(N);
+            currentString = in.readLine(N);
             QPainter* painter = new QPainter(this);
             painter->setPen(Qt::black);
             painter->setBrush(Qt::white);
-            //int widthOfMap = keepFloor->getWidth();
-            //int heightOfMap = keepFloor->getHeight();
             for(int i = 0; i < /*widthOfMap*/floorWidth*BLOCK_WIDTH; i += BLOCK_WIDTH)
             {
                 for(int j = 0; j < /*heightOfMap*/floorHeight*BLOCK_WIDTH; j += BLOCK_WIDTH)

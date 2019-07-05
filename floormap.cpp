@@ -1,5 +1,6 @@
 #include "floormap.h"
 #include "qfile.h"
+#define N 100
 FloorMap::FloorMap()
 {
 
@@ -27,14 +28,14 @@ void FloorMap::updateFloorMap()//считывает карту из файла �
         QTextStream in(&file);
             QString currentString;
             //можно в дальнейшем устанавливать в файле на 3 строку сразу
-            currentString = in.readLine(50);
-            currentString = in.readLine(50);
+            currentString = in.readLine(N);
+            currentString = in.readLine(N);
             int yCoordinate = 0;//y координата
             int cabinetCount = 0;
             while(!in.atEnd())
             {
                 //currentString = "";
-                currentString=in.readLine(100);//считываю строку
+                currentString=in.readLine(N);//считываю строку
                 Enums e;
                 for(int xCoordinate = 0; xCoordinate < currentString.size(); xCoordinate++)//проходим по currentString
                 {
