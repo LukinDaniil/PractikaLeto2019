@@ -110,7 +110,6 @@ void Simulation::stepModel()
             group.amountOfPeopleInTheCabinet ++;//увеличиваем число людей в кабинете
         }
     }
-    group.groupMakeStep();
 
 
 
@@ -221,7 +220,7 @@ void Simulation::on_loadMapButton_clicked()
 
     MyTime newCurrentTime;
     currentTime = newCurrentTime;
-    timer->setInterval(1000);
+    timer->setInterval(200);
     connect(timer, SIGNAL(timeout()), this, SLOT(stepModel()));
     timer->start();
     ui->simulationTime->setText(currentTime.ToString());
