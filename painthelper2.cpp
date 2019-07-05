@@ -107,12 +107,14 @@ void PaintHelper2::paintEvent(QPaintEvent *e)
                     painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
 
                 }
+                /*
                 if(storedFloor[indexI][indexJ] == e.EntranceToTheUniversity)
                 {
                     painter->setBrush(Qt::red);
                     painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
 
                 }
+                */
                 if(storedFloor[indexI][indexJ] == e.FreeForStudent)
                 {
                     painter->setBrush(Qt::magenta);
@@ -165,24 +167,4 @@ void PaintHelper2::paintEvent(QPaintEvent *e)
 
     }
     file.close();
-}
-
-
-void PaintHelper2::drawCells()
-{
-    /*
-    painter->setPen(Qt::black);
-    painter->setBrush(Qt::white);
-    for(int i = 0; i < floorMap->getWidth(); i += BLOCK_WIDTH)
-    {
-        for(int j = 0; j < floorMap->getHeight(); j += BLOCK_WIDTH)
-            painter->drawRect(i, j, BLOCK_WIDTH, BLOCK_WIDTH);
-    }
-    repaint();
-    */
-}
-
-void PaintHelper2::drawObjects()
-{
-
 }

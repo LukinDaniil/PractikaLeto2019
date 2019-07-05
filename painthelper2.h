@@ -25,9 +25,6 @@ public:
     void setKeepFloor(FloorMap* newKeepMap, QString newPathToFile);
     void changeMapAccordingWithHumans(Group group);
     // QWidget interface
-private:
-    void drawCells();
-    void drawObjects();
 };
 
 #endif // PAINTHELPER2_H

@@ -56,14 +56,14 @@ void FloorMap::updateFloorMap()//считывает карту из файла �
                         floor[xCoordinate][yCoordinate] = e.Desk;
                         floorForTheWay[xCoordinate][yCoordinate] = -1;
                     }
-
+                    /*
                     if(currentString[xCoordinate] == "3")
                     {
                         floor[xCoordinate][yCoordinate] = e.EntranceToTheUniversity;
                         entranceToTheUniversity.X = xCoordinate;
                         entranceToTheUniversity.Y = yCoordinate;
                     }
-
+                    */
                     if(currentString[xCoordinate] == "4")
                     {
                         floor[xCoordinate][yCoordinate] = e.FreeForStudent;

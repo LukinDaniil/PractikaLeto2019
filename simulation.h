@@ -27,6 +27,7 @@ public:
     ~Simulation();
     vector<PathOfWay> goTowardsPoint(int xFrom, int yFrom, int xInto, int yInto, bool needToGoInside);//составляет путь от точки с координатами xFrom yFrom до кабинета с номером numberOfCabinet
     vector<PathOfWay> goToYourPlace(int numberOfCabinet, int numberOfStudent);//устанавливает студенту/учителю путь от входа в кабинет до свободного места
+    PathOfWay entranceToTheUniversity;
 private slots:
     void stepModel();
 
